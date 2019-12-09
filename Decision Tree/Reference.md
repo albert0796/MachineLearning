@@ -1,4 +1,4 @@
-### 1. Class Name: DATA MINING 
+### Class Name: DATA MINING 
 School: Soochow University  
 Department: School of Big Data Management  
 Academic Programs: Master Program 
