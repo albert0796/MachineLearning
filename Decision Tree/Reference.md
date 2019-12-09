@@ -1,7 +1,4 @@
-### Class Name: DATA MINING 
-School: Soochow University  
-Department: School of Big Data Management  
-Academic Programs: Master Program 
-Instructor: LEECHIA-JUNG  
-Course Code: MDM64001  
-Semester：107學年度第2學期
+1. Class Handout, Lee, Chia-Jung professor, MDM64001, School of Big Data Management, Soochow University
+
+
+
