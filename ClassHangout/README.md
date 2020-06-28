@@ -40,6 +40,10 @@
 12. Validation  
 * [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/validation/note)  
 * [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/validation/code)  
+#  
+### Kaggle
+* [House Prices: Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)
+With 79 explanatory variables describing (almost) every aspect of residential homes in Ames, Iowa, this competition challenges you to predict the final price of each home.  
 
 
 
