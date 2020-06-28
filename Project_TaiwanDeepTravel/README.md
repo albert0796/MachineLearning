@@ -17,5 +17,5 @@
 * [DEMO影片_匯入圖片尋求推薦.mp4](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/Open%20Data%20DEMO%E5%BD%B1%E7%89%87_%E5%9C%96%E5%BA%AB.mp4)
 * [DEMO影片_拍攝照片尋求推薦.mp4](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/Open%20Data%20DEMO%E5%BD%B1%E7%89%87_%E7%9B%B8%E6%A9%9F.mp4)
 #  
-### 競賽獲獎  
-該作品參與了於2018年東吳大學主辦的[全國大專院校Open Data人工智能競賽](http://bigdata.scu.edu.tw/aiads2018/)，獲得[第一名](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%8D%8E%E7%8B%80.png)的佳績
+### 獲獎紀錄  
+該作品參與了於2018年東吳大學主辦的[全國大專院校Open Data人工智能競賽](http://bigdata.scu.edu.tw/aiads2018/)，獲得[第一名](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%8D%8E%E7%8B%80.png)的佳績。
