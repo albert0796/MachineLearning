@@ -19,3 +19,11 @@
 #  
 ### 獲獎紀錄  
 該作品參與了於2018年東吳大學主辦的[全國大專院校Open Data人工智能競賽](http://bigdata.scu.edu.tw/aiads2018/)，獲得[第一名](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%8D%8E%E7%8B%80.png)的佳績。
+#  
+### 程式碼
+[Open Data 圖片轉 224x224](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/Open%20Data%20%E5%9C%96%E7%89%87%E8%BD%89%20224x224)  
+[訓練和驗證資料預處理](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E8%A8%93%E7%B7%B4%E5%92%8C%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99%E9%A0%90%E8%99%95%E7%90%86)  
+[擴增驗證資料](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%93%B4%E5%A2%9E%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99)  
+[模型訓練](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4)  
+[模型轉Core ML](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%A8%A1%E5%9E%8B%E8%BD%89Core%20ML)  
+[餘弦相似度印出最相似的前五個景點](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E9%A4%98%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%8D%B0%E5%87%BA%E6%9C%80%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%89%8D%E4%BA%94%E5%80%8B%E6%99%AF%E9%BB%9E)  
