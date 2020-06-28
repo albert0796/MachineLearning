@@ -5,8 +5,7 @@
 #  
 ### Hangout & Code
 1. EDA  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/EDA/note) 
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/EDA/code)  
+* [learning note & code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/EDA/code)  
 2. Bayesian  
 * [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/bayesian/note)  
 * [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/bayesian/code)  
