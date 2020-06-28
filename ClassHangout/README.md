@@ -45,10 +45,9 @@
 * [House Prices: Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)  
 With 79 explanatory variables describing (almost) every aspect of residential homes in Ames, Iowa, this competition challenges you to predict the final price of each home.  
 [Data Cleaning](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Data%20cleaning.ipynb)  
-[Further Process](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Further%20processing.ipynb  
+[Further Process](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Further%20processing.ipynb)  
 [Hypertune](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Hypertune.ipynb)  
-[Stacking & Comparison of model performance]
-(https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Stacking%20%26%20Comparison%20of%20model%20performance.ipynb)
+[Stacking & Comparison of model performance](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Stacking%20%26%20Comparison%20of%20model%20performance.ipynb)
 
 
 
