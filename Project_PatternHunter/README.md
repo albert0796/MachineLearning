@@ -6,4 +6,4 @@
 ### 系統流程  
 ![image](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Report/flow_chart.png)  
 本系統分成前端與後端兩項開發。測試的標的資產為 S&P 500，時間尺度為日資料。前端的部分，首先透過 financialmodelingprep 所提供的 API 載入標的資產的開盤、最高、最低、收盤價資料 (ohlc)；接著將 ohlc 做 GAF 轉換，將一維的時間序列資料轉換為二維的圖像資料；接著透過 CNN 模形進行訓練；隨後再透過 financialmodelingprep 的 API 串流即時資料，模形將會依串流的即時資料進行形態學交易訊號預測。後端的部分主要進行網站開發以及使用者介面優化。本篇研究只包含前端開發的部分。  
-((詳細作品說明))[https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Report/%E5%A0%B1%E5%91%8A%E8%AA%AA%E6%98%8E%E6%9B%B8.pdf]
+[(完整作品說明)](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Report/%E5%A0%B1%E5%91%8A%E8%AA%AA%E6%98%8E%E6%9B%B8.pdf)
