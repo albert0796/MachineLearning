@@ -14,4 +14,4 @@
 * 便捷的用戶體驗：鑒於行動裝置的普及，以 APP 的開發形式將能提供更便捷的用戶體驗，其中用戶還能隨手透過推薦系統內的相機功能拍攝周遭感興趣的景點，系統會依照片中的場景推薦出與其相似的台灣旅遊景點影像和資訊。
 #  
 ### 實機展示  
-![Watch the video](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/Open%20Data%20DEMO%E5%BD%B1%E7%89%87_%E5%9C%96%E5%BA%AB.mp4)
+[![Watch the video (https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Report/flow_chart.png)(https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/Open%20Data%20DEMO%E5%BD%B1%E7%89%87_%E5%9C%96%E5%BA%AB.mp4)
