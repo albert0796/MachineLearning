@@ -1,4 +1,4 @@
-# Table of Content
+# Table of Contents
 ### 詳細內容將於每個檔案夾中進行說明。 
 #  
 ### 1. [Project_PatternHunter](https://github.com/albert0796/MachineLearning/tree/master/Project_PatternHunter)
