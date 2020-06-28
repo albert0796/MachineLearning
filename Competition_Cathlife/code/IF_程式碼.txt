@@ -1,0 +1,2196 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+
+######################匯入模組######################
+
+
+# basic tool
+import os
+import random
+
+# model persistent
+import pickle
+
+# data process and visualization
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# style and text
+from matplotlib.font_manager import FontProperties
+
+# fit model and evaluation
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import KFold
+from imblearn.over_sampling import SMOTE
+from sklearn.pipeline import Pipeline
+from feature_selector import FeatureSelector
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_curve
+from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import mean_squared_error
+
+
+# classifier and regressor
+from sklearn.ensemble import ExtraTreesClassifier, ExtraTreesRegressor
+from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+
+
+######################基本設定######################
+
+
+# 設定工作目錄
+working_path = r"D:\mypython_d\Cathay_Big_data_competition_2019"
+os.chdir(working_path)
+
+
+# 設定圖表字體、風格
+# set figure style
+sns.set_style("whitegrid")
+# set text
+font = FontProperties(fname=r"c:\windows\Fonts\msjh.ttc")
+font_heavy = FontProperties(fname=r"c:\windows\Fonts\msjhbd.ttc")
+font_big = FontProperties(fname=r"c:\windows\Fonts\msjhbd.ttc", size= "x-large")
+font_kibig = FontProperties(fname=r"c:\windows\Fonts\msjhbd.ttc", size= "large")
+
+
+######################匯入比賽資料集######################
+
+
+# 資料集是以Big5進行編碼
+train = pd.read_csv("train.csv", encoding="Big5", low_memory=False)
+test = pd.read_csv("test.csv", encoding="Big5", low_memory=False)
+
+
+# 將CUS_ID欄位設定為索引值(index)
+train.set_index("CUS_ID", inplace=True)
+# 同時調整test資料集
+test.set_index("CUS_ID", inplace=True)
+
+
+# 把含文字欄位轉換成數值:以下為轉換規則
+# 1. 低、中、中高、高 => 1 2 3 4
+# 2. 低 中 高 => 1 2 3
+# 3. N Y => 0 1(含label)
+# 4. F M => 0 1
+# 5. "A1": 1, "A2": 2, "B1":3 , "B2": 4, "C1": 5, "C2": 6,"D": 7, "E": 8
+# 6. "A": 1, "B": 2, "C": 3, "D": 4, "E": 5,"F": 6, "G": 7, "H": 8
+train['RFM_R']=train['RFM_R'].map({'中':2,'中高':3,'低':1,'高':4})
+train['REBUY_TIMES_CNT']=train['REBUY_TIMES_CNT'].map({'中':2,'中高':3,'低':1,'高':4})
+train['APC_1ST_AGE']=train['APC_1ST_AGE'].map({'中':2,'中高':3,'低':1,'高':4})
+train['INSD_1ST_AGE']=train['INSD_1ST_AGE'].map({'中':2,'中高':3,'低':1,'高':4})
+train['AGE']=train['AGE'].map({'中':2,'中高':3,'低':1,'高':4})
+train['LIFE_CNT']=train['LIFE_CNT'].map({'中':2,'低':1,'高':3})
+
+train["GENDER"] = train["GENDER"].map({"F": 0, "M": 1})
+train["CHARGE_CITY_CD"] = train["CHARGE_CITY_CD"].map({"A1": 1, "A2": 2, "B1":3 , "B2": 4, "C1": 5, "C2": 6, 
+                                                       "D": 7, "E": 8})
+train["CONTACT_CITY_CD"] = train["CONTACT_CITY_CD"].map({"A1": 1, "A2": 2, "B1":3 , "B2": 4, "C1": 5, "C2": 6, 
+                                                       "D": 7, "E": 8})
+
+train["CUST_9_SEGMENTS_CD"] = train["CUST_9_SEGMENTS_CD"].map({"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, 
+                                                               "F": 6, "G": 7, "H": 8})
+
+for cols in train[["Y1", "IF_2ND_GEN_IND", "LAST_A_CCONTACT_DT", "LAST_A_ISSUE_DT", 
+              "LAST_B_ISSUE_DT", "IF_ISSUE_A_IND", "IF_ISSUE_B_IND", "IF_ISSUE_C_IND", 
+              "IF_ISSUE_D_IND", "IF_ISSUE_E_IND", "IF_ISSUE_F_IND", "IF_ISSUE_G_IND", 
+              "IF_ISSUE_H_IND", "IF_ISSUE_I_IND", "IF_ISSUE_J_IND", "IF_ISSUE_K_IND", 
+              "IF_ISSUE_L_IND", "IF_ISSUE_M_IND", "IF_ISSUE_N_IND", "IF_ISSUE_O_IND", 
+              "IF_ISSUE_P_IND", "IF_ISSUE_Q_IND", "IF_ADD_F_IND", "IF_ADD_L_IND", 
+              "IF_ADD_Q_IND", "IF_ADD_G_IND", "IF_ADD_R_IND", "IF_ISSUE_INSD_A_IND", 
+              "IF_ISSUE_INSD_B_IND", "IF_ISSUE_INSD_C_IND", "IF_ISSUE_INSD_D_IND", 
+              "IF_ISSUE_INSD_E_IND", "IF_ISSUE_INSD_F_IND", "IF_ISSUE_INSD_G_IND", 
+              "IF_ISSUE_INSD_H_IND", "IF_ISSUE_INSD_I_IND", "IF_ISSUE_INSD_J_IND", "IF_ISSUE_INSD_K_IND", 
+              "IF_ISSUE_INSD_L_IND", "IF_ISSUE_INSD_M_IND", "IF_ISSUE_INSD_N_IND", "IF_ISSUE_INSD_O_IND", 
+              "IF_ISSUE_INSD_P_IND", "IF_ISSUE_INSD_Q_IND", "IF_ADD_INSD_F_IND", "IF_ADD_INSD_L_IND", 
+              "IF_ADD_INSD_Q_IND", "IF_ADD_INSD_G_IND", "IF_ADD_INSD_R_IND","IF_ADD_IND", 
+              "L1YR_PAYMENT_REMINDER_IND", "L1YR_LAPSE_IND", "LAST_B_CONTACT_DT", 
+              "A_IND", "B_IND", "C_IND", "LAST_C_DT", "IF_S_REAL_IND", "IF_Y_REAL_IND", "IM_IS_A_IND", 
+              "IM_IS_B_IND", "IM_IS_C_IND", "IM_IS_D_IND", "X_A_IND", "X_B_IND", "X_C_IND", "X_D_IND", 
+              "X_E_IND", "X_F_IND", "X_G_IND", "X_H_IND", "IF_HOUSEHOLD_CLAIM_IND", "IF_ADD_INSD_IND", 
+              "FINANCETOOLS_A", "FINANCETOOLS_B", "FINANCETOOLS_C", "FINANCETOOLS_D", "FINANCETOOLS_E", 
+              "FINANCETOOLS_F", "FINANCETOOLS_G"]]:
+    
+    train[cols] = train[cols].map({"N": 0, "Y": 1})
+
+# 同時調整test資料集
+test['RFM_R']=test['RFM_R'].map({'中':2,'中高':3,'低':1,'高':4})
+test['REBUY_TIMES_CNT']=test['REBUY_TIMES_CNT'].map({'中':2,'中高':3,'低':1,'高':4})
+test['APC_1ST_AGE']=test['APC_1ST_AGE'].map({'中':2,'中高':3,'低':1,'高':4})
+test['INSD_1ST_AGE']=test['INSD_1ST_AGE'].map({'中':2,'中高':3,'低':1,'高':4})
+test['AGE']=test['AGE'].map({'中':2,'中高':3,'低':1,'高':4})
+test['LIFE_CNT']=test['LIFE_CNT'].map({'中':2,'低':1,'高':3})
+test["GENDER"] = test["GENDER"].map({"F": 0, "M": 1})
+test["CHARGE_CITY_CD"] = test["CHARGE_CITY_CD"].map({"A1": 1, "A2": 2, "B1":3 , "B2": 4, "C1": 5, "C2": 6, 
+                                                       "D": 7, "E": 8})
+test["CONTACT_CITY_CD"] = test["CONTACT_CITY_CD"].map({"A1": 1, "A2": 2, "B1":3 , "B2": 4, "C1": 5, "C2": 6, 
+                                                       "D": 7, "E": 8})
+
+test["CUST_9_SEGMENTS_CD"] = test["CUST_9_SEGMENTS_CD"].map({"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, 
+                                                               "F": 6, "G": 7, "H": 8})
+for cols in test[["IF_2ND_GEN_IND", "LAST_A_CCONTACT_DT", "LAST_A_ISSUE_DT", 
+              "LAST_B_ISSUE_DT", "IF_ISSUE_A_IND", "IF_ISSUE_B_IND", "IF_ISSUE_C_IND", 
+              "IF_ISSUE_D_IND", "IF_ISSUE_E_IND", "IF_ISSUE_F_IND", "IF_ISSUE_G_IND", 
+              "IF_ISSUE_H_IND", "IF_ISSUE_I_IND", "IF_ISSUE_J_IND", "IF_ISSUE_K_IND", 
+              "IF_ISSUE_L_IND", "IF_ISSUE_M_IND", "IF_ISSUE_N_IND", "IF_ISSUE_O_IND", 
+              "IF_ISSUE_P_IND", "IF_ISSUE_Q_IND", "IF_ADD_F_IND", "IF_ADD_L_IND", 
+              "IF_ADD_Q_IND", "IF_ADD_G_IND", "IF_ADD_R_IND", "IF_ISSUE_INSD_A_IND", 
+              "IF_ISSUE_INSD_B_IND", "IF_ISSUE_INSD_C_IND", "IF_ISSUE_INSD_D_IND", 
+              "IF_ISSUE_INSD_E_IND", "IF_ISSUE_INSD_F_IND", "IF_ISSUE_INSD_G_IND", 
+              "IF_ISSUE_INSD_H_IND", "IF_ISSUE_INSD_I_IND", "IF_ISSUE_INSD_J_IND", "IF_ISSUE_INSD_K_IND", 
+              "IF_ISSUE_INSD_L_IND", "IF_ISSUE_INSD_M_IND", "IF_ISSUE_INSD_N_IND", "IF_ISSUE_INSD_O_IND", 
+              "IF_ISSUE_INSD_P_IND", "IF_ISSUE_INSD_Q_IND", "IF_ADD_INSD_F_IND", "IF_ADD_INSD_L_IND", 
+              "IF_ADD_INSD_Q_IND", "IF_ADD_INSD_G_IND", "IF_ADD_INSD_R_IND","IF_ADD_IND", 
+              "L1YR_PAYMENT_REMINDER_IND", "L1YR_LAPSE_IND", "LAST_B_CONTACT_DT", 
+              "A_IND", "B_IND", "C_IND", "LAST_C_DT", "IF_S_REAL_IND", "IF_Y_REAL_IND", "IM_IS_A_IND", 
+              "IM_IS_B_IND", "IM_IS_C_IND", "IM_IS_D_IND", "X_A_IND", "X_B_IND", "X_C_IND", "X_D_IND", 
+              "X_E_IND", "X_F_IND", "X_G_IND", "X_H_IND", "IF_HOUSEHOLD_CLAIM_IND", "IF_ADD_INSD_IND", 
+              "FINANCETOOLS_A", "FINANCETOOLS_B", "FINANCETOOLS_C", "FINANCETOOLS_D", "FINANCETOOLS_E", 
+              "FINANCETOOLS_F", "FINANCETOOLS_G"]]:
+    
+    test[cols] = test[cols].map({"N": 0, "Y": 1})
+
+
+######################備份清理前檔案######################
+
+
+# 此資料集保留最原始訓練資料集資料
+train_copy = train.copy()
+
+
+######################定義函數######################
+
+
+# count_and_percent
+# 適用欄位:2欄位衡量尺度皆為類別(categorical):名目(nominal)或順序(order)尺度
+# 呈現以下兩項目:
+# 1.指定主觀察欄位之次數分配圖
+# 2.指定主觀察欄位與另一副觀察欄位間次數分配圖
+# 3.指定主觀察欄位與另一副觀察欄位間各類別次數及比例
+# 參數: col:主觀察欄位 data:兩欄位所在資料集 hue:副觀察欄位 size:圖表大小(預設為採用matplotlib.pyplot預設大小)
+
+def count_and_percent(col, data, hue, size=None):
+    
+    plt.figure(figsize=size)
+    sns.countplot(x=col, data=data, palette="viridis")
+    
+    # 更改圖表的字體
+    plt.xticks(fontproperties=font_heavy)
+    
+    plt.figure(figsize=size)
+    sns.countplot(x=col, data=data, hue=hue, palette="viridis")
+    
+    # 更改圖表的字體
+    plt.xticks(fontproperties=font_heavy)
+    
+    # 設置類別標籤並指定字體
+    plt.legend(prop=font_heavy)
+    
+    plt.show()
+    
+    # 呼叫show_percent函數
+    for cat in data[col].unique():
+        show_percent(cat, col, data, hue)
+
+# show_percent
+# 被count_and_percent呼叫
+# 呈現3.指定主觀察欄位與另一副觀察欄位間各類別次數及比例
+
+def show_percent(category, col, data, hue):
+    
+    print("-------------------------------")
+    print(str(category) + ":")
+    
+    if  repr(category) != "nan":
+        
+        value_info = data[data[col] == category][hue].value_counts()
+        print(value_info)
+        
+        for hue_cat in sorted(value_info.keys()):
+            print(str(hue_cat) + "(%):", (value_info[hue_cat]/value_info.sum()) * 100 )
+            
+    else:
+        
+        value_info = data[data[col].isnull()][hue].value_counts()
+        print(value_info)
+        
+        for hue_cat in sorted(value_info.keys()):
+            print(str(hue_cat) + "(%):", (value_info[hue_cat]/value_info.sum()) * 100 )
+
+
+
+
+# 儲存不含任何遺漏值的欄位資料(排除Y1)至impute_dataset(用於後續定義的函數中)
+# train_copy的資料不於後續進行更改，因此impute_dataset的資料不會在後續被改變
+impute_dataset = train_copy.dropna(axis=1).drop(["Y1"], axis=1)
+    
+# 定義importance_measure函數
+# 運用sklearn的ExtraTreesClassifier/ExtraTreesRegressor觀察完全沒有遺漏值的欄位(排除Y1欄位)對於指定欄位的重要性
+# 輸出:
+# 1.按重要性排序的各欄位
+# 2.以前1、2、3...max_test名 重要性的欄位 進行預測指定欄位用train_test_split拆分出的y_test資料所得之分數
+# 參數: 
+# col:指定欄位 seed:預設為111 
+# max_test:最高呈現到，累積至第幾排名的重要性欄位，預估指定欄位的分類相關分數(分類問題)或MSE、RMSE(回歸問題)
+# algorithm:採用評估重要性的演算法，預設為ExtraTreesClassifier適用於分類問題，回歸問題則另外設定為ExtraTreesRegressor
+
+def importance_measure(col, seed=111, max_test=7, algorithm=ExtraTreesClassifier(random_state=111)):
+        
+    # 對目前train資料集的指定欄位進行train_test_split
+    # 首先將y設置為指定欄位中非遺漏值的顧客資料；X則為impute_dataset中對應yindex的顧客資料
+    y = train[col].dropna(axis=0)
+    X_train, X_test, y_train, y_test = train_test_split(impute_dataset.loc[y.index],
+                                                        y, test_size=0.2, random_state=seed)
+    
+    # 用algorithm中演算法配適模型
+    impo_model = algorithm
+    impo_model.fit(X_train, y_train)
+    
+    # 將配適後產生的feature_importances_做整理，以list方式儲存按照重要性由大到小排序
+    impo = list(zip(X_train.columns, impo_model.feature_importances_))
+    impo.sort(reverse=True, key=lambda x: x[1])
+    
+    # 依照重要性印出欄位(由重要性大至小)
+    print("重要性排序:", np.array(impo)[:, 0])
+    print("-----------------------------------")
+    
+    # 呼叫report函數
+    report(col, seed, np.array(impo)[:, 0], max_test, y, algorithm)
+    
+# report函數被importance_measure函數呼叫
+# 輸出前1、2、3...max_test 重要性欄位，對於y_test的預測分數
+# 參數: 
+# col:同importance_measure的參數  seed:111
+# important_col:及importance_measure函數所得到的重要性排序list轉換為numpy.ndarray的型態
+# max_test:同importance_measure的參數  y:同importance_measure中定義的y algorithm:同importance_measure的參數
+
+def report(col, seed, important_col, max_test, y, algorithm):
+    
+    for num_col in range(1, max_test + 1):
+        
+        print("測試欄位數:", num_col)
+        
+        X = impute_dataset[np.array(important_col[:num_col])]
+        X_train, X_test, y_train, y_test = train_test_split(X.loc[y.index], y, test_size=0.2, random_state=seed)
+        
+        imp_model = algorithm
+        imp_model.fit(X_train, y_train)
+        pred = imp_model.predict(X_test)
+        
+        # 分類問題輸出classification_report及accuracy_score
+        try:
+            print(classification_report(y_test, pred))
+            print(accuracy_score(y_test, pred))
+        
+        # 回歸問題輸出MSE及RMSE
+        except ValueError:
+            MSE = mean_squared_error(y_test, pred)
+            print("MSE:", MSE)
+            print("RMSE:", np.sqrt(MSE))
+        print("-----------------------------------")
+
+
+
+
+# 定義important_test函數
+# 用於測試impute_dataset中各個欄位，對於指定欄位的重要性
+# 採用sklearn的ExtraTreesClassifier/ExtraTreesRegressor在不同的資料分割方式下，重複配適模型，統計各欄位為排名前10欄位的次數
+# 參數:
+# col:指定欄位
+# test_time: 配適模型次數(預設10次)
+# algorithm:採用評估重要性的演算法，預設為ExtraTreesClassifier適用於分類問題，回歸問題則另外設定為ExtraTreesRegressor
+
+def important_test(col, test_time=10, algorithm=ExtraTreesClassifier(random_state=111)):
+    
+    # 設置空list
+    test_list = []
+    
+    # 隨機生成seed
+    seed_list = [random.randint(0, 10000) for i in range(test_time)]
+    
+    # 重複進行資料train_test_split分割及配適模型，並將結果存於test_list
+    for seed in seed_list:
+        y = train[col].dropna(axis=0)
+        X_train, X_test, y_train, y_test = train_test_split(impute_dataset.loc[y.index],
+                                                            y, test_size=0.2, random_state=seed)
+        impo_model = algorithm
+        impo_model.fit(X_train, y_train)
+        impo = list(zip(X_train.columns, impo_model.feature_importances_))
+        impo.sort(reverse=True, key=lambda x: x[1])
+        
+        for important_ele in np.array(impo)[:10, 0]:
+            test_list.append(important_ele)
+    
+    # 按照進入前10名重要性之次數排序(大至小)
+    result = [(ele, test_list.count(ele)) for ele in set(test_list)]
+    result.sort(reverse=True, key=lambda x: x[1])
+    
+    # 回傳結果
+    return result, seed_list
+
+
+
+
+# 定義impute函數
+# 做為欲採用importance_measure或important_test函數觀察重要性後，進行資料清理此種方式之欄位，進行資料清理
+# 參數:
+# important_cols:做為解釋變數用來預測存在遺失值的被解釋變數欄位
+# impute_col:含有遺失值欲採用此種觀察重要性方案進行清理之欄位
+# algorithm:欲採用的預測演算法，預設為ExtraTreesClassifier適用於分類問題，回歸問題則另外設定為ExtraTreesRegressor
+# dataset:預調整的資料集，預設為train；若預調整test則輸入test
+
+def impute(important_cols, impute_col, algorithm=ExtraTreesClassifier(random_state=111), dataset=train):
+    
+    # 分離目標欄位遺漏值資料及非遺漏值資料
+    null_data = dataset[pd.isnull(dataset[impute_col])]
+    value_data = dataset[impute_col].dropna(axis=0)
+    
+    # 採用algorithm演算法進行配適(此不再進行train_test_split，而是使用全部沒有遺漏值資料進行配適)
+    imp = algorithm
+    imp.fit(dataset[important_cols].loc[value_data.index], value_data)
+    null_data[impute_col] = imp.predict(dataset[important_cols].loc[null_data.index])
+    
+    # 新增臨時欄位於train/test資料集(內包含欲填補遺漏值欄位的遺漏值最終預測資料)
+    dataset["tempor"] = null_data[impute_col]
+    
+    # 呼叫impute_function函數將暫時欄位資料填入原目標欄位遺失值對應index的位置
+    dataset[impute_col] = dataset[[impute_col, "tempor"]].apply(impute_function, axis=1)
+    
+    # 刪除暫時欄位
+    dataset.drop("tempor", axis=1, inplace=True)
+    
+    # 回傳用於填補遺漏值所配適出的模型
+    return imp
+
+def impute_function(cols):
+    
+    target = cols[0]
+    predictor = cols[1]
+    
+    if pd.isnull(predictor):
+        return target
+    
+    else:
+        return predictor
+
+
+###############################################################################
+###############################################################################
+
+
+######################EDA(僅針對train資料集)######################
+
+
+# 觀察欄位整體狀況
+print(train.info(max_cols=150))
+
+# 觀察資料大致情況
+train.head()
+
+# 觀察摘要五數
+train.describe()
+
+# 遺漏值解析圖
+plt.figure(figsize=[15, 5])
+plt.title("Missing values of Features", fontdict={"fontsize":"xx-large"})
+sns.heatmap(train.drop("Y1", axis=1).isnull(), yticklabels=False, cbar=False, cmap="coolwarm")
+plt.show()
+
+
+
+# 進一步觀察遺漏值
+# 先新增一個各顧客的資料所含遺漏值數量的欄位
+def count_null(cols):
+    
+    null_count = sum(pd.isnull(cols))
+    
+    return null_count
+train["numbers_of_null"] = train.apply(count_null, axis=1)
+
+# 計算遺漏值超過約一半欄位的顧客資料筆數(後續若有刪除部分資料的必要可參考)
+print(len(train[train["numbers_of_null"] >= 55]))
+
+# 刪除新增的numbers_of_null欄位
+train.drop("numbers_of_null", axis=1, inplace=True)
+
+
+
+# 觀察Label:Y1
+sns.countplot(x="Y1", data=train, palette="viridis")
+plt.show()
+print("-------------------------------")
+print(train["Y1"].value_counts()) # N 98000 Y 2000
+print("Y%:", (train["Y1"].value_counts()[1]/(train["Y1"].value_counts()[1] + train["Y1"].value_counts()[0])) * 100 ) # 2%
+
+
+
+# 觀察:GENDER欄位
+
+# compute numbers of missing value
+abs(train["GENDER"].value_counts().sum() - 100000)
+# countplot and percentage based on Y1(Y/N)
+count_and_percent("GENDER", data=train, hue="Y1")
+
+#　觀察GENDER與OCCUPATION_CLASS_CD欄位的關聯
+count_and_percent("OCCUPATION_CLASS_CD", train, "GENDER")
+
+
+
+
+# 觀察MARRIAGE_CD、EDUCATION_CD、ANNUAL_INCOME_AMT欄位的遺失值
+# 由於此三欄位對於純粹是受益人身分的人來說是不用填寫的資料，因此若三欄位同時是遺失值可能為純受益人
+sum(train["MARRIAGE_CD"].isnull())
+sum(train["EDUCATION_CD"].isnull())
+sum(train["ANNUAL_INCOME_AMT"].isnull())
+
+# 三欄位皆為NAN的資料
+mar_edu_na = train[(train["MARRIAGE_CD"].isnull()) & (train["EDUCATION_CD"].isnull()) & (train["ANNUAL_INCOME_AMT"].isnull())]
+len(mar_edu_na) # 7114
+
+# 觀察首次擔任要保人年齡(級距):結果皆有數字，代表假設不成立，因為這些人大多也是要保人(推測無純受益人)
+print(mar_edu_na["APC_1ST_AGE"].value_counts(dropna=0))
+print(sum(mar_edu_na["APC_1ST_AGE"].value_counts()))
+
+# 觀察首次擔任被保人年齡(級距):結果皆有數字，代表假設不成立，因為這些人大多也是被保險人(推測無純受益人)
+print(mar_edu_na["INSD_1ST_AGE"].value_counts(dropna=0))
+print(sum(mar_edu_na["INSD_1ST_AGE"].value_counts()))
+
+
+
+
+# 觀察EDUCATION_CD和IF_2ND_GEN_IND的關係
+# 次數分配長條圖
+count_and_percent("EDUCATION_CD", train, "IF_2ND_GEN_IND")
+# 加入age一起觀察
+g1 = sns.FacetGrid(train, row="IF_2ND_GEN_IND", col="AGE")
+g1 = g1.map(sns.countplot, "EDUCATION_CD", palette="viridis")
+
+
+
+
+# APC_1ST_AGE, APC_1ST_YEARDIF, REBUY_TIMES_CNT, RFM_M_LEVEL, TERMINATION_RATE 遺失值觀察
+# 這些欄位的共同點是，如果客戶不是要保人就無法回答或填寫這些欄位，故推測共同遺失值為純被保險人(非要保人，且已知無純受益人)
+
+# 各欄位遺失值個數
+print(sum(train["APC_1ST_AGE"].isnull())) # 43,282
+print(sum(train["APC_1ST_YEARDIF"].isnull())) # 43,282
+print(sum(train["REBUY_TIMES_CNT"].isnull())) # 43,282
+print(sum(train["RFM_M_LEVEL"].isnull())) # 43,282
+print(sum(train["TERMINATION_RATE"].isnull())) # 43,282
+
+# 同時在這些欄位為遺失值
+train[(train["APC_1ST_AGE"].isnull()) & (train["APC_1ST_YEARDIF"].isnull()) 
+      & (train["REBUY_TIMES_CNT"].isnull()) & (train["RFM_M_LEVEL"].isnull()) 
+      & (train["TERMINATION_RATE"].isnull())].info() # 共43,282筆(有遺失值的資料會同時在這些欄位都有遺失值)
+
+
+# 在這些欄位是遺失值的顧客，對應的要保人一定有值(驗證上述推測:自己已經不是要保人，一定要對應到至少一其他要保人)
+print(sum(train[train["APC_1ST_AGE"].isnull()]["APC_CNT"].value_counts())) # 43,282
+
+
+# 在這些欄位是遺失值的顧客，不再對應到其他被保險人(驗證上述推測:如果這類人有純要保人(非被保人)，則應該至少對應1位被保人)
+# 此項目至少確定此類人非純要保人
+train[train["APC_1ST_AGE"].isnull()]["INSD_CNT"].value_counts() # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，目前主約持有有效件數(件)(級距)為低(驗證上述推測:純被保險人持有件數為0)
+train[train["APC_1ST_AGE"].isnull()]["LIFE_CNT"].value_counts() # 類別皆為低
+
+
+# 在這些欄位是遺失值的顧客，近一年透過 A 通路投保新契約次數為0(驗證上述推測:投保的人是要保人，純被保人不會投保)
+train[train["APC_1ST_AGE"].isnull()]["L1YR_A_ISSUE_CNT"].value_counts() # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，近一年透過 B 通路投保新契約次數 0(驗證上述推測:理由同上)
+train[train["APC_1ST_AGE"].isnull()]["L1YR_B_ISSUE_CNT"].value_counts() # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，近三年沒有透過 A 通路投保新契約 (驗證上述推測:理由同上)
+train[train["APC_1ST_AGE"].isnull()]["LAST_A_ISSUE_DT"].value_counts() # 類別皆為N
+
+
+# 在這些欄位是遺失值的顧客，近三年沒有透過 B 通路投保新契約 (驗證上述推測:理由同上)
+train[train["APC_1ST_AGE"].isnull()]["LAST_B_ISSUE_DT"].value_counts() # 類別皆為N
+
+
+# 在這些欄位是遺失值的顧客，透過 A 通路投保新契約件數為0(驗證上述推測:理由同上)
+train[train["APC_1ST_AGE"].isnull()]["CHANNEL_A_POL_CNT"].value_counts() # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，透過 B 通路投保新契約件數為0(驗證上述推測:理由同上)
+train[train["APC_1ST_AGE"].isnull()]["CHANNEL_B_POL_CNT"].value_counts() # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，幾乎都是保戶二代(驗證上述推測:由於要保人可能為家人、父母)
+train[train["APC_1ST_AGE"].isnull()]["IF_2ND_GEN_IND"].value_counts() # Y:40,450 N:2,832
+
+
+# 在這些欄位是遺失值的顧客，幾乎沒有和A通路接觸(驗證上述推測:由於主要接觸保險公司為要保人，就算被保人有一起接觸可能也是記錄在要保人)
+train[train["APC_1ST_AGE"].isnull()]["LAST_A_CCONTACT_DT"].value_counts() # Y:1 N:43,281
+
+
+# 在這些欄位是遺失值的顧客，在目前是否壽險保單持有有效類別_A、B...欄位皆顯示為沒有(驗證上述推測:理由同前)
+lst = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"]
+lst2 = ["F", "L", "Q", "G", "R"]
+for i in lst:
+    print(train[train["APC_1ST_AGE"].isnull()]["IF_ISSUE_{}_IND".format(i)].value_counts()) # 全為N
+    
+for r in lst2:
+    print(train[train["APC_1ST_AGE"].isnull()]["IF_ADD_{}_IND".format(r)].value_counts()) # 全為N
+
+    
+# 在這些欄位是遺失值的顧客，是否投保附約(要保)全部顯示為沒有(驗證上述推測:證明非要保人，應為純被保人)
+train[train["APC_1ST_AGE"].isnull()]["IF_ADD_IND"].value_counts() # 類別皆為N
+
+
+# 在這些欄位是遺失值的顧客，年繳化保費也都為NAN(驗證上述推測:繳保費義務在要保人)
+train[train["APC_1ST_AGE"].isnull()]["ANNUAL_PREMIUM_AMT"].value_counts() # [] 
+
+
+# 在這些欄位是遺失值的顧客，曾經經手過的業務員人數為0(驗證上述推測:主要應該記錄在要保人)
+print(train[train["APC_1ST_AGE"].isnull()]["AG_CNT"].value_counts()) # 類別皆為0
+print(train[train["APC_1ST_AGE"].isnull()]["AG_NOW_CNT"].value_counts()) # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，目前服務人員人數0(驗證上述推測:主要應該記錄在要保人)
+train[train["APC_1ST_AGE"].isnull()]["CLC_CUR_NUM"].value_counts() # 類別皆為0
+
+
+# 在這些欄位是遺失值的顧客，近一年不曾被催繳(驗證上述推測:繳保費義務在要保人)
+print(train[train["APC_1ST_AGE"].isnull()]["L1YR_PAYMENT_REMINDER_IND"].value_counts()) # 類別皆為N
+
+
+# 若上述推測都合理，則根據此行顯示非要保人一定是被保險人(驗證沒有純受益人)
+sum(train[train["APC_1ST_AGE"].isnull()]["INSD_1ST_AGE"].value_counts()) # 43282
+
+
+
+
+# 觀察INSD_1ST_AGE、IF_ADD_INSD_IND、INSD_LAST_YEARDIF_CNT的遺失值
+# 由於此三欄位共同的點是，如果顧客為非被保險人則無法回答，故推測共同遺失值為純要保人(非被保險人)
+print(sum(train["INSD_1ST_AGE"].isnull())) # 171 
+print(sum(train["INSD_LAST_YEARDIF_CNT"].isnull())) # 171 
+print(sum(train["IF_ADD_INSD_IND"].isnull())) # 171
+
+
+# 觀察3欄位非共同的遺失值(驗證純要保人假設=>具共同遺漏值)
+train[train["INSD_1ST_AGE"].isnull()]["IF_ADD_INSD_IND"].value_counts() # [] (沒有)
+train[train["INSD_1ST_AGE"].isnull()]["INSD_LAST_YEARDIF_CNT"].value_counts() # [] (沒有)
+
+
+# INSD_1ST_AGE是遺失值情況下，APC_1ST_AGE有多少值非遺漏值
+sum(train[train["INSD_1ST_AGE"].isnull()]["APC_1ST_AGE"].value_counts()) # 171 => 非被保險人，則一定是要保人(驗證沒有純受益人)
+
+train["INSD_1ST_AGE"].value_counts()
+
+
+# 沒有人同時在APC_1ST_AGE，及INSD_1ST_AGE都有遺失值=>無純諮詢無消費的顧客資料
+len(train[(train["APC_1ST_AGE"].isnull()) & (train["INSD_1ST_AGE"].isnull())]) # 0
+
+
+
+
+# 觀察APC_1ST_AGE、REBUY_TIMES_CNT、RFM_M_LEVEL的次數分配長條圖
+count_and_percent("APC_1ST_AGE", train, "Y1")
+count_and_percent("REBUY_TIMES_CNT", train, "Y1")
+count_and_percent("RFM_M_LEVEL", train, "Y1")
+
+
+
+
+# 觀察ANNUAL_INCOME_AMT
+# 觀看摘要五數
+des_ann = train["ANNUAL_INCOME_AMT"].describe()
+print(des_ann)
+
+# 計算IQR
+IQR = des_ann["75%"] - des_ann["25%"]
+
+# Q3以內數字
+normal_value = train.loc[(train.loc[train["ANNUAL_INCOME_AMT"].dropna().index]["ANNUAL_INCOME_AMT"] < (des_ann["75%"])).index]
+
+# 觀察次數直方圖
+sns.distplot(normal_value["ANNUAL_INCOME_AMT"] , bins=100) # 分配(值大多很小)
+
+
+# 年收入vs往來銀行家數
+sns.jointplot(x="ANNUAL_INCOME_AMT", y="BANK_NUMBER_CNT", data=train)
+
+
+
+
+
+# BMI
+# BMI基本統計量
+print(train["BMI"].describe())
+# BMI存在遺漏值數量
+print(abs(train["BMI"].value_counts().sum() - 100000)) # 16645
+
+
+# BMI 的分配圖 根據GENDER分類
+plt.figure(figsize=(10, 5))
+sns.distplot(train[train["GENDER"] == 0]["BMI"], bins=30, kde=True, 
+             hist=False, color="green",
+             label="Female")
+sns.distplot(train[train["GENDER"] == 1]["BMI"], bins=30, kde=True, 
+             hist=False, color="blue", 
+             label="Male")
+
+plt.title("KDE of BMI based on different genders", fontdict={"fontsize":"xx-large"})
+plt.legend(fontsize=13)
+plt.ylabel("Frequency")
+plt.xlabel("BMI")
+plt.show()
+
+
+# BMI 的分配圖 根據Y1分類
+plt.figure(figsize=(10, 5))
+sns.distplot(train[train["Y1"] == 1]["BMI"], bins=30, kde=True, 
+             hist=False, color="green",
+             label="Y")
+sns.distplot(train[train["Y1"] == 0]["BMI"], bins=30, kde=True, 
+             hist=False, color="blue", 
+             label="N")
+
+plt.title("KDE of BMI based on different Y1", fontdict={"fontsize":"xx-large"})
+plt.legend(fontsize=13)
+plt.ylabel("Frequency")
+plt.xlabel("BMI")
+
+
+#############################################################
+#############################################################
+
+
+######################資料清理######################
+
+
+# 計算需要處理的遺失值欄位個數
+print(len(train.columns[pd.isnull(train).sum() != 0]))
+print(len(test.columns[pd.isnull(test).sum() != 0]))
+
+
+
+####### 資料清理:GENDER #######
+# 使用OCCUPATION_CLASS_CD欄位填補GENDER欄位遺漏值
+# 規則:
+# 若OCCUPATION_CLASS_CD為1則GENDER以0(Female)填入；若OCCUPATION_CLASS_CD不為1(含NaN)則以1(Male)填入
+def gender_clean(cols):
+    
+    gender = cols[0]
+    occ = cols[1]
+    
+    
+    # if gender is null
+    if pd.isnull(gender):
+        
+        # if occupation is 1
+        if occ == 1:
+            return 0
+            
+        else:
+            return 1
+        
+    else:
+        return gender
+
+train["GENDER"] = train[["GENDER", "OCCUPATION_CLASS_CD"]].apply(gender_clean, axis=1)
+# 同時調整test資料集
+test["GENDER"] = test[["GENDER", "OCCUPATION_CLASS_CD"]].apply(gender_clean, axis=1)
+
+
+
+
+####### 資料清理:過多遺漏值欄位 #######
+# 觀察具有超過一半(50000)遺漏值的欄位
+print(train.columns[pd.isnull(train).sum() >= 50000])
+
+
+# 觀察這些欄位遺失值和非遺失值對應的Y1為N或Y的數量，藉以初步判斷其重要性
+for cols in train.columns[pd.isnull(train).sum() >= 50000]:
+    
+    print(cols)
+    print("----------------------")
+    print("遺失值的NY:")
+    print(train[pd.isnull(train[cols])]["Y1"].value_counts())
+    print("***************")
+
+    print("非遺失值的NY:")
+    print(train[[cols, "Y1"]].dropna()["Y1"].value_counts())
+    print("----------------------")
+
+
+# 使用LAST_C_DT填補部分L1YR_C_CNT的遺漏值
+# 若LAST_C_DT為0，則L1YR_C_CNT必為0
+def clean_l1yr_c_cnt(cols):
+    
+    LAST_C_DT = cols[0]
+    L1YR_C_CNT = cols[1]
+    
+    if pd.isnull(L1YR_C_CNT):
+        if LAST_C_DT == 0:
+            return 0
+        
+    
+    return L1YR_C_CNT
+
+train["L1YR_C_CNT"] = train[["LAST_C_DT", "L1YR_C_CNT"]].apply(clean_l1yr_c_cnt, axis=1)
+# 同時調整test資料集
+test["L1YR_C_CNT"] = test[["LAST_C_DT", "L1YR_C_CNT"]].apply(clean_l1yr_c_cnt, axis=1)
+
+
+# 刪除該16個超過50000遺失值欄位(有一欄L1YR_C_CNT在經過上述填補已無這麼多遺失值)
+train.drop(train.columns[pd.isnull(train).sum() >= 50000], axis=1, inplace=True)
+# 同時也刪除test中這16欄位
+test.drop(['ANNUAL_PREMIUM_AMT', 'A_IND', 'B_IND', 'C_IND',
+       'IF_ADD_INSD_F_IND', 'IF_ADD_INSD_L_IND', 'IF_ADD_INSD_Q_IND',
+       'IF_ADD_INSD_G_IND', 'IF_ADD_INSD_R_IND', 'FINANCETOOLS_A',
+       'FINANCETOOLS_B', 'FINANCETOOLS_C', 'FINANCETOOLS_D', 'FINANCETOOLS_E',
+       'FINANCETOOLS_F', 'FINANCETOOLS_G'], axis=1, inplace=True)
+
+
+
+
+
+# ####### 資料清理:MARRIAGE_CD #######
+# 觀察MARRIAGE_CD是否購買重疾險的分布
+count_and_percent("MARRIAGE_CD", train, "Y1")
+# 使用MARRIAGE_CD的眾數0進行遺漏值填補
+train["MARRIAGE_CD"] = train["MARRIAGE_CD"].fillna(0)
+
+# 同時調整test資料
+# 觀察眾數
+print(test["MARRIAGE_CD"].value_counts()) # 0
+# 填補
+test["MARRIAGE_CD"] = test["MARRIAGE_CD"].fillna(0)
+
+
+
+
+
+# ####### 資料清理:EDUCATION_CD #######
+# 觀察EDUCATION_CD欄位各類別次數分配狀況
+train["EDUCATION_CD"].value_counts()
+# 觀察對EDUCATION_CD重要之欄位有哪些
+importance_measure("EDUCATION_CD", seed=111, max_test=5) # 最終分數未達可接受標準(後續採其他方式清理此欄位)
+
+# 將遺失值設為新的一類(0)
+train["EDUCATION_CD"] = train["EDUCATION_CD"].fillna(0, axis=0)
+# 同步調整test資料集
+test["EDUCATION_CD"] = test["EDUCATION_CD"].fillna(0, axis=0)
+
+
+
+
+
+# ####### 資料清理:OCCUPATION_CLASS_CD #######
+# 運用Extratrees觀察重要性
+importance_measure("OCCUPATION_CLASS_CD", max_test=15)
+
+
+# 使用前10欄進行遺失值填補
+important_cols =['CONTACT_CITY_CD', 'TOOL_VISIT_1YEAR_CNT', 'LIFE_INSD_CNT', 
+                 'CUST_9_SEGMENTS_CD', 'AGE', 'L1YR_GROSS_PRE_AMT', 'CHARGE_CITY_CD', 
+                 'CHANNEL_A_POL_CNT', 'AG_CNT', 'AG_NOW_CNT']
+occ_model = impute(important_cols, "OCCUPATION_CLASS_CD")
+# 同步調整test資料集
+occ_model = impute(important_cols, "OCCUPATION_CLASS_CD", dataset=test)
+
+# 觀察填補完遺漏值次數分配長條圖
+count_and_percent("OCCUPATION_CLASS_CD", train, "Y1")
+
+
+
+
+
+
+####### 資料清理:RFM_R #######
+# 觀察該欄位各類別次數分配
+train["RFM_R"].value_counts()
+# 計算遺失值個數
+print(sum(train["RFM_R"].isnull())) # 43294
+
+# 根據EDA，APC_1ST_AGE為遺失值表示為純被保險人，從此行程式結果推測43294中有43282為純被保險人(None)
+# 剩餘12筆則為真正NaN
+print("APC_1ST_AGE為遺失值，但RFM_R不是:", sum(train[pd.isnull(train["APC_1ST_AGE"])]["RFM_R"].value_counts())) # 0
+print("RFM為遺失值，但APC_1ST_AGE不是:", sum(train[pd.isnull(train["RFM_R"])]["APC_1ST_AGE"].value_counts())) # 12
+
+
+# 填補部分RFM_R遺失值，將43282筆被保險人設為一新類別；剩餘遺漏值另外處理
+def RFM_R_impute(cols):
+    
+    APC_1ST_AGE = cols[0]
+    RFM_R = cols[1]
+    
+    if pd.isnull(APC_1ST_AGE) and pd.isnull(RFM_R):
+        return 0
+    
+    else:
+        return RFM_R
+    
+train["RFM_R"] = train[["APC_1ST_AGE", "RFM_R"]].apply(RFM_R_impute, axis=1)
+# 同步調整test資料集
+test["RFM_R"] = test[["APC_1ST_AGE", "RFM_R"]].apply(RFM_R_impute, axis=1) 
+
+
+
+
+
+####### 資料清理:LEVEL #######
+# 觀察遺失值數量
+print(sum(train["LEVEL"].isnull()))# 共有43305筆遺失值
+
+# 觀察次數分布
+print(train["LEVEL"].value_counts())
+
+
+# 根據EDA，APC_1ST_AGE為遺失值表示為純被保險人，從此行程式結果推測43305中有43281為純被保險人(None)
+# LEVEL為遺漏值應該是因為是純被保人，所以業務員比較少接觸(皆找要保人)，或是有接觸但記錄於要保人身上。但仍可能有例外(及此程式跑出的那筆資料)
+print("APC_1ST_AGE為遺失值，但LEVEL不是:", sum(train[pd.isnull(train["APC_1ST_AGE"])]["LEVEL"].value_counts())) # 1
+print("LEVEL為遺失值，但APC_1ST_AGE為遺失值:", sum(train[pd.isnull(train["LEVEL"])]["APC_1ST_AGE"].value_counts())) # 24
+
+
+# 填補部分遺漏值，方法:將非要保人(APC_1ST_AGE欄位為遺漏值)設為一新類別；剩餘遺漏值另外處理
+def LEVEL_impute(cols):
+    
+    APC_1ST_AGE = cols[0]
+    LEVEL = cols[1]
+    
+    if pd.isnull(LEVEL) and pd.isnull(APC_1ST_AGE):
+        return 0
+    
+    else:
+        return LEVEL
+train["LEVEL"] = train[["APC_1ST_AGE", "LEVEL"]].apply(LEVEL_impute, axis=1)
+# 同步調整test資料集
+test["LEVEL"] = test[["APC_1ST_AGE", "LEVEL"]].apply(LEVEL_impute, axis=1)
+
+
+
+
+
+
+####### 資料清理:APC_1ST_AGE、REBUY_TIMES_CNT、RFM_M_LEVEL #######
+# 這些類別根據EDA皆為純被保險人(非要保人)，遺失值為None，本來就不存在；且此三欄位為類別資料，將遺失值定義成一新類別(0)
+train["APC_1ST_AGE"] = train["APC_1ST_AGE"].fillna(0)
+train["REBUY_TIMES_CNT"] = train["REBUY_TIMES_CNT"].fillna(0)
+train["RFM_M_LEVEL"] = train["RFM_M_LEVEL"].fillna(0)
+# 同步調整test資料集
+test["APC_1ST_AGE"] = test["APC_1ST_AGE"].fillna(0)
+test["REBUY_TIMES_CNT"] = test["REBUY_TIMES_CNT"].fillna(0)
+test["RFM_M_LEVEL"] = test["RFM_M_LEVEL"].fillna(0)
+
+
+
+
+####### 資料清理:APC_1ST_YEARDIF、TERMINATION_RATE #######
+# 推測為純被保險人，遺失值為None，先將此欄位離散化處理，再將NaN定義成一新類別
+
+# 先觀察APC_1ST_YEARDIF的分配，決定分割點
+sns.distplot(train["APC_1ST_YEARDIF"].dropna(), bins=30)
+plt.show()
+
+sns.distplot(train.loc[train["APC_1ST_YEARDIF"].dropna().index][train.loc[train["APC_1ST_YEARDIF"].dropna().index]["Y1"] == 1]["APC_1ST_YEARDIF"], 
+             bins=30, label="Y")
+
+sns.distplot(train.loc[train["APC_1ST_YEARDIF"].dropna().index][train.loc[train["APC_1ST_YEARDIF"].dropna().index]["Y1"] == 0]["APC_1ST_YEARDIF"], 
+             bins=30, label="N")
+
+plt.legend()
+plt.show()
+
+
+# APC_1ST_YEARDIF離散化規則:0 =>nan; 1 => [0,25]; 2 => (25,50]; 3 => (50,75]; 4 => (75,100]
+# 區間內數字為百分位數
+
+des1_apc_1st = train["APC_1ST_YEARDIF"].describe()
+def apc_1st_impute(col):
+
+    if pd.isnull(col):
+        return 0
+    
+    elif col <= des1_apc_1st["25%"]:
+        return 1
+    
+    elif col > des1_apc_1st["25%"] and col <= des1_apc_1st["50%"]:
+        return 2
+    
+    elif col > des1_apc_1st["50%"] and col <= des1_apc_1st["75%"]:
+        return 3
+    
+    else:
+        return 4
+
+train["APC_1ST_YEARDIF"] = train["APC_1ST_YEARDIF"].apply(apc_1st_impute)
+# 同步調整test資料集
+des1_apc_1st = test["APC_1ST_YEARDIF"].describe()
+test["APC_1ST_YEARDIF"] = test["APC_1ST_YEARDIF"].apply(apc_1st_impute)
+
+
+
+# 觀察TERMINATION_RATE(很多數值都集中在0)
+train["TERMINATION_RATE"].describe()
+print(len(train[train["TERMINATION_RATE"] == 0])) # 44093
+# 使用視覺盒鬚圖觀察
+sns.boxplot("TERMINATION_RATE", data=train, palette="viridis")
+plt.show()
+
+
+# 對TERMINATION_RATE欄位進行離散化，分割方式為 是0的項目轉為0，非0項目轉為1，NaN轉為2  
+def termination_impute_fun(col):
+    
+    if pd.isnull(col):
+        return 2
+    
+    elif col == 0:
+        return 0
+    
+    else:
+        return 1
+train["TERMINATION_RATE"] = train["TERMINATION_RATE"].apply(termination_impute_fun)
+# 同步調整test資料集
+test["TERMINATION_RATE"] = test["TERMINATION_RATE"].apply(termination_impute_fun)
+
+
+
+
+
+####### 資料清理:ANNUAL_INCOME_AMT #######
+# 計算遺失值個數
+print(sum(train["ANNUAL_INCOME_AMT"].isnull())) # 39201
+
+# 觀察對於ANNUAL_INCOME_AMT重要之欄位，及預測ANNUAL_INCOME_AMT遺失值分數
+importance_measure("ANNUAL_INCOME_AMT", seed=111, max_test=25, algorithm=ExtraTreesRegressor(random_state=111))
+# 觀察執行50次預測，各欄位進入前10重要的次數
+print(important_test("ANNUAL_INCOME_AMT", test_time=50, algorithm=ExtraTreesRegressor(random_state=111)))
+
+
+# 觀察重要性欄位
+
+# 曾經經手過的業務員人數 
+sns.jointplot(x="ANNUAL_INCOME_AMT", y="AG_CNT", data=train)
+
+# 目前主約被保有效件數(件) (神秘轉換&歸一化) 
+sns.jointplot(x="ANNUAL_INCOME_AMT", y="LIFE_INSD_CNT", data=train)
+
+# 近一年實繳保費 
+sns.jointplot(x="ANNUAL_INCOME_AMT", y="L1YR_GROSS_PRE_AMT", data=train)
+
+# 年齡
+plt.figure(figsize=[10, 5])
+sns.violinplot(x="AGE", y="ANNUAL_INCOME_AMT", data=train) # 年齡越高收入越高
+plt.ylim([0, 0.005])
+
+# 不同客群在收入方面有很大不同
+plt.figure(figsize=[10, 5])
+sns.violinplot(x="CUST_9_SEGMENTS_CD", y="ANNUAL_INCOME_AMT", data=train)
+plt.show()
+plt.figure(figsize=[10, 5])
+sns.violinplot(x="CUST_9_SEGMENTS_CD", y="ANNUAL_INCOME_AMT", data=train)
+plt.ylim([0, 0.005])
+plt.show()
+
+
+# 用5個重要欄位填補ANNUAL_INCOME_AMT的遺失值
+important_cols = ["AGE", "CUST_9_SEGMENTS_CD", "L1YR_GROSS_PRE_AMT", "AG_CNT", "LIFE_INSD_CNT"]
+impute(important_cols=important_cols, impute_col="ANNUAL_INCOME_AMT", 
+       algorithm=ExtraTreesRegressor(random_state=111))
+
+# 同步調整test資料集
+impute(important_cols=important_cols, impute_col="ANNUAL_INCOME_AMT", 
+       algorithm=ExtraTreesRegressor(random_state=111), dataset=test) 
+
+
+
+
+
+####### 資料清理:L1YR_C_CNT #######
+# 計算遺失值數量
+print(sum(train["L1YR_C_CNT"].isnull())) # 5637
+
+# 觀察摘要五數
+des_l1yr = train["L1YR_C_CNT"].describe()
+print(des_l1yr)
+
+# 觀察盒鬚圖 
+sns.boxplot("L1YR_C_CNT", data=train)
+plt.show()
+
+# 觀察次數分配
+train["L1YR_C_CNT"].value_counts() # 多為0
+
+# 計算非明顯離群值的平均數
+print(round(train[train["L1YR_C_CNT"] <= 15]["L1YR_C_CNT"].mean(), 0)) # 0
+
+
+# 以該平均數0補入
+train["L1YR_C_CNT"].fillna(0, inplace=True)
+
+# 同步調整test資料集
+# 計算非明顯離群值的平均數
+print(round(test[test["L1YR_C_CNT"] <= 15]["L1YR_C_CNT"].mean(), 0)) # 0
+test["L1YR_C_CNT"].fillna(0, inplace=True)
+
+
+
+
+
+####### 資料清理:BMI #######
+# 根據EDA，將BMI離散化為 是否在[0, 0.2)之間，並將NAN視為否
+def bmi_impute(col):
+    
+    if pd.isnull(col):
+        return 0
+    
+    elif col < 0.2 and col >= 0:
+        return 1
+    
+    else:
+        return 0
+
+train["BMI"] = train["BMI"].apply(bmi_impute)
+# 同步調整test資料集
+test["BMI"] = test["BMI"].apply(bmi_impute)
+
+
+
+
+
+
+####### 資料清理:當年度保障相關欄位(AMT)(共15欄位) #######
+# 將該類欄位名稱整理到list
+amt_list = ["DIEBENEFIT_AMT", "DIEACCIDENT_AMT", "POLICY_VALUE_AMT", "ANNUITY_AMT", 
+            "EXPIRATION_AMT", "ACCIDENT_HOSPITAL_REC_AMT", "DISEASES_HOSPITAL_REC_AMT", 
+            "OUTPATIENT_SURGERY_AMT", "INPATIENT_SURGERY_AMT", "ILL_ACCELERATION_AMT", 
+            "FIRST_CANCER_AMT", "ILL_ADDITIONAL_AMT", "LONG_TERM_CARE_AMT", 
+            "MONTHLY_CARE_AMT", "PAY_LIMIT_MED_MISC_AMT"]
+
+# 同時在15欄位有遺漏值的資料數
+len(train[(train["DIEBENEFIT_AMT"].isnull()) & (train["DIEACCIDENT_AMT"].isnull()) 
+          & (train["POLICY_VALUE_AMT"].isnull()) & (train["ANNUITY_AMT"].isnull()) 
+          & (train["EXPIRATION_AMT"].isnull()) & (train["ACCIDENT_HOSPITAL_REC_AMT"].isnull())
+          & (train["DISEASES_HOSPITAL_REC_AMT"].isnull()) & (train["OUTPATIENT_SURGERY_AMT"].isnull())
+          & (train["INPATIENT_SURGERY_AMT"].isnull()) & (train["ILL_ACCELERATION_AMT"].isnull())
+          & (train["FIRST_CANCER_AMT"].isnull()) & (train["ILL_ADDITIONAL_AMT"].isnull())
+          & (train["LONG_TERM_CARE_AMT"].isnull()) & (train["MONTHLY_CARE_AMT"].isnull()) 
+          & (train["PAY_LIMIT_MED_MISC_AMT"].isnull())]) # 27540
+
+# 各欄位的遺漏值數量
+for i in amt_list:
+    print(sum(train[i].isnull())) # 皆為27540
+
+
+# 觀察各欄位盒鬚圖，以Y1分別
+for i in amt_list[:5]:
+    sns.boxplot(x="Y1", y=i, data=train, palette="viridis")
+    plt.ylim([0, 0.03])
+    plt.show()
+
+for i in amt_list[5:10]:
+    sns.boxplot(x="Y1", y=i, data=train, palette="viridis")
+    plt.show()
+    
+for i in amt_list[10:14]:
+    sns.boxplot(x="Y1", y=i, data=train, palette="viridis")
+    plt.ylim([0, 0.1])
+    plt.show()
+    
+sns.boxplot(x="Y1", y=amt_list[14], data=train, palette="viridis")
+plt.show()
+
+# 觀察在amt_list內第2 4 9 11 12 index 呈現特殊盒鬚圖長相的次數資料
+for i in [2, 4, 9, 11, 12]:
+    print(train[amt_list[i]].value_counts().head())
+
+
+# 製作一新欄位為AMT類別15欄位加總:TOTAL_AMT(總當年度保障)
+train["TOTAL_AMT"] = (train["DIEBENEFIT_AMT"] + train["DIEACCIDENT_AMT"] + train["ANNUITY_AMT"] + train["ACCIDENT_HOSPITAL_REC_AMT"]
+                      + train["OUTPATIENT_SURGERY_AMT"] + train["MONTHLY_CARE_AMT"] + train["DISEASES_HOSPITAL_REC_AMT"] + train["FIRST_CANCER_AMT"]
+                      + train["INPATIENT_SURGERY_AMT"] + train["PAY_LIMIT_MED_MISC_AMT"] + train["POLICY_VALUE_AMT"] + train["EXPIRATION_AMT"]
+                      + train["ILL_ACCELERATION_AMT"] + train["ILL_ADDITIONAL_AMT"] + train["LONG_TERM_CARE_AMT"])
+# 同步調整test
+test["TOTAL_AMT"] = (test["DIEBENEFIT_AMT"] + test["DIEACCIDENT_AMT"] + test["ANNUITY_AMT"] + test["ACCIDENT_HOSPITAL_REC_AMT"]
+                      + test["OUTPATIENT_SURGERY_AMT"] + test["MONTHLY_CARE_AMT"] + test["DISEASES_HOSPITAL_REC_AMT"] + test["FIRST_CANCER_AMT"]
+                      + test["INPATIENT_SURGERY_AMT"] + test["PAY_LIMIT_MED_MISC_AMT"] + test["POLICY_VALUE_AMT"] + test["EXPIRATION_AMT"]
+                      + test["ILL_ACCELERATION_AMT"] + test["ILL_ADDITIONAL_AMT"] + test["LONG_TERM_CARE_AMT"])
+
+
+# 計算遺漏值數量
+sum(train["TOTAL_AMT"].isnull()) # 27540
+
+
+# 觀察新欄位
+sns.boxplot(x="Y1", y="TOTAL_AMT", data=train, palette="viridis")
+
+# 觀察執行10次預測，各欄位進入前10重要的次數
+important_test("TOTAL_AMT", algorithm=ExtraTreesRegressor(random_state=111))
+
+# 觀察重要欄位
+# 以年齡分類的總當年度保障盒鬚圖
+sns.boxplot(x="AGE", y="TOTAL_AMT", data=train, palette="viridis")
+plt.show()
+
+
+# 以IF_Y_REAL_IND 分類的TOTAL_AMT 盒鬚圖
+sns.boxplot(x="IF_Y_REAL_IND", y="TOTAL_AMT", data=train, palette="viridis")
+
+# TOOL_VISIT_1YEAR_CNT和TOTAL_AMT的散布圖
+sns.jointplot(x="TOOL_VISIT_1YEAR_CNT", y="TOTAL_AMT", data=train)
+plt.show()
+
+# 以IF_2ND_GEN_IND分類的TOTAL_AMT盒鬚圖
+sns.boxplot(x="IF_2ND_GEN_IND", y="TOTAL_AMT", data=train, palette="viridis")
+plt.show()
+
+# 以IF_S_REAL_IND分類的TOTAL_AMT盒鬚圖
+sns.boxplot(x="IF_S_REAL_IND", y="TOTAL_AMT", data=train, palette="viridis")
+
+# 以IF_ADD_Q_IND分類的TOTAL_AMT盒鬚圖
+sns.boxplot(x="IF_ADD_Q_IND", y="TOTAL_AMT", data=train, palette="viridis")
+
+
+# 用重要性欄位預估TOTAL_AMT遺漏值
+important_cols = ["AGE", "IF_Y_REAL_IND", "TOOL_VISIT_1YEAR_CNT", "IF_2ND_GEN_IND", "IF_S_REAL_IND", 
+                  "IF_ADD_Q_IND", "APC_CNT", "LIFE_INSD_CNT", "CONTACT_CITY_CD"]
+impute(important_cols=important_cols, impute_col="TOTAL_AMT", algorithm=ExtraTreesRegressor(random_state=111))
+
+# 同步調整test
+impute(important_cols=important_cols, impute_col="TOTAL_AMT", algorithm=ExtraTreesRegressor(random_state=111), dataset=test)
+
+
+# 刪除原來15個AMT欄位
+train.drop(amt_list, axis=1, inplace=True)
+# 同步調整test
+test.drop(amt_list, axis=1, inplace=True)
+
+
+
+
+
+####### 資料清理IF_ISSUE_INSD_*_IND系列(*:A、B...)(共17欄位) #######
+
+
+# 計算同時在這17欄位有遺失值資料數
+len(train[(train["IF_ISSUE_INSD_A_IND"].isnull()) & (train["IF_ISSUE_INSD_J_IND"].isnull()) 
+          & (train["IF_ISSUE_INSD_B_IND"].isnull()) & (train["IF_ISSUE_INSD_K_IND"].isnull()) 
+          & (train["IF_ISSUE_INSD_C_IND"].isnull()) & (train["IF_ISSUE_INSD_L_IND"].isnull())
+          & (train["IF_ISSUE_INSD_D_IND"].isnull()) & (train["IF_ISSUE_INSD_M_IND"].isnull())
+          & (train["IF_ISSUE_INSD_E_IND"].isnull()) & (train["IF_ISSUE_INSD_N_IND"].isnull())
+          & (train["IF_ISSUE_INSD_F_IND"].isnull()) & (train["IF_ISSUE_INSD_O_IND"].isnull())
+          & (train["IF_ISSUE_INSD_G_IND"].isnull()) & (train["IF_ISSUE_INSD_P_IND"].isnull()) 
+          & (train["IF_ISSUE_INSD_H_IND"].isnull()) & (train["IF_ISSUE_INSD_Q_IND"].isnull())
+          & (train["IF_ISSUE_INSD_I_IND"].isnull())]) # 20083
+
+
+# 計算個別欄位遺失值數量
+lst = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"]
+for i in lst:
+    print(sum(train["IF_ISSUE_INSD_{}_IND".format(i)].isnull())) # 皆為20083
+
+
+# IF_ADD_INSD_IND若缺值(非被保險人)(純要保人)，則IF_ISSUE_INSD_*_IND系列遺失值的狀況(由於遺失值狀況同，以A代表)
+train[train["IF_ADD_INSD_IND"].isnull()]["IF_ISSUE_INSD_A_IND"].value_counts() # [] => 171非被保險人此系列欄位皆缺值
+
+
+# 將資料分割成3種人
+train_Applicant = train[train["IF_ADD_INSD_IND"].isnull()] # 純要保人
+train_Insured = train[train["APC_1ST_AGE"] == 0] # 純被保險人
+train_mix = train.drop(pd.concat([train_Applicant, train_Insured]).index, axis=0) # 同時為要保人、被保險人
+
+# 同步調整test
+test_Applicant = test[test["IF_ADD_INSD_IND"].isnull()]
+test_Insured = test[test["APC_1ST_AGE"] == 0]
+test_mix = test.drop(pd.concat([test_Applicant, test_Insured]).index, axis=0)
+
+
+# 觀看各類別數量
+print(train_Applicant.info()) # 171
+print(train_Insured.info()) # 43282 
+print(train_mix.info()) # 56547 
+
+
+# 計算各資料遺失值數量(note:train_Applicant的遺失值即為171全部，已從上面的程式碼得知)
+print("Insured的遺失值:", 43282 - sum(train_Insured["IF_ISSUE_INSD_A_IND"].value_counts()))
+print("mix的遺失值:", 56547 - sum(train_mix["IF_ISSUE_INSD_A_IND"].value_counts()))
+
+
+# 觀察mix資料部分，IF_ISSUE_INSD_*_IND系列欄位和對應的IF_ISSUE_*_IND"系列欄位關係(*:A、B...)
+for i in lst:
+    count_and_percent("IF_ISSUE_INSD_{}_IND".format(i), train_mix, "IF_ISSUE_{}_IND".format(i))
+
+
+# 觀察各欄位類別次數
+for i in lst:
+    print(i)
+    
+    print(train_Insured["IF_ISSUE_INSD_{}_IND".format(i)].value_counts())
+    print("----------------") # 純被保險人此系列欄位仍傾向0較多
+    
+# 用圖表觀察
+for i in lst:
+    count_and_percent("IF_ISSUE_INSD_{}_IND".format(i), train_Insured, "Y1") # 純被保險人此系列欄位仍傾向0較多
+    
+
+# 純被保人部分:採眾數法(0)填補遺漏值
+for i in lst:
+    train_Insured["IF_ISSUE_INSD_{}_IND".format(i)].fillna(0, inplace=True)
+
+# 同步調整test
+# test中純被保人部分眾數
+for i in lst:
+    print(i)
+    
+    print(test_Insured["IF_ISSUE_INSD_{}_IND".format(i)].value_counts())
+    print("----------------")
+
+# 填入眾數(0)
+for i in lst:
+    test_Insured["IF_ISSUE_INSD_{}_IND".format(i)].fillna(0, inplace=True)
+
+
+# mix部分以以下規則填補遺漏值: 如果對應的IF_ISSUE_*_IND欄位為0，則IF_ISSUE_INSD_*_IND為0，反之1則1
+def mix_IF_ISSUE_INSD_impute(cols):
+    
+    IF_ISSUE_IND = cols[0]
+    IF_ISSUE_INSD_IND = cols[1]
+    
+    if pd.isnull(IF_ISSUE_INSD_IND):
+        
+        if IF_ISSUE_IND == 0:
+            return 0
+        
+        else:
+            return 1
+    else:
+        return IF_ISSUE_INSD_IND
+        
+
+for i in lst:
+    train_mix["IF_ISSUE_INSD_{}_IND".format(i)] = train_mix[["IF_ISSUE_{}_IND".format(i), "IF_ISSUE_INSD_{}_IND".format(i)]].apply(mix_IF_ISSUE_INSD_impute, axis=1)
+
+
+# 合併三種人此系列欄位的值
+for i in lst:
+    train["IF_ISSUE_INSD_{}_IND".format(i)] = pd.concat([train_mix, train_Insured, train_Applicant])["IF_ISSUE_INSD_{}_IND".format(i)]
+
+# 同步調整test
+for i in lst:
+    test_mix["IF_ISSUE_INSD_{}_IND".format(i)] = test_mix[["IF_ISSUE_{}_IND".format(i), "IF_ISSUE_INSD_{}_IND".format(i)]].apply(mix_IF_ISSUE_INSD_impute, axis=1)
+for i in lst:
+    test["IF_ISSUE_INSD_{}_IND".format(i)] = pd.concat([test_mix, test_Insured, test_Applicant])["IF_ISSUE_INSD_{}_IND".format(i)]  
+
+
+
+
+
+##### 資料清理:剩餘欄位 #####
+# 觀察剩餘遺漏值欄位
+train.info(max_cols=150) # 皆為極少數資料
+
+test.info(max_cols=150) # 皆為極少數資料
+
+
+# 刪除train中的這些資料:共242個顧客資料
+del_rows = train[pd.isnull(train["INSD_1ST_AGE"])|pd.isnull(train["LEVEL"])|pd.isnull(train["RFM_R"])|pd.isnull(train["X_A_IND"])]
+print(len(del_rows))
+train.drop(del_rows.index, inplace=True)
+
+# test資料集則用眾數填補
+test["INSD_1ST_AGE"].fillna(3, inplace=True)
+test["RFM_R"].fillna(1, inplace=True)
+test["LEVEL"].fillna(5, inplace=True)
+test["INSD_LAST_YEARDIF_CNT"].fillna(test["INSD_LAST_YEARDIF_CNT"].mean(), inplace=True)
+for i in ["A", "B", "C", "D", "E", "F", "G", "H"]:
+    test["X_{}_IND".format(i)].fillna(0, inplace=True)
+
+for i in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"]:
+    test["IF_ISSUE_INSD_{}_IND".format(i)].fillna(0, inplace=True)    
+
+test["IF_ADD_INSD_IND"].fillna(0, inplace=True)
+    
+
+
+
+# 輸出清理完成train資料
+train.to_csv("train_cleaned_version1.csv")
+
+# 輸出清理完成test資料
+test.to_csv("test_cleaned_1.csv")
+
+
+#############################################################
+#############################################################
+
+
+######################後續處理######################
+
+
+###### one-hot encoding and other address ######
+
+# import data
+trainv1 = pd.read_csv("train_cleaned_version1.csv", low_memory=False, index_col=0)
+testv1 = pd.read_csv("test_cleaned_1.csv", low_memory=False, index_col=0)
+
+
+# 將OCCUPATION_CLASS_CD的 0->7視為順序尺度
+def occ_tran(col):
+    if col == 0:
+        return 7
+    else:
+        return col
+
+trainv1["OCCUPATION_CLASS_CD"] = trainv1["OCCUPATION_CLASS_CD"].apply(occ_tran)
+
+
+
+# 輸出train_cleaned_version1_proc_tree.csv檔案
+trainv1.to_csv("train_cleaned_version1_proc_tree.csv")
+
+
+
+
+# 針對名目尺度進行one-hot encoding(如果只有2類(ex.GENDER)已經在資料清理處理過了，不須再處理)
+
+# 將名目尺度欄位get_dummies並存到變數A-K
+A = pd.get_dummies(trainv1["CHARGE_CITY_CD"], drop_first=True)
+B = pd.get_dummies(trainv1["CONTACT_CITY_CD"], drop_first=True)
+C = pd.get_dummies(trainv1["MARRIAGE_CD"], drop_first=True)
+D = pd.get_dummies(trainv1["CUST_9_SEGMENTS_CD"], drop_first=True)
+E = pd.get_dummies(trainv1["APC_1ST_AGE"], drop_first=True)
+F = pd.get_dummies(trainv1["REBUY_TIMES_CNT"], drop_first=True)
+G = pd.get_dummies(trainv1["RFM_M_LEVEL"], drop_first=True)
+H = pd.get_dummies(trainv1["APC_1ST_YEARDIF"], drop_first=True)
+I = pd.get_dummies(trainv1["TERMINATION_RATE"], drop_first=True)
+J = pd.get_dummies(trainv1["RFM_R"], drop_first=True)
+K = pd.get_dummies(trainv1["LEVEL"], drop_first=True)
+
+# 將A-K合併以及原資料合併
+trainv1_encoding = pd.concat([trainv1, A, B, C, D, E, F, G, H, I, J, K], axis=1)
+
+# 刪除已經做One-hot encoding的欄位
+trainv1_encoding = trainv1_encoding.drop(["CHARGE_CITY_CD", "CONTACT_CITY_CD", "MARRIAGE_CD", 
+                      "CUST_9_SEGMENTS_CD", "APC_1ST_AGE", "REBUY_TIMES_CNT", 
+                      "RFM_M_LEVEL", "APC_1ST_YEARDIF", "TERMINATION_RATE", "RFM_R", "LEVEL"], axis=1)
+
+
+# 輸出 train_cleaned_version1_proc_nontree.csv資料
+trainv1_encoding.to_csv("train_cleaned_version1_proc_nontree.csv")
+
+
+# 同步做test資料集
+
+# 將OCCUPATION_CLASS_CD的 0->7視為順序尺度
+testv1["OCCUPATION_CLASS_CD"] = testv1["OCCUPATION_CLASS_CD"].apply(occ_tran)
+
+
+# 輸出test_cleaned_version1_proc_tree.csv資料
+testv1.to_csv("test_cleaned_version1_proc_tree.csv")
+
+
+
+# 針對名目尺度進行one-hot encoding(如果只有2類(ex.GENDER)已經在資料清理處理過了，不須再處理) 
+
+# 將名目尺度欄位get_dummies並存到變數A-K
+A = pd.get_dummies(testv1["CHARGE_CITY_CD"], drop_first=True)
+B = pd.get_dummies(testv1["CONTACT_CITY_CD"], drop_first=True)
+C = pd.get_dummies(testv1["MARRIAGE_CD"], drop_first=True)
+D = pd.get_dummies(testv1["CUST_9_SEGMENTS_CD"], drop_first=True)
+E = pd.get_dummies(testv1["APC_1ST_AGE"], drop_first=True)
+F = pd.get_dummies(testv1["REBUY_TIMES_CNT"], drop_first=True)
+G = pd.get_dummies(testv1["RFM_M_LEVEL"], drop_first=True)
+H = pd.get_dummies(testv1["APC_1ST_YEARDIF"], drop_first=True)
+I = pd.get_dummies(testv1["TERMINATION_RATE"], drop_first=True)
+J = pd.get_dummies(testv1["RFM_R"], drop_first=True)
+K = pd.get_dummies(testv1["LEVEL"], drop_first=True)
+
+# 將A-K合併以及原資料合併
+testv1_encoding = pd.concat([testv1, A, B, C, D, E, F, G, H, I, J, K], axis=1)
+
+# 刪除已經做One-hot encoding的欄位
+testv1_encoding = testv1_encoding.drop(["CHARGE_CITY_CD", "CONTACT_CITY_CD", "MARRIAGE_CD", 
+                      "CUST_9_SEGMENTS_CD", "APC_1ST_AGE", "REBUY_TIMES_CNT", 
+                      "RFM_M_LEVEL", "APC_1ST_YEARDIF", "TERMINATION_RATE", "RFM_R", "LEVEL"], axis=1)
+
+
+# 輸出test_cleaned_version1_proc_nontree.csv資料
+testv1_encoding.to_csv("test_cleaned_version1_proc_nontree.csv")
+
+
+
+
+###### version2資料調整 ######
+
+
+
+# 版本1資料(即完成資料清理之資料)
+train_adj = pd.read_csv("train_cleaned_version1_proc_tree.csv", encoding="Big5", low_memory=False, index_col=0)
+# 未處理原始資料
+train_original = pd.read_csv("train.csv", encoding="Big5", low_memory=False, index_col=0)
+
+# 版本1資料(即完成資料清理之資料)
+test_adj = pd.read_csv("test_cleaned_version1_proc_tree.csv", encoding="Big5", low_memory=False, index_col=0)
+# 未處理原始資料
+test_original = pd.read_csv("test.csv", encoding="Big5", low_memory=False, index_col=0)
+
+
+
+# 當年度保障系列欄位名稱list
+amt_list = ["DIEBENEFIT_AMT", "DIEACCIDENT_AMT", "POLICY_VALUE_AMT", "ANNUITY_AMT", 
+            "EXPIRATION_AMT", "ACCIDENT_HOSPITAL_REC_AMT", "DISEASES_HOSPITAL_REC_AMT", 
+            "OUTPATIENT_SURGERY_AMT", "INPATIENT_SURGERY_AMT", "ILL_ACCELERATION_AMT", 
+            "FIRST_CANCER_AMT", "ILL_ADDITIONAL_AMT", "LONG_TERM_CARE_AMT", 
+            "MONTHLY_CARE_AMT", "PAY_LIMIT_MED_MISC_AMT"]
+
+
+# AMT系列採用中位數補值(不加總)
+
+# 將未處理資料用中位數補值(train_original)
+for i in amt_list:
+    train_original[i].fillna(train_original[i].describe()["50%"], inplace=True)
+    
+# 添加到處理過的資料集(train_adj)
+for i in amt_list:
+    train_adj[i] = train_original.loc[train_adj.index][i]
+
+# 將train_adj中我們在資料處理階段新增的TOTAL_AMT刪除
+train_adj.drop("TOTAL_AMT", axis=1, inplace=True)
+
+
+# 同樣步驟處理test資料集
+for i in amt_list:
+    test_original[i].fillna(test_original[i].describe()["50%"], inplace=True)
+for i in amt_list:
+    test_adj[i] = test_original.loc[test_adj.index][i]
+test_adj.drop("TOTAL_AMT", axis=1, inplace=True)
+
+
+
+# 運用AGE和IF_2ND_GEN_IND欄位建立新特徵，規則如下:
+# (1) lowage_is2nd:低年齡者，且是保戶二代(傾向不買重疾險)
+# (2) midage_isnot2nd:中年齡者，且不是保戶二代(傾向購買重疾險)
+# (3) mihage_is2nd:中高年齡者，且是保戶二代(傾向購買重疾險)
+
+def lowage_is2nd_engineering(cols):
+    
+    AGE = cols[0]
+    IF_2ND_GEN_IND = cols[1]
+    
+    if AGE == 1 and IF_2ND_GEN_IND == 1:
+        return 1
+    else:
+        return 0
+
+def midage_isnot2nd_engineering(cols):
+    
+    AGE = cols[0]
+    IF_2ND_GEN_IND = cols[1]
+    
+    if AGE == 2 and IF_2ND_GEN_IND == 0:
+        return 1
+    else:
+        return 0
+    
+def mihage_is2nd_engineering(cols):
+    
+    AGE = cols[0]
+    IF_2ND_GEN_IND = cols[1]
+    
+    if AGE == 3 and IF_2ND_GEN_IND == 1:
+        return 1
+    else:
+        return 0
+
+train_adj["lowage_is2nd"] = train_adj[["AGE", "IF_2ND_GEN_IND"]].apply(lowage_is2nd_engineering, axis=1)
+train_adj["midage_isnot2nd"] = train_adj[["AGE", "IF_2ND_GEN_IND"]].apply(midage_isnot2nd_engineering, axis=1)
+train_adj["mihage_is2nd"] = train_adj[["AGE", "IF_2ND_GEN_IND"]].apply(mihage_is2nd_engineering, axis=1)
+
+# 刪除原來的AGE、IF_2ND_GEN_IND欄位
+train_adj.drop(["AGE", "IF_2ND_GEN_IND"], axis=1, inplace=True)
+
+
+# 同步調整test
+test_adj["lowage_is2nd"] = test_adj[["AGE", "IF_2ND_GEN_IND"]].apply(lowage_is2nd_engineering, axis=1)
+test_adj["midage_isnot2nd"] = test_adj[["AGE", "IF_2ND_GEN_IND"]].apply(midage_isnot2nd_engineering, axis=1)
+test_adj["mihage_is2nd"] = test_adj[["AGE", "IF_2ND_GEN_IND"]].apply(mihage_is2nd_engineering, axis=1)
+test_adj.drop(["AGE", "IF_2ND_GEN_IND"], axis=1, inplace=True)
+
+
+# 存檔train_cleaned_version2_proc_tree.csv ； test_cleaned_version2_proc_tree.csv
+train_adj.to_csv("train_cleaned_version2_proc_tree.csv")
+test_adj.to_csv("test_cleaned_version2_proc_tree.csv")
+
+
+
+
+# 對version2進行one-hot encoding(步驟同前面v1處理)
+
+# 將名目尺度欄位get_dummies並存到變數A-K
+A = pd.get_dummies(train_adj["CHARGE_CITY_CD"], drop_first=True)
+B = pd.get_dummies(train_adj["CONTACT_CITY_CD"], drop_first=True)
+C = pd.get_dummies(train_adj["MARRIAGE_CD"], drop_first=True)
+D = pd.get_dummies(train_adj["CUST_9_SEGMENTS_CD"], drop_first=True)
+E = pd.get_dummies(train_adj["APC_1ST_AGE"], drop_first=True)
+F = pd.get_dummies(train_adj["REBUY_TIMES_CNT"], drop_first=True)
+G = pd.get_dummies(train_adj["RFM_M_LEVEL"], drop_first=True)
+H = pd.get_dummies(train_adj["APC_1ST_YEARDIF"], drop_first=True)
+I = pd.get_dummies(train_adj["TERMINATION_RATE"], drop_first=True)
+J = pd.get_dummies(train_adj["RFM_R"], drop_first=True)
+K = pd.get_dummies(train_adj["LEVEL"], drop_first=True)
+
+# 將A-K合併以及原資料合併
+train_adj_encoding = pd.concat([train_adj, A, B, C, D, E, F, G, H, I, J, K], axis=1)
+
+# 刪除已經做One-hot encoding的欄位
+train_adj_encoding = train_adj_encoding.drop(["CHARGE_CITY_CD", "CONTACT_CITY_CD", "MARRIAGE_CD", 
+                      "CUST_9_SEGMENTS_CD", "APC_1ST_AGE", "REBUY_TIMES_CNT", 
+                      "RFM_M_LEVEL", "APC_1ST_YEARDIF", "TERMINATION_RATE", "RFM_R", "LEVEL"], axis=1)
+
+
+# 存檔train_cleaned_version2_proc_nontree.csv
+train_adj_encoding.to_csv("train_cleaned_version2_proc_nontree.csv")
+
+
+
+# 將名目尺度欄位get_dummies並存到變數A-K
+A = pd.get_dummies(test_adj["CHARGE_CITY_CD"], drop_first=True)
+B = pd.get_dummies(test_adj["CONTACT_CITY_CD"], drop_first=True)
+C = pd.get_dummies(test_adj["MARRIAGE_CD"], drop_first=True)
+D = pd.get_dummies(test_adj["CUST_9_SEGMENTS_CD"], drop_first=True)
+E = pd.get_dummies(test_adj["APC_1ST_AGE"], drop_first=True)
+F = pd.get_dummies(test_adj["REBUY_TIMES_CNT"], drop_first=True)
+G = pd.get_dummies(test_adj["RFM_M_LEVEL"], drop_first=True)
+H = pd.get_dummies(test_adj["APC_1ST_YEARDIF"], drop_first=True)
+I = pd.get_dummies(test_adj["TERMINATION_RATE"], drop_first=True)
+J = pd.get_dummies(test_adj["RFM_R"], drop_first=True)
+K = pd.get_dummies(test_adj["LEVEL"], drop_first=True)
+
+# 將A-K合併以及原資料合併
+test_adj_encoding = pd.concat([test_adj, A, B, C, D, E, F, G, H, I, J, K], axis=1)
+
+# 刪除已經做One-hot encoding的欄位
+test_adj_encoding = test_adj_encoding.drop(["CHARGE_CITY_CD", "CONTACT_CITY_CD", "MARRIAGE_CD", 
+                      "CUST_9_SEGMENTS_CD", "APC_1ST_AGE", "REBUY_TIMES_CNT", 
+                      "RFM_M_LEVEL", "APC_1ST_YEARDIF", "TERMINATION_RATE", "RFM_R", "LEVEL"], axis=1)
+
+
+# 存檔test_cleaned_version2_proc_nontree.csv
+test_adj_encoding.to_csv("test_cleaned_version2_proc_nontree.csv")
+
+
+
+#############################################################
+#############################################################
+
+
+######################配適模型######################
+
+
+
+# fit_models
+
+# 快速配適、輸出並儲存Logistic Regression、KNN、Random forest、SVM的結果
+# 參數:
+# case:輸入欲存檔名稱
+# svm_ornot是否配適svm=>True:是,other:否
+
+def fit_models(X_train, X_test, y_train, y_test, case, svm_ornot=False):
+    
+    # Logistic regression
+    logmodel = LogisticRegression()
+    logmodel.fit(X_train, y_train)
+    print("-------------Logistic regression配適完成-----------------")
+    pred_log = logmodel.predict_proba(X_test)
+    auroc_log = roc_auc_score(y_test, pred_log[:, 1])
+    print("-------------Logistic regression預測完成-----------------")
+    
+    # knn
+    knn = KNeighborsClassifier()
+    knn.fit(X_train, y_train)
+    print("-------------knn配適完成-----------------")
+    pred_knn = knn.predict_proba(X_test)
+    auroc_knn = roc_auc_score(y_test, pred_knn[:, 1])
+    print("-------------knn預測完成-----------------")
+    
+    # random forest
+    rf = RandomForestClassifier(n_estimators=600)
+    rf.fit(X_train, y_train)
+    print("-------------rf配適完成-----------------")
+    pred_rf = rf.predict_proba(X_test)
+    auroc_rf = roc_auc_score(y_test, pred_rf[:, 1])
+    print("-------------rf預測完成-----------------")
+    
+    # XGBOOST
+    xgb = XGBClassifier()
+    xgb.fit(X_train, y_train)
+    print("-------------xgb配適完成-----------------")
+    pred_xgb = xgb.predict_proba(X_test)
+    auroc_xgb = roc_auc_score(y_test, pred_xgb[:, 1])
+    print("-------------xgb預測完成-----------------")
+    
+    # SVM(維度太高了電腦跑不動)
+    if svm_ornot == True:
+        svm = SVC(probability=True)
+        svm.fit(X_train, y_train)
+        print("-------------svc配適完成-----------------")
+        pred_svm = svm.predict_proba(X_test)
+        auroc_svm = roc_auc_score(y_test, pred_svm[:, 1])
+        print("-------------svc預測完成-----------------")
+    else:
+        print("-------------不執行svm-----------------")
+        pred_svm = False
+        auroc_svm = False
+        svm = False
+    
+    
+    # inspection order
+    print("")
+    print("--------------------------------------------")
+    print("類別順序log:", logmodel.classes_)
+    print("類別順序knn:", knn.classes_)
+    print("類別順序rf:", rf.classes_)
+    print("類別順序xgb:", xgb.classes_)
+    if svm_ornot == True:
+        print("類別順序svm:", svm.classes_)
+    else:
+        print("類別順序svm:未配適")
+    print("--------------------------------------------")
+    print("")
+    
+    # call write_out_auroc
+    write_out_auroc(auroc_log, auroc_knn, auroc_rf, auroc_xgb, auroc_svm, case)
+    
+    # call write_out_prob
+    write_out_prob(pred_log, pred_knn, pred_rf, pred_xgb, pred_svm, case)
+    
+    # call write_out_model
+    write_out_model(logmodel, knn, rf, xgb, svm, case)
+    
+    
+def write_out_auroc(auroc_log, auroc_knn, auroc_rf, auroc_xgb, auroc_svm, case):
+    
+    # make df
+    if auroc_svm is False:
+        result_auroc = pd.DataFrame([[auroc_log, auroc_knn, auroc_rf, auroc_xgb, None]], 
+                                    columns=["log", "knn", "rf", "xgb", "svm"])
+    else:
+        result_auroc = pd.DataFrame([[auroc_log, auroc_knn, auroc_rf, auroc_xgb, auroc_svm]], 
+                                    columns=["log", "knn", "rf", "xgb", "svm"])
+    
+    # write out
+    result_auroc.to_csv(case + "_auroc.csv", index=False)
+    print("auroc資料順利傳出")
+    
+    
+def write_out_prob(pred_log, pred_knn, pred_rf, pred_xgb, pred_svm, case):
+    
+    # make df
+    df1 = pd.DataFrame(pred_log,columns=[("log", 0), ("log", 1)])
+    df2 = pd.DataFrame(pred_knn,columns=[("knn", 0), ("knn", 1)])
+    df3 = pd.DataFrame(pred_rf,columns=[("rf", 0), ("rf", 1)])
+    df4 = pd.DataFrame(pred_xgb,columns=[("xgb", 0), ("xgb", 1)])
+    if type(pred_svm) == bool:
+        df5 = pd.DataFrame(None,columns=[("svm", 0), ("svm", 1)])
+    else:
+        df5 = pd.DataFrame(pred_svm,columns=[("svm", 0), ("svm", 1)])
+    
+    result_prob = pd.concat([df1, df2, df3, df4, df5], axis=1)
+    result_prob.columns = pd.MultiIndex.from_tuples(result_prob.columns, names=['Method','class'])
+    
+    # write out
+    result_prob.to_csv(case + "_prob.csv", index=False)
+    print("prob資料順利傳出")
+    
+def write_out_model(logmodel, knn, rf, xgb, svm, case):
+    
+    model = [logmodel, knn, rf, xgb]
+    filename = ["logmodel_" + case, "knn_" + case, "rf_" + case, "xgb_" + case]
+    if svm != False:
+        model.append(svm)
+        filename.append("svm_" + case)
+                
+    # dump model(write out)
+    for (mod, fil_name) in zip(model, filename): 
+        pickle.dump(mod, open(fil_name, 'wb'))
+    
+    print("model順利儲存")
+    
+
+
+# draw chart
+
+# 快速畫出roc curve
+
+# 參數:
+# pred_table:table of result(需為fit_models函數直接輸出的表格格式)
+# othercurve(填入dataframe，格式要同pred_table。可增加除預設5個模型以外模型的結果)
+# 注意:使用前請確保y_test有值
+
+def draw_chart(pred_table, case, svm_ornot=False, othercurve=False):
+    # set font
+    font_content = FontProperties(size=20)
+    font_title = FontProperties(size=25)
+    
+    # data
+    fpr1, tpr1, thresholds1 = roc_curve(y_test, pred_table["log"]["1"], pos_label=1)
+    fpr2, tpr2, thresholds2 = roc_curve(y_test, pred_table["knn"]["1"], pos_label=1)
+    fpr3, tpr3, thresholds3 = roc_curve(y_test, pred_table["rf"]["1"], pos_label=1)
+    fpr4, tpr4, thresholds4 = roc_curve(y_test, pred_table["xgb"]["1"], pos_label=1)
+    if svm_ornot == True:    
+        fpr5, tpr5, thresholds5 = roc_curve(y_test, pred_table["svm"]["1"], pos_label=1)
+        
+        
+    xstandard = np.linspace(0, 1, 10)
+
+    fig = plt.figure(figsize=[7, 5])
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.plot(xstandard, xstandard, "--")
+    ax.plot(fpr1, tpr1, label="log")
+    ax.plot(fpr2, tpr2, label="knn")    
+    ax.plot(fpr3, tpr3, label="rf")
+    ax.plot(fpr4, tpr4, label="xgb")
+    if svm_ornot==True:
+        ax.plot(fpr5, tpr5, label="svm")
+        
+    # othercurve
+    if othercurve is not False:
+        #　加入othercurve
+        pred_table = pd.concat([pred_table, othercurve], axis=1)
+        # 刪除以配置好欄位
+        pred_table = pred_table.drop(["log", "knn", "rf", "xgb", "svm"],axis=1)
+        
+        count = 0
+        for (i,j) in pred_table.columns:
+            count = count + 1
+            # 是偶數(避免重複)(因奇偶數同)
+            if count % 2 == 0:
+                fpr, tpr, thresholds = roc_curve(y_test, pred_table[i][1], pos_label=1)
+                ax.plot(fpr, tpr, label=i)
+
+    # design
+    ax.set_title("ROC curve(" + case + ")", fontproperties=font_title)
+    ax.set_xlabel("False Positive Rate", fontproperties=font_content)
+    ax.set_ylabel("True Positive Rate", fontproperties=font_content)
+    ax.legend(fontsize="xx-large", loc=4)
+    
+    plt.show()
+
+
+
+
+
+###### 模型v1_1 ######
+
+
+# import data
+train_v1 = pd.read_csv("train_cleaned_version1.csv", low_memory=False, index_col=0)
+test_v1 = pd.read_csv("test_cleaned_1.csv", low_memory=False, index_col=0)
+
+
+# 確認目前Y1比例
+train_v1["Y1"].value_counts()
+
+# Train test split
+X = train_v1.drop("Y1", axis=1)
+y = train_v1["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# v1_1模型配適
+fit_models(X_train, X_test, y_train, y_test, "v1_1")
+
+
+# 查看roc curve
+result1 = pd.read_csv("v1_1_prob.csv", header=[0, 1])
+draw_chart(result1, case="v1_1")
+
+
+# 繳交檔案
+# xgb_v1_1
+xgb_v1_1 = pickle.load(open("xgb_v1_1", 'rb'))
+xgb_v1_1_submission = xgb_v1_1.predict_proba(test_v1)[:, 1]
+submission_file = pd.DataFrame(test_v1.index, columns=["CUS_ID"])
+xgb_v1_1_submission = pd.DataFrame(xgb_v1_1_submission, columns=["Ypred"])
+xgb_v1_1_submission = pd.concat([submission_file, xgb_v1_1_submission], axis=1)
+xgb_v1_1_submission.to_csv("xgb_v1_1_submission.csv", index=False)
+
+
+
+# 繳交檔案
+# logmodel_v1_1
+logmodel_v1_1 = pickle.load(open("logmodel_v1_1", 'rb'))
+logmodel_v1_1_submission = logmodel_v1_1.predict_proba(test_v1)[:, 1]
+submission_file = pd.DataFrame(test_v1.index, columns=["CUS_ID"])
+logmodel_v1_1_submission = pd.DataFrame(logmodel_v1_1_submission, columns=["Ypred"])
+logmodel_v1_1_submission = pd.concat([submission_file, logmodel_v1_1_submission], axis=1)
+logmodel_v1_1_submission.to_csv("logmodel_v1_1_submission.csv", index=False)
+
+
+
+
+###### 模型v1_2 ######
+
+
+# import data
+train_v1_proc_tree = pd.read_csv("train_cleaned_version1_proc_tree.csv", low_memory=False, index_col=0)
+train_v1_proc_nontree = pd.read_csv("train_cleaned_version1_proc_nontree.csv", low_memory=False, index_col=0)
+
+
+
+### xgb_v1_2 ###
+
+# Train test split
+X = train_v1_proc_tree.drop("Y1", axis=1)
+y = train_v1_proc_tree["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# grid
+param_grid = {"learning_rate": [0.05, 0.10, 0.15, 0.20, 0.25] , 
+              "max_depth": [3, 5, 7, 9, 12], 
+              "min_child_weight": [1, 3], 
+              "gamma": [0.0, 0.1, 0.2], 
+              "colsample_bytree": [0.3, 0.5, 0.7, 1] }
+
+grid1 = GridSearchCV(XGBClassifier(), param_grid, verbose=5, scoring="roc_auc")
+grid1.fit(X_train, y_train)
+
+
+# 儲存模型
+filename = "xgb_v1_2"
+pickle.dump(grid1, open(filename, 'wb'))
+
+
+
+### logmodel_v1_2 ###
+
+# Train test split
+X = train_v1_proc_nontree.drop("Y1", axis=1)
+y = train_v1_proc_nontree["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# grid
+pipeline = Pipeline([
+                     ('classifier', LogisticRegression())
+                     ])
+parameters = {    
+              'classifier__penalty': [ 'l1', 'l2'],
+              'classifier__C': [0.01, 0.1, 1, 10]
+              }
+scoring = 'roc_auc'
+n_splits = 3
+cv = KFold(n_splits=n_splits, shuffle=True, random_state=123457)
+SearchCV = GridSearchCV(estimator=pipeline,
+                        param_grid=parameters,
+                        scoring=scoring, 
+                        cv=cv,
+                        return_train_score=True,
+                        verbose=1, 
+                        n_jobs=2)
+SearchCV.fit(X_train, y_train)
+
+
+# 儲存模型
+filename = 'logmodel_v1_2'
+pickle.dump(SearchCV, open(filename, 'wb'))
+
+
+
+
+###### 模型v1_3 ######
+
+
+# 僅做logistic regression
+
+# 使用重複抽樣演算法SMOTE
+sm = SMOTE(random_state=105, ratio=1.0)
+
+
+# import data
+train_v1_proc_nontree = pd.read_csv("train_cleaned_version1_proc_nontree.csv", low_memory=False, index_col=0)
+
+
+# Train test split
+X = train_v1_proc_nontree.drop("Y1", axis=1)
+y = train_v1_proc_nontree["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# 只由訓練資料產生虛擬樣本
+X_train, y_train = sm.fit_sample(X_train, y_train)
+
+
+# 因為sm演算法把X_train變成array了，所以要配適模型X_test也要換成array，才不會error
+X_test = np.array(X_test)
+
+
+# grid調參
+pipeline = Pipeline([
+                     ('classifier', LogisticRegression())
+                     ])
+parameters = {    
+              'classifier__penalty': [ 'l1', 'l2'],
+              'classifier__C': [0.01, 0.1, 1, 10]
+              }
+scoring = 'roc_auc'
+n_splits = 3
+cv = KFold(n_splits=n_splits, shuffle=True, random_state=123457)
+grid2 = GridSearchCV(estimator=pipeline,
+                        param_grid=parameters,
+                        scoring=scoring, 
+                        cv=cv,
+                        return_train_score=True,
+                        verbose=5, 
+                        n_jobs=2)
+grid2.fit(X_train, y_train)
+
+
+
+# 儲存模型
+filename = "logmodel_v1_3"
+pickle.dump(grid2, open(filename, 'wb'))
+
+
+
+# 提交檔案
+# import test data
+test_v1_proc_nontree = pd.read_csv("test_cleaned_version1_proc_nontree.csv", low_memory=False, index_col=0)
+# read model and submission_testset
+logmodel_v1_3 = pickle.load(open("logmodel_v1_3", 'rb'))
+logmodel_v1_3_submission = logmodel_v1_3.predict_proba(test_v1_proc_nontree)[:, 1]
+submission_file = pd.DataFrame(test_v1_proc_nontree.index, columns=["CUS_ID"])
+logmodel_v1_3_submission = pd.DataFrame(logmodel_v1_3_submission, columns=["Ypred"])
+logmodel_v1_3_submission = pd.concat([submission_file, logmodel_v1_3_submission], axis=1)
+logmodel_v1_3_submission.to_csv("logmodel_v1_3_submission.csv", index=False)
+
+
+
+
+
+###### 模型v1_4 ######
+
+
+# import train data
+train_v1_proc_tree = pd.read_csv("train_cleaned_version1_proc_tree.csv", low_memory=False, index_col=0)
+train_v1_proc_nontree = pd.read_csv("train_cleaned_version1_proc_nontree.csv", low_memory=False, index_col=0)
+
+# import test data
+test_v1_proc_tree = pd.read_csv("test_cleaned_version1_proc_tree.csv", low_memory=False, index_col=0)
+test_v1_proc_nontree = pd.read_csv("test_cleaned_version1_proc_nontree.csv", low_memory=False, index_col=0)
+
+
+
+###xgb_v1_4###
+
+# Train test split
+X = train_v1_proc_tree.drop("Y1", axis=1)
+y = train_v1_proc_tree["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# feature selection，使用github上WillKoehrsen提供的模組
+# https://github.com/WillKoehrsen/feature-selector
+fs = FeatureSelector(data = X_train, labels = y_train)
+fs.identify_collinear(correlation_threshold = 0.98)
+# zero importance feature
+fs.identify_zero_importance(task = 'classification', 
+                            eval_metric = 'auc', 
+                            n_iterations = 10, 
+                             early_stopping = True)
+# remove all 
+X_train = fs.remove(methods = 'all')
+
+
+# 對應調整X_test欄位
+X_test = X_test[X_train.columns]
+# 對應調整test欄位
+test_v1_proc_tree_selection = test_v1_proc_tree[X_train.columns]
+
+
+# grid
+param_grid = {"learning_rate": [0.05, 0.10, 0.15, 0.20, 0.25] , 
+              "max_depth": [3, 5, 7, 9, 12], 
+              "min_child_weight": [1, 3], 
+              "gamma": [0.0, 0.1, 0.2], 
+              "colsample_bytree": [0.3, 0.5, 0.7, 1] }
+grid3 = GridSearchCV(XGBClassifier(), param_grid, verbose=5, scoring="roc_auc")
+grid3.fit(X_train, y_train)
+
+
+# 儲存檔案
+filename = "xgb_v1_4"
+pickle.dump(grid3, open(filename, 'wb'))
+
+
+# Submission
+# read model and submission_testset
+xgb_v1_4 = pickle.load(open("xgb_v1_4", 'rb'))
+xgb_v1_4_submission = xgb_v1_4.predict_proba(test_v1_proc_tree_selection)[:, 1]
+submission_file = pd.DataFrame(test_v1_proc_tree_selection.index, columns=["CUS_ID"])
+xgb_v1_4_submission = pd.DataFrame(xgb_v1_4_submission, columns=["Ypred"])
+xgb_v1_4_submission = pd.concat([submission_file, xgb_v1_4_submission], axis=1)
+xgb_v1_4_submission.to_csv("xgb_v1_4_submission.csv", index=False)
+
+
+
+
+
+### logmodel_v1_4 ###
+
+
+X = train_v1_proc_nontree.drop("Y1", axis=1)
+y = train_v1_proc_nontree["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# feature selection，使用github上WillKoehrsen提供的模組
+# https://github.com/WillKoehrsen/feature-selector
+fs2 = FeatureSelector(data = X_train, labels = y_train)
+fs2.identify_collinear(correlation_threshold = 0.98)
+# zero importance feature
+fs2.identify_zero_importance(task = 'classification', 
+                            eval_metric = 'auc', 
+                            n_iterations = 10, 
+                             early_stopping = True)
+# remove all 
+X_train = fs2.remove(methods = 'all')
+
+
+# 對應調整X_test欄位
+X_test = X_test[X_train.columns]
+# 對應調整test欄位
+test_v1_proc_nontree_selection = test_v1_proc_nontree[X_train.columns]
+
+
+# grid
+pipeline = Pipeline([
+                     ('classifier', LogisticRegression())
+                     ])
+parameters = {    
+              'classifier__penalty': [ 'l1', 'l2'],
+              'classifier__C': [0.01, 0.1, 1, 10]
+              }
+scoring = 'roc_auc'
+n_splits = 3
+cv = KFold(n_splits=n_splits, shuffle=True, random_state=123457)
+grid4 = GridSearchCV(estimator=pipeline,
+                        param_grid=parameters,
+                        scoring=scoring, 
+                        cv=cv,
+                        return_train_score=True,
+                        verbose=5, 
+                        n_jobs=2)
+grid4.fit(X_train, y_train)
+
+
+filename = "logmodel_v1_4"
+pickle.dump(grid4, open(filename, 'wb'))
+
+
+# Submission
+logmodel_v1_4 = pickle.load(open("logmodel_v1_4", 'rb'))
+logmodel_v1_4_submission = logmodel_v1_4.predict_proba(test_v1_proc_nontree_selection)[:, 1]
+submission_file = pd.DataFrame(test_v1_proc_nontree_selection.index, columns=["CUS_ID"])
+logmodel_v1_4_submission = pd.DataFrame(logmodel_v1_4_submission, columns=["Ypred"])
+logmodel_v1_4_submission = pd.concat([submission_file, logmodel_v1_4_submission], axis=1)
+logmodel_v1_4_submission.to_csv("logmodel_v1_4_submission.csv", index=False)
+
+
+
+
+
+###### 模型v2_1 ######
+
+
+# import data
+train_v2 = pd.read_csv("train_cleaned_version2_proc_tree.csv", low_memory=False, index_col=0)
+test_v2 = pd.read_csv("test_cleaned_version2_proc_tree.csv", low_memory=False, index_col=0)
+
+
+# train_test split
+X = train_v2.drop("Y1", axis=1)
+y = train_v2["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# fit model
+fit_models(X_train, X_test, y_train, y_test, "v2_1")
+
+
+# roc curve
+result1 = pd.read_csv("v2_1_prob.csv", header=[0, 1])
+draw_chart(result1, case="v2_1")
+
+
+
+# Submission
+
+
+### xgb_v2_1 ###
+xgb_v2_1 = pickle.load(open("xgb_v2_1", 'rb'))
+xgb_v2_1_submission = xgb_v2_1.predict_proba(test_v2)[:, 1]
+submission_file = pd.DataFrame(test_v2.index, columns=["CUS_ID"])
+xgb_v2_1_submission = pd.DataFrame(xgb_v2_1_submission, columns=["Ypred"])
+xgb_v2_1_submission = pd.concat([submission_file, xgb_v2_1_submission], axis=1)
+xgb_v2_1_submission.to_csv("xgb_v2_1_submission.csv", index=False)
+
+
+### logmodel_v2_1 ###
+logmodel_v2_1 = pickle.load(open("logmodel_v2_1", 'rb'))
+logmodel_v2_1_submission = logmodel_v2_1.predict_proba(test_v2)[:, 1]
+submission_file = pd.DataFrame(test_v2.index, columns=["CUS_ID"])
+logmodel_v2_1_submission = pd.DataFrame(logmodel_v2_1_submission, columns=["Ypred"])
+logmodel_v2_1_submission = pd.concat([submission_file, logmodel_v2_1_submission], axis=1)
+logmodel_v2_1_submission.to_csv("logmodel_v2_1_submission.csv", index=False)
+
+
+
+
+###### 模型v2_2 ######
+
+
+# import data
+train_v2_proc_tree = pd.read_csv("train_cleaned_version2_proc_tree.csv", low_memory=False, index_col=0)
+
+
+# Train test split
+X = train_v2_proc_tree.drop("Y1", axis=1)
+y = train_v2_proc_tree["Y1"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42, stratify=y)
+
+
+# grid
+param_grid = {"learning_rate": [0.05, 0.10, 0.15, 0.20, 0.25] , 
+              "max_depth": [3, 5, 7, 9, 12], 
+              "min_child_weight": [1, 3], 
+              "gamma": [0.0, 0.1, 0.2], 
+              "colsample_bytree": [0.3, 0.5, 0.7, 1] }
+grid1 = GridSearchCV(XGBClassifier(), param_grid, verbose=5, scoring="roc_auc")
+grid1.fit(X_train, y_train)
+
+
+# 儲存模型
+filename = "xgb_v2_2"
+pickle.dump(grid1, open(filename, 'wb'))
+
+
+# submission
+test_v2_proc_tree = pd.read_csv("test_cleaned_version2_proc_tree.csv", low_memory=False, index_col=0)
+xgb_v2_2 = pickle.load(open("xgb_v2_2", 'rb'))
+xgb_v2_2_submission = xgb_v2_2.predict_proba(test_v2_proc_tree)[:, 1]
+submission_file = pd.DataFrame(test_v2_proc_tree.index, columns=["CUS_ID"])
+xgb_v2_2_submission = pd.DataFrame(xgb_v2_2_submission, columns=["Ypred"])
+xgb_v2_2_submission = pd.concat([submission_file, xgb_v2_2_submission], axis=1)
+xgb_v2_2_submission.to_csv("xgb_v2_2_submission.csv", index=False)
+
+
+
+
+
