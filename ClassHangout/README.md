@@ -47,8 +47,12 @@ With 79 explanatory variables describing (almost) every aspect of residential ho
 [Data Cleaning](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Data%20cleaning.ipynb)  
 [Further Process](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Further%20processing.ipynb)  
 [Hypertune](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Hypertune.ipynb)  
-[Stacking & Comparison of model performance](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Stacking%20%26%20Comparison%20of%20model%20performance.ipynb)
-
+[Stacking & Comparison of model performance](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Stacking%20%26%20Comparison%20of%20model%20performance.ipynb)  
+#  
+### Final Project  
+以2010-01-01 年至2018-12-31 之 S&P 500 指數的日資料(daily data) 為研究對象。以當日及過去30 日之每日(Open, High, Low, Close, Volume) 為特徵(features), 預測10 日後之Close。  
+[Note & Code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/final_project/Predicting%20Close%20of%20S%26P500.ipynb)
+#  
 
 
 
