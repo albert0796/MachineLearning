@@ -1,7 +1,7 @@
 # Table of Contents
-### Class Name: MACHINE LEARNING, DATA MINING & QUANTITATIVE FINANCE
-### Course Code: MDM64201, MDM64001 & MBM66901
-### Instructor: LEECHIA-JUNG & CHANG, YI-PING
+### Class Name: MACHINE LEARNING, DATA MINING and QUANTITATIVE FINANCE
+### Course Code: MDM64201, MDM64001 and MBM66901
+### Instructor: LEECHIA-JUNG and CHANG, YI-PING
 #  
 ### Hangout & Code
 1. EDA  
