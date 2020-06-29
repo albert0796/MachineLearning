@@ -9,6 +9,7 @@ In order to solve the problem, this paper aims to evaluate the success rate and 
   
 Stacking, one of ensemble methods in machine learning, is employed to predict the success rate and the final pledge amount of a launched project. Ensemble learning techniques aim to combine the prediction of the different classifiers to generate a final hypothesis, typically by voting, averaging or using a meta-level-classifier (Sikora, Riyaz and Al-laymoun, O'la Hmoud, 2014). Ensemble methods are usually used to overcome three types of problems which are suffered from base learning algorithms: the statistical problem; the computational problem; and the representational problem (Thomas G. Dietterich, 2000). Experimental evidence in Freund and Schapire (1996) and other studies summarized in Dietterich (1997) have shown that ensemble methods are often much more accurate than any base learning algorithms (M.A. Arbib, Ed., 2002). 
 #  
+### Outline  
 ABSTRACT  
   
 I.	INTRODUCTION  
