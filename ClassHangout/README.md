@@ -5,40 +5,40 @@
 #  
 ### Hangout & Code
 1. EDA  
-* [learning note & code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/EDA/code)  
+* [learning note & code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/EDA/code/EDA.ipynb)  
 2. Bayesian  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/bayesian/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/bayesian/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/bayesian/note/note_bayesian.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/bayesian/code/Naive%20Bayes.ipynb)  
 3. Clustering  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/clustering/note)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/clustering/note/note.pdf)  
 * [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/clustering/code)  
 4. Decision Tree  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/decision_tree/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/decision_tree/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/decision_tree/note/note_dtree.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/decision_tree/code/Decision%20Tree.ipynb)  
 5. Dimension Reduction  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/dimension_reduction/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/dimension_reduction/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/dimension_reduction/note/note_dimensionReduction.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/dimension_reduction/code/Dimension%20Reduction.ipynb)  
 6. Ensemble  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/ensemble/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/ensemble/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/ensemble/note/ensemble.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/ensemble/code/ensemble.ipynb)  
 7. KNN  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/knn/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/knn/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/knn/note/note_knn.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/knn/code/knn.ipynb)  
 8. Logistic Regression  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/logistic_regression/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/logistic_regression/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/logistic_regression/note/note.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/logistic_regression/code/logistic_regression.ipynb)  
 9. Neural Network  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/neural_network/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/neural_network/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/neural_network/note/note_NN.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/neural_network/code/Neural%20Network.ipynb)  
 10. Regression  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/regression/note)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/regression/note/regression.pdf)  
 * [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/regression/code)  
 11. SVM  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/svm/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/svm/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/svm/note/svm.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/svm/code/svm.ipynb)  
 12. Validation  
-* [learning note](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/validation/note)  
-* [code](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout/validation/code)  
+* [learning note](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/validation/note/validation.pdf)  
+* [code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/validation/code/validation.ipynb)  
 #  
 ### Kaggle
 * House Prices: Advanced Regression Techniques  
