@@ -2,6 +2,8 @@
 ### Lead Author: CHENG-HEN, WU
 ### Thesis Advisor: FU-MING, HUANG Ph.D
 #  
+### Status of Paper: Unfinished
+#  
 ### Abstract  
 Crowdfunding tends to be more successful and become a popular method for investment, seed money and start-up funding (Tomczak, A., & Brem, A., 2013). The number of projects in 2015 was over 80 times as much as in 2009; the total amount pledged had also grown from 1.6 million to more than 600 million US dollars in the same period (icopartners.com; Kickstarter in 2015–Review in numbers, 2016). Despite the popularity of crowdfunding, however, many projects could not reach their funding goals within the prescribed period. The statistics shows that there are only one-third of projects successfully funded on average. In 2015, only 27.19% of projects met their goals (icopartners.com; Kickstarter in 2017 – Year in review, 2018). Even if crowdfunding benefits entrepreneurs with a more efficient method to collect start-up funding and provides an investment opportunity for investors, there are also some obstacles preventing fundraisers and investors from making a deal. 
   
