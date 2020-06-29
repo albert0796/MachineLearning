@@ -1,6 +1,6 @@
 # 2019 國泰大數據競賽
 ### 作者: 吳政翰、周柏佳、林晉同
-### 指導者: 黃福銘 助理教授
+### 指導者: 黃福銘 博士
 ### 主辦單位: [國泰產險](https://tbrain.trendmicro.com.tw/Competitions/Details/7)
 #  
 ### [詳見完整報告](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/report/IF_%E5%88%86%E6%9E%90%E8%AA%AA%E6%98%8E%E6%9B%B8.pdf)
