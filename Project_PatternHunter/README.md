@@ -1,4 +1,5 @@
 # Pattern Hunter
+### 作者: 吳政翰
 ### 指導者: 蔡芸琤 助理教授、陳俊豪 博士生
 #  
 ### [詳見完整報告](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Report/%E5%A0%B1%E5%91%8A%E8%AA%AA%E6%98%8E%E6%9B%B8.pdf)
