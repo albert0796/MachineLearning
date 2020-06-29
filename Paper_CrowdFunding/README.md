@@ -35,4 +35,9 @@ V.	CONCLUSION AND FUTURE WORK
   
 ACKNOWLEDGMENT  
   
-REFERENCES  
+REFERENCES   
+#  
+### [Full Paper](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/paper/%E7%BE%A4%E7%A8%AE%E5%8B%9F%E8%B3%87%E8%AB%96%E6%96%87.docx)
+#  
+### [Code](https://github.com/albert0796/MachineLearning/tree/master/Paper_CrowdFunding/code)
+#  
