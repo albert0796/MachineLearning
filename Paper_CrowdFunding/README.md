@@ -8,3 +8,30 @@ Crowdfunding tends to be more successful and become a popular method for investm
 In order to solve the problem, this paper aims to evaluate the success rate and the final pledge amount of a launched project at the early stage. Through evaluating the success rate of a project at the early stage, backers can foresee which projects have higher probability to succeed and avoid wasting their money on a project with a highly failed rate. On the other hand, fundraisers also can examine a project with a highly failed rate and improve its quality as soon as possible. Moreover, with the predicted final pledge amount of a project, fundraisers will have more insight into the value of their projects. Fundraisers will know how much the predicted pledge amount higher than the funding goal they set. If the predicted pledge amount of a project is much higher than the funding goal, a project is likely popular with the market, and it is worthy for fundraisers to put resources into project development. On the other hand, if the predicted pledge amount of a project is near the funding goal, fundraisers will still have some rooms to improve their projects.  
   
 Stacking, one of ensemble methods in machine learning, is employed to predict the success rate and the final pledge amount of a launched project. Ensemble learning techniques aim to combine the prediction of the different classifiers to generate a final hypothesis, typically by voting, averaging or using a meta-level-classifier (Sikora, Riyaz and Al-laymoun, O'la Hmoud, 2014). Ensemble methods are usually used to overcome three types of problems which are suffered from base learning algorithms: the statistical problem; the computational problem; and the representational problem (Thomas G. Dietterich, 2000). Experimental evidence in Freund and Schapire (1996) and other studies summarized in Dietterich (1997) have shown that ensemble methods are often much more accurate than any base learning algorithms (M.A. Arbib, Ed., 2002). 
+#  
+ABSTRACT  
+  
+I.	INTRODUCTION  
+A.	Background  
+B.	Brief History  
+C.	Structure of Crowdfunding  
+D.	Motivation and Purpose  
+  
+II.	LITERATURE REVIEW  
+  
+III.	METHODOLOGY  
+A.	Data Collection  
+B.	Exploratory Data Analysis  
+C.	Model Construction  
+  
+IV.	EXPERIMENTS AND RESULTS  
+A.	Parameters Tuning  
+B.	Stacking  
+C.	Comparison of Different Algorithms  
+D.	Discussion  
+  
+V.	CONCLUSION AND FUTURE WORK  
+  
+ACKNOWLEDGMENT  
+  
+REFERENCES  
