@@ -12,8 +12,8 @@
 ### 程式碼  
 * [所有流程markdown檔](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Pattern%20Hunter%20%E5%90%B3%E6%94%BF%E7%BF%B0.ipynb)
 * [Main檔](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Main.py)  
-[歷史資料Api](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Api_history.py)  
+[歷史資料導入](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Api_history.py)  
 [交易訊號偵測](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Signal2.py)  
 [GAF轉換](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/util_gasf.py)  
 [CNN建模](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/util_gasf.py)  
-[即時資料Api](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Api_realtime.py)  
+[即時資料串流](https://github.com/albert0796/MachineLearning/blob/master/Project_PatternHunter/Code/Api_realtime.py)  
