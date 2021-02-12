@@ -2,6 +2,8 @@
 
 Cheng-han Wu, Jun-Hao Chen, Samuel Yen-Chi Chen and Yun-Cheng Tsai
 
+## Status: This paper has been submitted to the International Joint Conference on Neural Networks (IJCNN). Its permission has not been made public.
+
 ## Results
 - Successful attacking rate for a model trained by method 1 & 2
 
