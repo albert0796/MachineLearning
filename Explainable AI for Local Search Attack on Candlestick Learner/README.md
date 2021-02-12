@@ -6,7 +6,7 @@ Cheng-han Wu, Jun-Hao Chen, Samuel Yen-Chi Chen and Yun-Cheng Tsai
 - Successful attacking rate for a model trained by method 1 & 2
 
 #### Method 1: No limitation of perturbation
-| Label  | $8^{th}$ | $9^{th}$ | $10^{th}$ (\%) |
+| Label  | 8th | 9th | 10th(\%) |
 | ------------- | ------------- | ------------- | ------------- |
 | 1  | 9.7 | 33.8 | 28.4 |
 | 2  | 56.1 | 47.0 | 8.4 |
@@ -18,7 +18,7 @@ Cheng-han Wu, Jun-Hao Chen, Samuel Yen-Chi Chen and Yun-Cheng Tsai
 | 8  | 8.1 | 88.1 | 7.8 |
 
 #### Method 2: limitation of perturbation on the Last Three Candlesticks
-| Label  | $8^{th}$ | $9^{th}$ | $10^{th}$ (\%) |
+| Label  | 8th | 9th | 10th(\%) |
 | ------------- | ------------- | ------------- | ------------- |
 | 1  | 10.8 | 53.9 | 58.7 |
 | 2  | 85.0 | 49.1 | 3.7 |
