@@ -1,9 +1,9 @@
 # Table of Contents
 ### 詳細內容將於每個檔案夾中進行說明。 
 #  
-### 1. [Explainable AI for Local Search Attack on Candlestick Learner](https://github.com/albert0796/MachineLearning/tree/master/Explainable%20AI%20for%20Local%20Search%20Attack%20on%20Candlestick%20Learner)
-The study researchs in the field of explainable artificial intelligence (XAI). This study aims to explore the black box of deep learning models, enhance their explainability and force the model to learn human domains. It has been submitted to the International Joint Conference on Neural Networks (IJCNN).
-# 
+### 1. Explainable AI for Candlestick Recognition
+A study in the field of explainable artificial intelligence (XAI). This study aims to explore the black box of deep learning models, enhance their explainability and force the model to learn human domains. The technique involves the design of algorithm, adversarial attack, deep learning modeling, time series encoding, etc.  The paper of this study has been submitted to the International Joint Conference on Neural Networks (IJCNN). Given the submission to the conference, the paper has not yet been made public until getting further results.
+#
 ### 2. [ClassHangout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
 該課堂筆記包含東吳大學巨量資料管理學院碩士班機器學習與資料探勘兩門課以及東吳大學財務工程與精算數學系碩士班計量財務的課程、作業與學期報告內容。裡頭詳細記錄多種機器學習理論與實務內容，並包含參與kaggle比賽時如何將所學的機器學習技術運用於實際問題的紀錄報告。
 #  
