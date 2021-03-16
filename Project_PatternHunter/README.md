@@ -1,4 +1,4 @@
-# Pattern Hunter
+# Deep Learning-Based Candlestick Pattern Recognition
 ### 作者: 吳政翰
 ### 指導者: 蔡芸琤 助理教授、陳俊豪 博士生
 #  
