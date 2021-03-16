@@ -7,7 +7,7 @@ A study in the field of explainable artificial intelligence (XAI). This study ai
 ### 2. [ClassHangout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
 該課堂筆記包含東吳大學巨量資料管理學院碩士班機器學習與資料探勘兩門課以及東吳大學財務工程與精算數學系碩士班計量財務的課程、作業與學期報告內容。裡頭詳細記錄多種機器學習理論與實務內容，並包含參與kaggle比賽時如何將所學的機器學習技術運用於實際問題的紀錄報告。
 #  
-### 3. [PatternHunter](https://github.com/albert0796/MachineLearning/tree/master/Project_PatternHunter)
+### 3. [Deep Learning-Based Candlestick Pattern Recognition](https://github.com/albert0796/MachineLearning/tree/master/Project_PatternHunter)
 交易訊號偵測與推薦系統。該系統串流了某個時間尺度的標的資產，並使用深度學習影像辨識的方式，按該時間尺度的頻率偵測標的資產在形態學上交易訊號，如在某區段偵測出符合形態學上交易訊號，系統則會將該訊號提供給投資人作為買賣判斷的依據。
 #  
 ### 4. [TaiwanDeepTravel](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel)
