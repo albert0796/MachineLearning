@@ -1,1 +1,1 @@
-
+A study in the field of explainable artificial intelligence (XAI). This study aims to examine the black box of deep learning models, improve their explainability and make the model learn human domain knowledge. The technique involves the design of algorithm, adversarial attack, deep learning modeling, time series encoding, etc. The paper of this study has been submitted to the International Joint Conference on Neural Networks (IJCNN). Given the submission to the conference, the paper has not yet been made public until getting further results.
