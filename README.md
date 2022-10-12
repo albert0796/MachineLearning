@@ -2,7 +2,8 @@
 ### 詳細內容將於每個檔案夾中進行說明。 
 #  
 ### 1. [Explainable AI for Candlestick Recognition](https://ieeexplore.ieee.org/document/9727231?fbclid=IwAR3doeRuCKiY19_yQbSFqeiKBnurg4n1eK9tPEETEpiCXp2kolE1hYB-I7M)
-[github](https://github.com/pecu/FinancialVision/tree/master/Explainable%20Digital%20Currency%20Candlestick%20Pattern%20AI%20Learner)
+[github]   
+(https://github.com/pecu/FinancialVision/tree/master/Explainable%20Digital%20Currency%20Candlestick%20Pattern%20AI%20Learner)
 A study in the field of explainable artificial intelligence (XAI). This study aims to examine the black box of deep learning models, improve their explainability and make the model learn human domain knowledge. The technique involves the design of algorithm, adversarial attack, deep learning modeling, time series encoding, etc.  The paper has been published in the 2022 14th International Conference on Knowledge and Smart Technology (KST).
 #
 ### 2. [ClassHangout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
