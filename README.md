@@ -6,7 +6,7 @@
    
 A study in the field of explainable artificial intelligence (XAI). This study aims to examine the black box of deep learning models, improve their explainability and make the model learn human domain knowledge. The technique involves the design of algorithm, adversarial attack, deep learning modeling, time series encoding, etc.  The paper has been published in the 2022 14th International Conference on Knowledge and Smart Technology (KST).
 #
-### 2. [ClassHangout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
+### 2. [Machine Learning Hangout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
 該課堂筆記包含東吳大學巨量資料管理學院碩士班機器學習與資料探勘兩門課以及東吳大學財務工程與精算數學系碩士班計量財務的課程、作業與學期報告內容。裡頭詳細記錄多種機器學習理論與實務內容，並包含參與kaggle比賽時如何將所學的機器學習技術運用於實際問題的紀錄報告。
 #  
 ### 3. [Deep Learning-Based Candlestick Pattern Recognition](https://github.com/albert0796/MachineLearning/tree/master/Project_PatternHunter)
