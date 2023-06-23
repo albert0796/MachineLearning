@@ -1,29 +1,29 @@
 # Taiwan Deep Travel
-### 作品名稱: 深度學習為基礎的台灣旅遊景點推薦 APP
-### 作者: 吳政翰、李奇
-### 指導者: 張揖平 教授
+### Project Title: Deep Learning-Based Taiwan Travel Destination
+### Presenters: Cheng-Han Wu, Chi Li
+### Advisor: Dr. Yi-Ping Chang
 #  
-### [詳見完整報告](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%AB%B6%E8%B3%BD%E6%88%90%E6%9E%9C%E8%AA%AA%E6%98%8E%E6%9B%B8.docx)
+### [Project Description](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%AB%B6%E8%B3%BD%E6%88%90%E6%9E%9C%E8%AA%AA%E6%98%8E%E6%9B%B8.docx)
 ### 欲解決之問題與重要性  
-台灣富有優美的自然與人文場景，期望藉由旅遊推薦系統推廣台灣景點，提供貼近國內外遊客需求的旅遊資訊。此外，現代人生活忙碌，鮮少有時間搜尋旅遊資訊，倘若用戶能輸入感興趣的景點的影像至手機 APP，APP 就能推薦用戶可能喜歡的旅遊景點，將節省用戶上網查搜查資訊的時間。本 APP 包含兩種載入影像至模型的方式:  A. 從手機裝置的圖庫 (library) 中上傳一張感興趣的景點影像。B. 即時透過手機 APP 的相機功能拍攝景點影像並載入模型。本系統將即時透過深度學習影像辨識技術辨識出影像中多個場景，並依該場景推薦出與其相似的台灣旅遊景點影像，並附加該景點的詳細資訊。  
+Taiwan is blessed with beautiful natural and cultural landscapes, and there is a desire to promote Taiwanese attractions through a travel recommendation system that provides travel information tailored to the needs of domestic and international tourists. Additionally, modern life is busy, and people have limited time to search for travel information. If users can input images of their interested destinations into a mobile app, the app can recommend travel destinations that they might like, saving them the time of searching for information online. This app includes two ways of loading images into the model: A. Uploading an image of an interested destination from the device's photo library. B. Instantly capturing images of destinations through the camera function of the mobile app and loading them into the model. The system will utilize deep learning image recognition technology to recognize multiple scenes in real-time and recommend Taiwan travel destination images that are like the recognized scenes, along with detailed information about those destinations.
   
-有別於市面上的旅遊推薦系統 APP，影像辨識為基礎的旅遊景點推薦系統的優勢與特點如下：  
-* 市面上的旅遊推薦系統缺失：大多是讓用戶以關鍵字或標籤搜尋的方式尋求偏好的景點，然而用戶卻很難以有限的文字與標籤去描述心中理想的景點，導致系統推薦的景點往往不夠精準或過於廣泛，對於用戶而言較缺乏參考價值。  
-* 精準滿足用戶需求：以影像進行搜尋與推薦這種「以圖搜圖」的方式更能精準滿足用戶需求。原因在於影像能融合多項特徵，用戶不須繁瑣地輸入每項特徵於系統尋求推薦；再者，用戶往往很難用文字去形容心中理想的場景，因此以影像的表達方式將能更貼近用戶的初衷，系統所推薦的景點也能更精準符合用戶需求。
-* 著重於旅遊景點的推薦：影像辨識為基礎的旅遊景點推薦系統會著重於推薦旅遊景點，而非其他不涉及視覺欣賞的觀光體驗。然而對於富含優美自然與人文景點的台灣來說，風景欣賞本身就是台灣旅遊的一大賣點，因此該推薦系統仍具有市場價值。
-* 便捷的用戶體驗：鑒於行動裝置的普及，以 APP 的開發形式將能提供更便捷的用戶體驗，其中用戶還能隨手透過推薦系統內的相機功能拍攝周遭感興趣的景點，系統會依照片中的場景推薦出與其相似的台灣旅遊景點影像和資訊。
+Contrasting with existing travel recommendation apps on the market, the advantages and features of an image-based travel destination recommendation system are as follows:  
+* Shortcomings of current travel recommendation systems: Most systems rely on users searching for preferred destinations using keywords or tags. However, it can be challenging for users to accurately describe their ideal destinations with limited text and tags, resulting in less precise or overly broad recommendations from the system, which may lack value for users as a reference.
+* Precisely meeting user needs: Searching and recommending destinations using images, a "search by image" approach, allows for more precise fulfillment of user needs. Images can capture multiple features, eliminating the need for users to input each feature separately for the system to provide recommendations. Moreover, users often struggle to express their ideal scenes in words, making image-based recommendations more aligned with their intentions and better suited to meeting their specific requirements.
+* Focus on travel destination recommendations: An image-based travel destination recommendation system places emphasis on recommending travel destinations rather than other non-visual tourist experiences. However, for Taiwan, with its abundance of beautiful natural and cultural attractions, scenic appreciation itself is a significant selling point for travel. Therefore, such a recommendation system still holds market value.
+* Convenient user experience: With the widespread use of mobile devices, developing an app offers a more convenient user experience. Users can easily capture images of their surroundings using the camera function within the recommendation system, allowing the system to recommend Taiwan travel destination images and information that are like the scenes captured in the photos.
 #  
-### 實機展示  
-* [DEMO影片_匯入圖片尋求推薦.mp4](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/Open%20Data%20DEMO%E5%BD%B1%E7%89%87_%E5%9C%96%E5%BA%AB.mp4)
-* [DEMO影片_拍攝照片尋求推薦.mp4](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/Open%20Data%20DEMO%E5%BD%B1%E7%89%87_%E7%9B%B8%E6%A9%9F.mp4)
+### Demo  
+* [Load an image from the phone's gallery.mp4](https://drive.google.com/file/d/16DuFaOIqSuNrurp-YuRIeEox0RovTAsu/view?usp=drive_link)
+* [Capture a photo using the phone.mp4](https://drive.google.com/file/d/12ung4JtLvhvXcfwixREoYPGcFk2teay4/view?usp=drive_link)
 #  
 ### 獲獎紀錄  
-該作品參與了於2018年東吳大學主辦的[全國大專院校Open Data人工智能競賽](http://bigdata.scu.edu.tw/aiads2018/)，獲得[第一名](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%8D%8E%E7%8B%80.png)的佳績。
+This project won the [championship](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%8D%8E%E7%8B%80.png) in [the National College Open Data Artificial Intelligence Competition](http://bigdata.scu.edu.tw/aiads2018/)
 #  
 ### 程式碼
-[Open Data 圖片轉 224x224](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/Open%20Data%20%E5%9C%96%E7%89%87%E8%BD%89%20224x224)  
-[訓練和驗證資料預處理](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E8%A8%93%E7%B7%B4%E5%92%8C%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99%E9%A0%90%E8%99%95%E7%90%86)  
-[擴增驗證資料](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%93%B4%E5%A2%9E%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99)  
-[模型訓練](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4)  
-[模型轉Core ML](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%A8%A1%E5%9E%8B%E8%BD%89Core%20ML)  
-[餘弦相似度印出最相似的前五個景點](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E9%A4%98%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%8D%B0%E5%87%BA%E6%9C%80%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%89%8D%E4%BA%94%E5%80%8B%E6%99%AF%E9%BB%9E)  
+[Open Data Image Conversion 224x224](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/Open%20Data%20%E5%9C%96%E7%89%87%E8%BD%89%20224x224)  
+[Traning and Validation Data Preprocessing](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E8%A8%93%E7%B7%B4%E5%92%8C%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99%E9%A0%90%E8%99%95%E7%90%86)  
+[Testing Data Augmentation](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%93%B4%E5%A2%9E%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99)  
+[Model Training](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4)  
+[Convert the Model's Code To Core ML](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%A8%A1%E5%9E%8B%E8%BD%89Core%20ML)  
+[Recommendation System: Using Cosine Similarity to Recommend the Top 5 Attraction](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E9%A4%98%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%8D%B0%E5%87%BA%E6%9C%80%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%89%8D%E4%BA%94%E5%80%8B%E6%99%AF%E9%BB%9E)  
