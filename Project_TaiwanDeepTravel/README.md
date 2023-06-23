@@ -4,7 +4,7 @@
 ### Advisor: Dr. Yi-Ping Chang
 #  
 ### [Project Description](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%AB%B6%E8%B3%BD%E6%88%90%E6%9E%9C%E8%AA%AA%E6%98%8E%E6%9B%B8.docx)
-### 欲解決之問題與重要性  
+### Problem Definition
 Taiwan is blessed with beautiful natural and cultural landscapes, and there is a desire to promote Taiwanese attractions through a travel recommendation system that provides travel information tailored to the needs of domestic and international tourists. Additionally, modern life is busy, and people have limited time to search for travel information. If users can input images of their interested destinations into a mobile app, the app can recommend travel destinations that they might like, saving them the time of searching for information online. This app includes two ways of loading images into the model: A. Uploading an image of an interested destination from the device's photo library. B. Instantly capturing images of destinations through the camera function of the mobile app and loading them into the model. The system will utilize deep learning image recognition technology to recognize multiple scenes in real-time and recommend Taiwan travel destination images that are like the recognized scenes, along with detailed information about those destinations.
   
 Contrasting with existing travel recommendation apps on the market, the advantages and features of an image-based travel destination recommendation system are as follows:  
