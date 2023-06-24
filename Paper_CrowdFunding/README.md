@@ -8,34 +8,3 @@ Many crowdfunding projects could not reach their funding goals. The statistics s
 To predict the success status and the final pledge amount of a launched project, I apply a machine learning method, Stacking, to make prediction. It is an Ensemble Learning technique typically by voting, averaging or using a meta-level-classifier (Sikora, Riyaz and Al-laymoun, O'la Hmoud, 2014). It can be used to overcome three types of problems which are suffered from base learning algorithms: the statistical problem; the computational problem; and the representational problem (Thomas G. Dietterich, 2000). Experimental evidence in Freund and Schapire (1996) and other studies summarized in Dietterich (1997) have shown that ensemble methods are often much more accurate than any base learning algorithms (M.A. Arbib, Ed., 2002).
 #  
 ### Outline  
-ABSTRACT  
-  
-I.	INTRODUCTION  
-A.	Background  
-B.	Brief History  
-C.	Structure of Crowdfunding  
-D.	Motivation and Purpose  
-  
-II.	LITERATURE REVIEW  
-  
-III.	METHODOLOGY  
-A.	Data Collection  
-B.	Exploratory Data Analysis  
-C.	Model Construction  
-  
-IV.	EXPERIMENTS AND RESULTS  
-A.	Parameters Tuning  
-B.	Stacking  
-C.	Comparison of Different Algorithms  
-D.	Discussion  
-  
-V.	CONCLUSION AND FUTURE WORK  
-  
-ACKNOWLEDGMENT  
-  
-REFERENCES   
-#  
-### [Full Paper](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/paper/%E7%BE%A4%E7%A8%AE%E5%8B%9F%E8%B3%87%E8%AB%96%E6%96%87.docx)
-#  
-### [Code](https://github.com/albert0796/MachineLearning/tree/master/Paper_CrowdFunding/code)
-#  
