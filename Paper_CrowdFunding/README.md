@@ -92,5 +92,15 @@ I independently train the 7 based models with hyper-tuning and compare the perfo
 | Neural Networking |0.6032 |
 | SVM | 0.5412 |
 | Logistic Regression | 0.5093 |
+#
+### Code
+#### Ensemble Model
+[Success Status](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/ensemble_status.ipynb)、
+[Pledge Amount](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/ensemble_status.ipynb)
+#### Hype-tuning
+[Success Status](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/hypertune_status.ipynb)、
+[Pledge Amount](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/hypertune_status.ipynb)
+
+
 
 
