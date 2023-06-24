@@ -65,7 +65,7 @@ Split the original dataset into two datasets used for training and testing the m
 I build the Stacking, which consists of 7 different base models, without hyper-tuning, and a meta-model that combines the predictions of the base models. The base models include the Decision Tree, Random Forest, AdaBoost, Logistic Regression, SVM, Neural Network and XGBoost, and the meta-model applies the Lasso Regression. Each base model will make the prediction from the training data, and those output will be used as the new training set for the meta model and make the final prediction. After the training of the Stacking model, the testing dataset will be used to test the performance of the Stacking model. Furthermore, I also respectively train those 7 based models with hyper-tuning and compare the performance of those 7 models and the Stacking models. 
 
 <p align="left">
-  <img src="https://github.com/albert0796/MachineLearning/edit/master/Paper_CrowdFunding/README.md">
+  <img src="https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/ensemble.png">
 <p>
 
 
