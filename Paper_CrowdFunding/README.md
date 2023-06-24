@@ -59,20 +59,38 @@ Failed Projects under the Category of Education
 
 #
 ### Methodology
+The target variables are the success status and the final pledge amount of a launched project, and the predictor variables include four features that are project category, project currency, number of backers and amount of goal. 
 #### 1. Train Test Spliting
-Split the original dataset into two datasets used for training and testing the model. The training dataset accounts for 70% of the original datasets and the other 30% ones are used for testing. The target variables are the success status and the final pledge amount of a launched project, and the predictor variables include four features that are project category, project currency, number of backers and amount of goal. 
+Split the original dataset into two datasets used for training and testing the model. The training dataset accounts for 70% of the original datasets and the other 30% ones are used for testing. 
 #### 2. Model Construction
 I build the Stacking, which consists of 7 different base models, without hyper-tuning, and a meta-model that combines the predictions of the base models. The base models include the Decision Tree, Random Forest, AdaBoost, Logistic Regression, SVM, Neural Network and XGBoost, and the meta-model applies the Lasso Regression. Each base model will make the prediction from the training data, and those output will be used as the new training set for the meta model and make the final prediction. After the training of the Stacking model, the testing dataset will be used to test the performance of the Stacking model. Furthermore, I also respectively train those 7 based models with hyper-tuning and compare the performance of those 7 models and the Stacking models. 
-
 <p align="left">
   <img src="https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/stacking.png">
 <p>
-
-
-
-
-
-
-
+  
+### Evaluation
+I independently train the 7 based models with hyper-tuning and compare the performance of those 7 models and the Stacking models.
+#### Success Status
+| Model | AUC |
+| :----:| :----: |
+| Ensemble | 0.9803 |
+| XGBoost | 0.9701 |
+| AdaBoost | 0.9603 |
+| Decision Tree | 0.9601 |
+| Random Forest | 0.9505 |
+| SVM | 0.9499 |
+| Logistic Regression | 0.9498 |
+| Neural Networking | 0.948 |
+#### Final Pledge Amount of a Launched Project
+| Model | $R^{2}$ |
+| :----: | :----: |
+| XGBoost | 0.7875 |
+| Ensemble | 0.7852 |
+| Random Forest | 0.7535 |
+| Decision Tree | 0.6378 |
+| AdaBoost | 0.6105 |
+| Neural Networking |0.6032 |
+| SVM | 0.5412 |
+| Logistic Regression | 0.5093 |
 
 
