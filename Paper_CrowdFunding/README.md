@@ -7,4 +7,11 @@ Many crowdfunding projects could not reach their funding goals. The statistics s
   
 To predict the success status and the final pledge amount of a launched project, I apply a machine learning method, Stacking, to make prediction. It is an Ensemble Learning technique typically by voting, averaging or using a meta-level-classifier (Sikora, Riyaz and Al-laymoun, O'la Hmoud, 2014). It can be used to overcome three types of problems which are suffered from base learning algorithms: the statistical problem; the computational problem; and the representational problem (Thomas G. Dietterich, 2000). Experimental evidence in Freund and Schapire (1996) and other studies summarized in Dietterich (1997) have shown that ensemble methods are often much more accurate than any base learning algorithms (M.A. Arbib, Ed., 2002).
 #  
-### Outline  
+### Dataset
+The records respectively from Kickstarter and Indeigogo occupy 55.89% and 44.11% of the whole dataset. The number of successful projects is accounting for 36.02% of total projects while the number of failed projects is around 63.98% of total projects. The average amount of pledge is 11900 US dollars, the average amount of goal is 31500 US dollars. There are six columns for each project in the dataset, which are status, category, location, backers, goal_usd and pledge_usd. TABLE I and TABLE II describe detailed data information.
+TABLE I. DATA TYPE AND DESCRIPTION OF EACH COLUMN
+<p align="left">
+  <img src="[https://github.com/pecu/FinancialVision/blob/master/Explainable%20Digital%20Currency%20Candlestick%20Pattern%20AI%20Learner/images/Attacking%20Result%20of%20the%20Original%20Model.png](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/DATA%20TYPE%20AND%20DESCRIPTION%20OF%20EACH%20COLUMN.png)https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/DATA%20TYPE%20AND%20DESCRIPTION%20OF%20EACH%20COLUMN.png" width = "200" height = "100">
+<p>
+
+
