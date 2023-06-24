@@ -19,6 +19,9 @@ TABLE II. DESCRIPTIVE STATISTICS OF DATA COLUMNS
 <p align="left">
   <img src="https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/TABLE%20II.%20DESCRIPTIVE%20STATISTICS%20OF%20DATA%20COLUMNS.png">
 <p>
+#
+
+
 
 
 
