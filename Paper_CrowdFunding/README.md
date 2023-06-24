@@ -11,7 +11,7 @@ To predict the success status and the final pledge amount of a launched project,
 The records respectively from Kickstarter and Indeigogo occupy 55.89% and 44.11% of the whole dataset. The number of successful projects is accounting for 36.02% of total projects while the number of failed projects is around 63.98% of total projects. The average amount of pledge is 11900 US dollars, the average amount of goal is 31500 US dollars. There are six columns for each project in the dataset, which are status, category, location, backers, goal_usd and pledge_usd. TABLE I and TABLE II describe detailed data information.
 TABLE I. DATA TYPE AND DESCRIPTION OF EACH COLUMN
 <p align="left">
-  <img src="https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/DATA%20TYPE%20AND%20DESCRIPTION%20OF%20EACH%20COLUMN.png" width = "300" height = "100">
+  <img src="https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/data/DATA%20TYPE%20AND%20DESCRIPTION%20OF%20EACH%20COLUMN.png" width = "150" height = "50">
 <p>
 
 
