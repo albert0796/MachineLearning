@@ -69,7 +69,7 @@ I build the Stacking, which consists of 7 different base models, without hyper-t
 <p>
   
 ### Evaluation
-I independently train the 7 based models with hyper-tuning and compare the performance of those 7 models and the Stacking models.
+I independently train the 7 based models with hyper-tuning and compare the performance of those 7 models and the Stacking model.
 #### Success Status
 | Model | AUC |
 | :----:| :----: |
