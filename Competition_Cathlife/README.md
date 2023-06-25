@@ -11,7 +11,10 @@ The project aim to utilize customers' historical data to predict whether existin
 #
 ### EDA, Exploratory Data Analysis
 #### Dataset Description
-The official dataset provided includes two types: Train and Test, as shown in Table 1.
+The official dataset provided includes two types: Train and Test. Training dataset contains the number of 100000 data points and the number of 131 feature columns. Testing dataset contains the number of 150000 data points and the number of 130 feature columns.
+### Y field (dependent variable)
+The Y1 field means whether customers will purchase the insurance. Its value has only two categories: Y, N. The Y-value represents customers who have purchased the insurance, totaling 2000 data points, while the N-value represents customers who have not purchased the insurance, totaling 98,000 data points. Noticeably, according to the difference between the data number of those two categories, it suggests that the dataset is quite inbalance.
+
 
 
 ### 程式碼  
