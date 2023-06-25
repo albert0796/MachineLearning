@@ -6,8 +6,14 @@
 #
 ### [Full Analysis Document](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/report/Cathlife%20Critical%20Illness%20Insurance%20Purchasing%20Data%20Analysis.pdf)
 #  
-### 專案介紹  
-在保險業中，客戶購買保單之思考評估行為相當複雜且難以捉摸，對於銷售方面來說，業務員精準的行銷和維持良好的客戶關係，以及瞭解客戶本身的保險需求都相當重要，因此在本次專案中，我們想透過客戶過往的數據資料，預測在某個時間點中，公司既有客戶在未來三個月內是否會購買重疾險保單，以此建立一預測購買模型，希望能因此挖掘出保險需求較高的客戶，並提供這樣的方法給業務員去使用，讓業務員能瞄準這些較有潛在需求的客戶去做銷售，以期整體成本降低，且利益最大化。
+### Introduction  
+The project aim to utilize customers' historical data to predict whether existing customers will purchase critical illness insurance policies within a specific timeframe, thus creating a predictive purchasing model. This model will help identify customers with higher insurance needs and provide sales professionals with a method to target potential customers with such needs, aiming to reduce overall costs and maximize profits.
+#
+### EDA, Exploratory Data Analysis
+#### Dataset Description
+The official dataset provided includes two types: Train and Test, as shown in Table 1.
+
+
 ### 程式碼  
 * [所有程式碼txt檔](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/code/IF_%E7%A8%8B%E5%BC%8F%E7%A2%BC.txt)  
 * [Data Cleaning](https://github.com/albert0796/MachineLearning/tree/master/Competition_Cathlife/code/Data%20Cleaning)  
