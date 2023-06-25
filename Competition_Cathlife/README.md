@@ -15,6 +15,9 @@ The official dataset provided includes two types: Train and Test. Training datas
 ### Y field (dependent variable)
 The Y1 field means whether customers will purchase the insurance. Its value has only two categories: Y, N. The Y-value represents customers who have purchased the insurance, totaling 2000 data points, while the N-value represents customers who have not purchased the insurance, totaling 98,000 data points. Noticeably, according to the difference between the data number of those two categories, it suggests that the dataset is quite inbalance.
 
+<p align="left">
+  <img src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/image/Y%20field.png">
+<p>
 
 
 ### 程式碼  
