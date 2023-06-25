@@ -94,6 +94,8 @@ I independently train the 7 based models with hyper-tuning and compare the perfo
 | Logistic Regression | 0.5093 |
 #
 ### Code
+### Exploratory Data Analysis (EDA)
+[EDA](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/EDA.ipynb)
 #### Ensemble Model
 [Success Status](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/ensemble_status.ipynb)、
 [Pledge Amount](https://github.com/albert0796/MachineLearning/blob/master/Paper_CrowdFunding/code/ensemble_status.ipynb)
