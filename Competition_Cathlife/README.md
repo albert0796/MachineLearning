@@ -60,7 +60,23 @@ For example, "TOTAL AMT - Total Annual Coverage" is calculated by summing up the
 #### Missing Value Imputation
 1. Domain-specific Imputation  
 The missing values exhibit parallel distribution in the columns "APC_1ST_AGE" (Age of the first policyholder), "REBUY_TIMES_CNT" (Number of repeat purchases), "RFM_M_LEVEL" (Number of previous policies owned), "RFM_R" (Time interval since the last policyholder's identity was insured), and "LEVEL" (Relationship level) (refer to Table 2). It can be indicated that these samples have never served as policyholders. However, the meaning of these missing values does not belong to any specific category in these five columns. Therefore, these missing values will be replaced with a new category: 0.
-  
+<p align="center">
+  <img
+src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/image/Domain-specific%20Imputation.png"
+    width="400px" 
+    height="100%"
+  >
+<p>
+
+#### Regression Imputation 1
+Use the columns in the dataset that do not have missing values as the independent variables and the column to be imputed as the dependent variable. Use the feature_importances_ function in the ExtraTreesRegressor model to calculate the importance scores of each independent variable for the dependent variable. Sort the variables in descending order and select the top 10 important variables as the explanatory variables. Divide these 10 variables into 10 groups: the first important variable, the first + second important variables, the first + second + third important variables, and so on. Use these 10 feature combinations as the explanatory variables and the column to be imputed as the dependent variable. Perform calculations using the ExtraTreesRegressor model, and for each feature combination, measure the accuracy using a specific metric. If the column to be imputed is a categorical variable, use the F1 score as the accuracy metric. If it is a numerical variable, use MSE and RMSE as the accuracy metrics. Finally, select the feature combination with the best accuracy metric and use the ExtraTreesRegressor model to predict and impute the missing values in the column to be imputed. If the F1 score is below 0.7 for each feature combination or if the MSE and RMSE are not ideal, discard this method.
+
+#### Regression Imputation 2
+This method is a more cautious approach to reinforce the first approach. If the accuracy metric results from the first approach are not satisfactory, for the sake of rigor, the second approach will be considered for imputing missing values. First, the columns without missing values are used as independent variables, and the column to be imputed is set as the dependent variable. The ExtraTreesClassifier model is employed with 10 different seeds, and the model is run 10 times. Each time, the feature_importances_ function is used to calculate the importance scores of each independent variable. The top 10 important variables (independent variables) are listed for each run. The frequency of occurrence of all the independent variables (columns without missing values) in the top 10 important variables across the 10 runs is then calculated. Finally, the variables (independent variables) with the highest frequencies are selected, and the ExtraTreesClassifier model is used to predict and impute the missing values in the column to be imputed.
+
+#### Filling with Mode and Mean
+Fill the missing values of the target column by using either the mode or the mean of that column.
+
 #
 ### 程式碼  
 * [所有程式碼txt檔](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/code/IF_%E7%A8%8B%E5%BC%8F%E7%A2%BC.txt)  
