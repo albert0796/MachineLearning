@@ -5,6 +5,7 @@
 ### Honor: [Ranked 34th among 244 teams on the private leaderboard](https://tbrain.trendmicro.com.tw/Competitions/Details/7)。
 #
 ### [Full Analysis Document](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/report/Cathlife%20Critical%20Illness%20Insurance%20Purchasing%20Data%20Analysis.pdf)
+For far more details, especially the parts of Exploratory Data Analysis, Data Cleaning and Modeling, please refer to the full analysis document.
 #  
 ### Introduction  
 The project aim to utilize customers' historical data to predict whether existing customers will purchase critical illness insurance policies within a specific timeframe, thus creating a predictive purchasing model. This model will help identify customers with higher insurance needs and provide sales professionals with a method to target potential customers with such needs, aiming to reduce overall costs and maximize profits.
