@@ -83,7 +83,7 @@ Fill the missing values of the target column by using either the mode or the mea
 #### Model Selection
 Due to the time constraints and hardware limitations during the competition, we focus on enhancing and testing only the two most promising models. We ran the cleaned data through six different models: XGBoost, AdaBoost, Random Forest, DecisionTree, Logistic Regression, and MLP. The goal was to select the two models with the highest AUC for further enhancement and testing. These models were run with default parameters without any tuning. From Table 5, it can be seen that XGBoost and AdaBoost achieved the top two AUC scores. However, since the top three models are all tree-based models with similar underlying principles, we aimed to choose one tree-based model and one non-tree-based model to diversify the subsequent testing and increase the potential for score improvement. Additionally, the Logistic Regression model ranked fourth, and its AUC score was not significantly lower. Furthermore, this model has room for optimization, such as addressing the impact of imbalanced data by using techniques like SMOTE sampling. Additionally, tree-based models inherently have a tendency to select important features during computation, while Logistic Regression does not. This can be improved by selecting features based on their importance using techniques like Feature Importance. Therefore, in the end, we chose the XGBoost model with the highest AUC and the non-tree-based Logistic Regression model for further enhancement and testing.
 #### Modeling
-- Training & validating data spliting
+- Training & validating data spliting  
 The Train dataset was split into 67% training data (Training Data) and 33% validation data (Validation Data).  
 - Hyper-parameter tuning
   - XGBoost
@@ -99,8 +99,16 @@ The Train dataset was split into 67% training data (Training Data) and 33% valid
     - One-Hot Encoding, Parameter Tuning, and SMOTE Sampling: In addition to one-hot encoding and parameter tuning, the dataset was balanced using the SMOTE sampling technique.
     - Enhanced Data Processing: New data processing techniques were applied to improve the model's performance.
 
-
-
+#
+### Result & Discussion
+According to the final statistics, the XGBoost model performed best on the validation dataset when using the new data cleaning method and tuning the parameters. However, the actual uploaded scores showed that the XGBoost model performed best when no preprocessing was applied. Nevertheless, the platform will ultimately use a new dataset to test the models and determine the scores for the Private Leaderboard. Therefore, it is still uncertain which model will ultimately prevail. Additionally, Logistic Regression performed worse than any configuration of XGBoost, regardless of the method applied for preprocessing.
+<p align="center">
+  <img
+src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/image/result.png"
+    width="400px" 
+    height="100%"
+  >
+<p>
 
 #
 ### 程式碼  
