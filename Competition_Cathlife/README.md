@@ -68,15 +68,22 @@ src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathl
   >
 <p>
 
-#### Regression Imputation 1
+2. Regression Imputation 1  
 Use the columns in the dataset that do not have missing values as the independent variables and the column to be imputed as the dependent variable. Use the feature_importances_ function in the ExtraTreesRegressor model to calculate the importance scores of each independent variable for the dependent variable. Sort the variables in descending order and select the top 10 important variables as the explanatory variables. Divide these 10 variables into 10 groups: the first important variable, the first + second important variables, the first + second + third important variables, and so on. Use these 10 feature combinations as the explanatory variables and the column to be imputed as the dependent variable. Perform calculations using the ExtraTreesRegressor model, and for each feature combination, measure the accuracy using a specific metric. If the column to be imputed is a categorical variable, use the F1 score as the accuracy metric. If it is a numerical variable, use MSE and RMSE as the accuracy metrics. Finally, select the feature combination with the best accuracy metric and use the ExtraTreesRegressor model to predict and impute the missing values in the column to be imputed. If the F1 score is below 0.7 for each feature combination or if the MSE and RMSE are not ideal, discard this method.
 
-#### Regression Imputation 2
+3. Regression Imputation 2  
 This method is a more cautious approach to reinforce the first approach. If the accuracy metric results from the first approach are not satisfactory, for the sake of rigor, the second approach will be considered for imputing missing values. First, the columns without missing values are used as independent variables, and the column to be imputed is set as the dependent variable. The ExtraTreesClassifier model is employed with 10 different seeds, and the model is run 10 times. Each time, the feature_importances_ function is used to calculate the importance scores of each independent variable. The top 10 important variables (independent variables) are listed for each run. The frequency of occurrence of all the independent variables (columns without missing values) in the top 10 important variables across the 10 runs is then calculated. Finally, the variables (independent variables) with the highest frequencies are selected, and the ExtraTreesClassifier model is used to predict and impute the missing values in the column to be imputed.
 
-#### Filling with Mode and Mean
+4. Filling with Mode and Mean  
 Fill the missing values of the target column by using either the mode or the mean of that column.
 
+### Model Construction
+#### Further Processing
+- One-Hot Encoding
+#### Model Selection
+Due to the time constraints and hardware limitations during the competition, we focus on enhancing and testing only the two most promising models. We ran the cleaned data through six different models: XGBoost, AdaBoost, Random Forest, DecisionTree, Logistic Regression, and MLP. The goal was to select the two models with the highest AUC for further enhancement and testing. These models were run with default parameters without any tuning. From Table 5, it can be seen that XGBoost and AdaBoost achieved the top two AUC scores. However, since the top three models are all tree-based models with similar underlying principles, we aimed to choose one tree-based model and one non-tree-based model to diversify the subsequent testing and increase the potential for score improvement. Additionally, the Logistic Regression model ranked fourth, and its AUC score was not significantly lower. Furthermore, this model has room for optimization, such as addressing the impact of imbalanced data by using techniques like SMOTE sampling. Additionally, tree-based models inherently have a tendency to select important features during computation, while Logistic Regression does not. This can be improved by selecting features based on their importance using techniques like Feature Importance. Therefore, in the end, we chose the XGBoost model with the highest AUC and the non-tree-based Logistic Regression model for further enhancement and testing.
+#### Modeling
+The Train dataset was split into 67% training data (Training Data) and 33% validation data (Validation Data). 
 #
 ### 程式碼  
 * [所有程式碼txt檔](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/code/IF_%E7%A8%8B%E5%BC%8F%E7%A2%BC.txt)  
