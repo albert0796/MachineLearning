@@ -83,7 +83,25 @@ Fill the missing values of the target column by using either the mode or the mea
 #### Model Selection
 Due to the time constraints and hardware limitations during the competition, we focus on enhancing and testing only the two most promising models. We ran the cleaned data through six different models: XGBoost, AdaBoost, Random Forest, DecisionTree, Logistic Regression, and MLP. The goal was to select the two models with the highest AUC for further enhancement and testing. These models were run with default parameters without any tuning. From Table 5, it can be seen that XGBoost and AdaBoost achieved the top two AUC scores. However, since the top three models are all tree-based models with similar underlying principles, we aimed to choose one tree-based model and one non-tree-based model to diversify the subsequent testing and increase the potential for score improvement. Additionally, the Logistic Regression model ranked fourth, and its AUC score was not significantly lower. Furthermore, this model has room for optimization, such as addressing the impact of imbalanced data by using techniques like SMOTE sampling. Additionally, tree-based models inherently have a tendency to select important features during computation, while Logistic Regression does not. This can be improved by selecting features based on their importance using techniques like Feature Importance. Therefore, in the end, we chose the XGBoost model with the highest AUC and the non-tree-based Logistic Regression model for further enhancement and testing.
 #### Modeling
-The Train dataset was split into 67% training data (Training Data) and 33% validation data (Validation Data). 
+- Training & validating data spliting
+The Train dataset was split into 67% training data (Training Data) and 33% validation data (Validation Data).  
+- Hyper-parameter tuning
+  - XGBoost
+    - Default Parameters: The model was trained without any preprocessing, and the model parameters were set to their default values.
+    - Parameter Tuning: The model's parameters were adjusted to optimize its performance.
+    - Parameter Tuning and Feature Selection: In addition to adjusting the parameters, important features were selected to train the model.
+    - Enhanced Data Processing: New data processing techniques were applied to improve the model's performance.
+    - Enhanced Data Processing with Parameter Tuning: Both new data processing techniques and parameter tuning were applied to further improve the model's performance.
+  - Logistic Regression
+    - Default Parameters: The model was trained without any preprocessing, and the model parameters were set to their default values. The predictions were directly uploaded.
+    - One-Hot Encoding and Parameter Tuning: The categorical variables were encoded using one-hot encoding, and the model's parameters were adjusted for better performance.
+    - One-Hot Encoding, Parameter Tuning, and Feature Selection: In addition to one-hot encoding and parameter tuning, important features were selected to train the model.
+    - One-Hot Encoding, Parameter Tuning, and SMOTE Sampling: In addition to one-hot encoding and parameter tuning, the dataset was balanced using the SMOTE sampling technique.
+    - Enhanced Data Processing: New data processing techniques were applied to improve the model's performance.
+
+
+
+
 #
 ### 程式碼  
 * [所有程式碼txt檔](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/code/IF_%E7%A8%8B%E5%BC%8F%E7%A2%BC.txt)  
