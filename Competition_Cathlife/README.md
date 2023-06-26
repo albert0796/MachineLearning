@@ -45,7 +45,16 @@ src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathl
 - "F" and "M" will be transformed into 0 and 1 respectively.
 - "A1" will be transformed into 1, "A2" into 2, "B1" into 3, "B2" into 4, "C1" into 5, "C2" into 6, "D" into 7, "E" into 8.
 - "A" will be transformed into 1, "B" into 2, "C" into 3, "D" into 4, "E" into 5, "F" into 6, "G" into 7, "H" into 8.
-2. 
+2. Convert continuous numerical variables into categorical ranges or intervals
+Take the variable "BMI value" for instance, which will be discretized into whether it falls within the range [0, 0.2) or not, represented by 1 for "yes" and 0 for "no". From the plot, it is evident that when the BMI value is within the range of 0 to 0.2, the number of samples not purchasing critical illness insurance is significantly higher than the number of samples purchasing it. On the other hand, when the BMI value is not within the range of 0 to 0.2, the number of samples not purchasing critical illness insurance is noticeably lower than the number of samples purchasing it. Therefore, it can be inferred that when a customer's BMI value falls within the range of 0 to 0.2, it is highly likely that they will not purchase critical illness insurance. Based on this observation, it is concluded that whether the BMI falls within the [0, 0.2) range is an important feature in explaining Y1 (the purchase of critical illness insurance), and thus the BMI value will be discretized accordingly.
+<p align="center">
+  <img
+src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/image/bmi.png"
+    width="400px" 
+    height="100%"
+  >
+<p>
+
 
 #
 ### 程式碼  
