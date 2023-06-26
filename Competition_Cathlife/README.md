@@ -54,8 +54,13 @@ src="https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathl
     height="100%"
   >
 <p>
+3. Making a new featrue from the original features  
+For example, "TOTAL AMT - Total Annual Coverage" is calculated by summing up the relevant columns related to the annual coverage amount (a total of 15 columns). 
 
-
+#### Missing Value Imputation
+1. Domain-specific Imputation  
+The missing values exhibit parallel distribution in the columns "APC_1ST_AGE" (Age of the first policyholder), "REBUY_TIMES_CNT" (Number of repeat purchases), "RFM_M_LEVEL" (Number of previous policies owned), "RFM_R" (Time interval since the last policyholder's identity was insured), and "LEVEL" (Relationship level) (refer to Table 2). It can be indicated that these samples have never served as policyholders. However, the meaning of these missing values does not belong to any specific category in these five columns. Therefore, these missing values will be replaced with a new category: 0.
+  
 #
 ### 程式碼  
 * [所有程式碼txt檔](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/code/IF_%E7%A8%8B%E5%BC%8F%E7%A2%BC.txt)  
