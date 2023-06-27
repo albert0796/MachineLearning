@@ -46,9 +46,10 @@ Remove the features with an importance score equal to 0 using ExtraTreesClassifi
 Remove features that exhibit high multicollinearity and have feature importance far below the threshold set by SelectFromModel.
 #
 ### Hypertune
-I use K-fold, a cross validation method, to hyper-tune the model. The K is set to be 5 and $R^{2}$ is used as an evalution index.  
-- [K-fold](https://scikit-learn.org/stable/modules/cross_validation.html)
-The method of cross-validation involves taking K-1 portions of the data as the training set and the remaining portion as the validation set. A validation error is calculated based on this split. Then, another portion of data that has not been used as the validation set is selected, and the previously used validation set is added back to the training set. This process is repeated until each portion of data has been used as the validation set. This results in K iterations, and K validation errors are calculated. Finally, the K validation errors are averaged to obtain a mean score, which serves as the evaluation metric for assessing the model's performance.
+I use K-fold, a cross validation method, to hyper-tune the model. The K is set to be 5 and $R^{2}$ is used as an evalution index. 
+The hypertune models include Decision Tree, Random Forest, AdaBoost, Lasso Regression, Neural Network, XGBoost, SVM and LightGBM. For the detalis of the hyper-parameter in each model, please refer to [Kaggle 房價預測_Hypertune.ipynb](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Hypertune.ipynb)
+- [K-fold](https://scikit-learn.org/stable/modules/cross_validation.html)  
+  The method of cross-validation involves taking K-1 portions of the data as the training set and the remaining portion as the validation set. A validation error is calculated based on this split. Then, another portion of data that has not been used as the validation set is selected, and the previously used validation set is added back to the training set. This process is repeated until each portion of data has been used as the validation set. This results in K iterations, and K validation errors are calculated. Finally, the K validation errors are averaged to obtain a mean score, which serves as the evaluation metric for assessing the model's performance.
 
 
 
