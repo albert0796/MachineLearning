@@ -72,4 +72,20 @@ src="https://github.com/albert0796/MachineLearning/blob/master/Kaggle's%20House%
   >
 <p>
 
+#
+### Comparison of Model Performance
+| Model | $R^{2}$ |
+| :----: | :----: |
+| Stacking | 0.9033 |
+| LightGBM | 0.9007 |
+| XGBoost | 0.9003 |
+| Random Forest | 0.8822 |
+| Neural Network | 0.8703 |
+| AdaBoost | 0.8605 |
+| Lasso | 0.8547 |
+| SVM | 0.8445 |
+
+
+
+
 
