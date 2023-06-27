@@ -48,14 +48,6 @@ With 79 explanatory variables describing (almost) every aspect of residential ho
 [Hypertune](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Hypertune.ipynb)  
 [Stacking & Comparison of model performance](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/kaggle/code/Kaggle%20%E6%88%BF%E5%83%B9%E9%A0%90%E6%B8%AC_Stacking%20%26%20Comparison%20of%20model%20performance.ipynb)
 
-Boston House Prices Prediction
-
-Reference: [Kaggle's House Prices - Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)  
-
-Introduction:  
-The goal of the project is to predict the final sale prices of houses. The dataset contains various features of residential homes, such as the number of bedrooms, the size of the lot, the neighborhood, and many others. The project covers much feature engineering, involving handling missing values, transforming variables, creating interaction terms. Additionally, it applies Stacking, ensemble learning, and hype-tunes multiple machine learning model to predict and make comparison. 
-
-
 #  
 ### Final Project  
 以2010-01-01 年至2018-12-31 之 S&P 500 指數的日資料(daily data) 為研究對象。以當日及過去30 日之每日(Open, High, Low, Close, Volume) 為特徵(features), 預測10 日後之Close。  
