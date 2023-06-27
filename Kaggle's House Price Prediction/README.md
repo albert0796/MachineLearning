@@ -54,7 +54,13 @@ The hypertune models include Decision Tree, Random Forest, AdaBoost, Lasso Regre
 ### Modeling & Performance
 #### Stacking
 All the tuned models, including XGBoost, LightGBM, AdaBoost, Random Forest, MLP, SVM, and Lasso Regression, are used for stacking. The ensemble model excludes Decision Tree due to its lower performance compared to the other models. The Final Model selected for stacking is Lasso Regression.
-
+<p align="center">
+  <img
+src="https://github.com/albert0796/MachineLearning/blob/master/Kaggle's%20House%20Price%20Prediction/image/stacking.png"
+    width="600px" 
+    height="100%"
+  >
+<p>
 
 
 
