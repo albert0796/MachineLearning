@@ -62,5 +62,14 @@ src="https://github.com/albert0796/MachineLearning/blob/master/Kaggle's%20House%
   >
 <p>
 
+- Performance  
+Its $R^{2}$ score achieve 0.9033
+<p align="center">
+  <img
+src="https://github.com/albert0796/MachineLearning/blob/master/Kaggle's%20House%20Price%20Prediction/image/stacking%20performance.png"
+    width="600px" 
+    height="100%"
+  >
+<p>
 
 
