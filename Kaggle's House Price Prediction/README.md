@@ -18,7 +18,7 @@ After the type convertion, there are only one feature having 259 missing values,
 <p align="center">
   <img
 src="https://github.com/albert0796/MachineLearning/blob/master/Kaggle's%20House%20Price%20Prediction/image/missing%20value.png"
-    width="600px" 
+    width="700px" 
     height="100%"
   >
 <p>
@@ -31,7 +31,13 @@ If the target column is categorical, the F1 score is used as the accuracy metric
 ### Further Processing
 #### Feature Engineering
 Create New Features From Existing Features. For example, I create a new feature named "TotalHouse" that is the sum of the total square feet of basement area, First Floor square feet and second floor square feet. Also, I create another new feature named "Functional_TotalHouse" that is the product of TotalHouse and home functionality. 
-
+<p align="center">
+  <img
+src="https://github.com/albert0796/MachineLearning/blob/master/Kaggle's%20House%20Price%20Prediction/image/feature%20engineering.PNG"
+    width="600px" 
+    height="100%"
+  >
+<p>
 
 
 
