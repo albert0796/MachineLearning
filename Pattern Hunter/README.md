@@ -43,7 +43,7 @@ Since candlestick pattern recognition depends on visual recognition, we apply CN
 #### Convolution Neural Network (CNN)
 The following is the structure and hyper-parameters of the CNN model. The model recognizes on the dataset of S&P 500 can achieve 95.31% testing accuracy.
 <p align="left">
-  <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/cnn.png">
+  <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/cnn.png" height="100%" width="150px">
 <p>
 
 
