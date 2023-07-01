@@ -59,6 +59,17 @@ The following is the structure and hyper-parameters of the CNN model. The model 
 #
 ### Demo
 The project of PatternHunter system is in progress. In the backend stage, the core method, GAF-CNN model training is complete and achieve an ideal performance. In the front-end side, we have complete parts of the website.
-#### Label system
+##### Label system
+The user of trader can use the interface to label the profitable candlestick pattern with different window sizes by themselves. The pattern they labels will be used to train the model and predict those customized pattern for them.
+
+https://github.com/albert0796/MachineLearning/assets/53148084/0b119f0d-108d-447b-9040-1a715c13f9e7
+
+#### Dashboard
+The interface demonstrates the historical and the real-time candlestick movement with the different time scale. When the user selects one part of the candlestick movement with different window sizes, the system will show the position of profitable candlestick patterns recognized by the AI model among that region. Also the records about how many numbers of different profitable patterns appearing in the period they select will also be shown below. 
+
+https://github.com/albert0796/MachineLearning/assets/53148084/151c4a48-e473-4272-ac0f-49b91c6643f3
+
+
+
 
 
