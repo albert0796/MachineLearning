@@ -56,3 +56,9 @@ The following is the structure and hyper-parameters of the CNN model. The model 
 | beta 2 | 0.999 |
 | early stopping | 20 epochs |
 
+#
+### Demo
+The project of PatternHunter system is in progress. In the backend stage, the core method, GAF-CNN model training is complete and achieve an ideal performance. In the front-end side, we have complete parts of the website.
+#### Label system
+
+
