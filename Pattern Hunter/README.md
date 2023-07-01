@@ -30,7 +30,9 @@ The system covers front-end stage and back-end stage:</br>
 Depending on the user’s needs, the system can cover as many types of financial targets as possible. The GitHub project use S&P 500 and EUR USD as example. The data is time-series data with features of open, high, low, and close prices and volume.
 #### Labeling
 As the introduction mentioned, the system aims to absorb different professional traders’ knowledge and trading intuitiveness. Therefore, we will let human traders label the profitable candlestick patterns they expect. And the GitHub project will temporarily use the rule to label the data until the human trader complete their labeling tasks. The rule we use refers to THE MAJOR CANDLESTICKS SIGNALS “12 Signals to Master any Market” by Stephen W. Bigalow. The profitable patterns include Morning Star, Evening Star, Bearish Harami, Bullish Harami, Shooting star, Inverted Hammer, Bearish Engulfing and Bullish Engulfing.
-
+<p align="left">
+  <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/rule-based%20pattern.png" height="100%" width="300px">
+<p>
 
 
 
