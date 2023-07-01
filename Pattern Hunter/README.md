@@ -34,12 +34,17 @@ As the introduction mentioned, the system aims to absorb different professional 
   <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/rule-based%20pattern.png" height="100%" width="300px">
 <p>
 
-### Gramian Angular Field (GAF) Encoding
+#### Gramian Angular Field (GAF) Encoding
 Since candlestick pattern recognition depends on visual recognition, we apply CNN model that is excellent in picking up on patterns in the image. Besides, given that the financial time-series data is a one-dimensional array and cannot fit the two-dimensional convolution of the CNN, the data should be converted into a consistent matrix form. Therefore, we apply the GAF encoding method to encode time series data into the suitable type. And Noticeably, according to the [literature review](https://arxiv.org/abs/1901.05237), the GAF-CNN model has more than 90% accuracy in candlestick pattern recognition. For the detail of GAF encoding, please refers to [this paper](https://arxiv.org/abs/1901.05237).
 <p align="left">
   <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/gaf.png" height="100%" width="300px">
 <p>
 
+#### Convolution Neural Network (CNN)
+The following is the structure and hyper-parameters of the CNN model. The model recognizes on the dataset of S&P 500 can achieve 95.31% testing accuracy.
+<p align="left">
+  <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/cnn.png">
+<p>
 
 
 
