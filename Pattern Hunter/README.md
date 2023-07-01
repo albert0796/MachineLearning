@@ -45,7 +45,14 @@ The following is the structure and hyper-parameters of the CNN model. The model 
 <p align="left">
   <img src="https://github.com/albert0796/MachineLearning/blob/master/Pattern%20Hunter/image/cnn.png" height="100%" width="150px">
 <p>
-
-
-
+  
+| Parameters | values |
+| :----: | :----: |
+| epochs | 300 |
+| batch sizes | 64 |
+| optimizer | Adam |
+| learning rate | 0.001 |
+| beta 1 | 0.9 |
+| beta 2 | 0.999 |
+| early stopping | 20 epochs |
 
