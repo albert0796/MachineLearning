@@ -17,10 +17,10 @@ Contrasting with existing travel recommendation apps on the market, the advantag
 * [Load an image from the phone's gallery.mp4](https://drive.google.com/file/d/16DuFaOIqSuNrurp-YuRIeEox0RovTAsu/view?usp=drive_link)
 * [Capture a photo using the phone.mp4](https://drive.google.com/file/d/12ung4JtLvhvXcfwixREoYPGcFk2teay4/view?usp=drive_link)
 #  
-### 獲獎紀錄  
+### Award 
 This project won the [championship](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%8D%8E%E7%8B%80.png) in [the National College Open Data Artificial Intelligence Competition](http://bigdata.scu.edu.tw/aiads2018/)
 #  
-### 程式碼
+### Code
 [Open Data Image Conversion 224x224](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/Open%20Data%20%E5%9C%96%E7%89%87%E8%BD%89%20224x224)  
 [Traning and Validation Data Preprocessing](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E8%A8%93%E7%B7%B4%E5%92%8C%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99%E9%A0%90%E8%99%95%E7%90%86)  
 [Testing Data Augmentation](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel/Code/%E6%93%B4%E5%A2%9E%E9%A9%97%E8%AD%89%E8%B3%87%E6%96%99)  
