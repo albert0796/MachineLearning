@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+<!-- CSS Block -->
+{% block css_block %}
+<style>
+    * {
+        margin:0;
+        padding:0;
+    }
+    body {
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+    }
+    .my-fancy-container {
+        display: inline-block;
+    }
+    .my-icon {
+        vertical-align: middle;
+        font-size: 30px;
+    }
+    .my-text {
+        font-size: 20px;
+    }
+    .container {
+        padding-top: 10%;
+    }
+</style>
+{% endblock %}
+
+<!-- Content Block -->
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-sm-12">
+            <h2 style="text-align: center; color:#17A2B8;">Welcome  Back !</h2>
+            <div class="card bg-light mt-4 mb-3">
+            <div class="card-body">
+                <form class="form_login" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-info mt-3">Login</button>
+                    <a class="btn btn-outline-info mt-3" href="/accounts/signup" style="float: right;">Register</a>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
