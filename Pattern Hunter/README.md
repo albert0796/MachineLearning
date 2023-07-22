@@ -70,7 +70,10 @@ https://github.com/albert0796/MachineLearning/assets/53148084/0b119f0d-108d-447b
 The interface demonstrates the historical and the real-time candlestick movement with the different time scale. When the user selects one part of the candlestick movement with different window sizes, the system will show the position of profitable candlestick patterns recognized by the AI model among that region. Also the records about how many numbers of different profitable patterns appearing in the period they select will also be shown below. 
 
 https://github.com/albert0796/MachineLearning/assets/53148084/151c4a48-e473-4272-ac0f-49b91c6643f3
+#
 
+### Reference
+Chen, Jun-Hao, and Yun-Cheng Tsai. "Encoding candlesticks as images for pattern classification using convolutional neural networks." Financial Innovation 6.1 (2020): 1-19.
 
 
 
