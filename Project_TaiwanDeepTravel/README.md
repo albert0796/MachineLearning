@@ -1,6 +1,6 @@
 # Taiwan Deep Travel
 ### Project Title: Deep Learning-Based Taiwan Travel Destination
-### Presenters: Cheng-Han Wu, Chi Li
+### Developer: Cheng-Han Wu, Chi Li
 ### Advisor: Dr. Yi-Ping Chang
 #  
 ### [Project Description](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/Report/%E7%AB%B6%E8%B3%BD%E6%88%90%E6%9E%9C%E8%AA%AA%E6%98%8E%E6%9B%B8.docx)
