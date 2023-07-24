@@ -12,3 +12,6 @@ It is a teaching note I made for a deep-learning-related class I taught in the f
 The class covers the concept of trading strategy and the deep learning model and how to put the idea into practice. The practice includes data processing, time series data encoding and Convolution Neural Network modeling and predicting.
 
 For more details, please refer to the [teaching note](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/TeachingNote.md) and [source code](https://github.com/albert0796/MachineLearning/tree/master/Financial%20Innovation%20Teaching%20Notes/source%20code).
+## Demo
+[Data Processing](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Demo.ipynb)
+[Modeling](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Modeling/Demo.ipynb)
