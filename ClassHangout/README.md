@@ -3,7 +3,7 @@
 ### Course Code: MDM64201, MDM64001 and MBM66901
 ### Instructor: LEECHIA-JUNG and CHANG, YI-PING
 #  
-### Hangout & Code
+### Notes & Code
 1. EDA  
 * [learning note & code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/EDA/code/EDA.ipynb)  
 2. Bayesian  
