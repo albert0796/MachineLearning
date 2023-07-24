@@ -51,7 +51,7 @@ With 79 explanatory variables describing (almost) every aspect of residential ho
 
 #  
 ### Final Project  
-The study focuses on the daily data of the S&P 500 index from January 1, 2010, to December 31, 2018. It uses daily features (Open, High, Low, Close, Volume) for each day, including the current day and the past 30 days. The objective is to predict the Close price ten days ahead.
+The study focuses on the daily data of the S&P 500 index from January 1, 2010, to December 31, 2018. It uses daily features (Open, High, Low, Close, Volume) for each day, including the current day and the past 30 days. The objective is to predict the Close price ten days ahead.  
 [Note & Code](https://github.com/albert0796/MachineLearning/blob/master/ClassHangout/final_project/Predicting%20Close%20of%20S%26P500.ipynb)
 #  
 
