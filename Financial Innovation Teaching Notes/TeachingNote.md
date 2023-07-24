@@ -339,13 +339,13 @@ Set a period of a single candlestick pattern in 10 bars, which means that every 
 - Please submit 5 file (required) and other files (option) you need to use:
     1.	Process_ID_name.py: HW1 (i) / Construct a class.
     2.	Detect_ID_name.py: HW1 (ii) / Construct a class.
-    3.	Main_ID_name.py: Call the module in [Process.py] and [Detect.py] and meet the requirement in HW1.
+    3.	Main_ID_name.py: Call the module in [Process.py](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Process.py) and [Detect.py](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Detect.py) and meet the requirement in HW1.
     4.	Demo_HW1_ID_name.ipynb & .html: Present the result in markdown’s format. The file should include the following things:
-        -	the module in [Process.py], [Detect.py], [Main.py] and other files you need to use. Please add annotations in your code.
+        -	the module in [Process.py](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Process.py), [Detect.py](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Detect.py), [Main.py](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Main.py) and other files you need to use. Please add annotations in your code.
         -	The step following the requirement in HW1.
         -	explain clearly on each step, especially your customized rule-based trading signals.
         -	Show the resource you take for reference when doing the task.
--	For details of homework requirement, please see the reference template [Demo.ipynb].
+-	For details of homework requirement, please see the reference template [Demo.ipynb](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Data%20Processing/Demo.ipynb).
 
 7.	Extended Thinking
     -	Why do we detect the pattern according to the defined rule through the algorithm and also use learning model to classify the pattern?
@@ -374,6 +374,7 @@ Please submit a condensed file in zip in which there are 4 files (required) and 
     - The step following the requirement in HW2
     - Explain clearly on each step.
     - Reference.
+-	For details of homework requirement, please see the reference template [Demo.ipynb](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/source%20code/Modeling/Demo.ipynb).
 
 ---
 
