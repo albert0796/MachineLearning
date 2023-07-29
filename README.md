@@ -41,7 +41,7 @@ The goal of the project is to predict the final sale prices of houses. The datas
   
 Skills: Machine Learning, Python, Feature Engineering, Data Cleaning, Domain-based Data Analysis
 #  
-### 7. [Teaching Notes for Financial Innovation Course at National Taiwan University](https://github.com/albert0796/MachineLearning/tree/master/Financial%20Innovation%20Teaching%20Notes)
+### 8. [Teaching Notes for Financial Innovation Course at National Taiwan University](https://github.com/albert0796/MachineLearning/tree/master/Financial%20Innovation%20Teaching%20Notes)
 [Teaching Note](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/TeachingNote.md)
 1. It is a teaching note I made for a deep-learning-related class I taught in the financial innovation course, offered by Prof. Yun-Cheng Tsai in National Taiwan University, when I was a lecturer. The class is about applying deep-learning-based visual recognition to financial trading strategy, like candlestick pattern recognition.
 2. The class covers the concept of trading strategy and the deep learning model and how to put the idea into practice. The practice includes data processing, time series data encoding and Convolution Neural Network modeling and predicting. For more details, please refer to the teaching note and source code.
