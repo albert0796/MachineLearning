@@ -1,17 +1,19 @@
 # Table of Contents
-### 詳細內容將於每個檔案夾中進行說明。 
-#  
 ### 1. [Explainable Digital Currency Candlestick Pattern AI Learner](https://github.com/pecu/FinancialVision/tree/master/Explainable%20Digital%20Currency%20Candlestick%20Pattern%20AI%20Learner)   
 [IEEE Xplore](https://ieeexplore.ieee.org/document/9727231?fbclid=IwAR3doeRuCKiY19_yQbSFqeiKBnurg4n1eK9tPEETEpiCXp2kolE1hYB-I7M) | [Conference Video](https://drive.google.com/file/d/1ii87CH1jMoPjkiLWGv_j_yqF9VJhzKVX/view)  
 - The paper gets accepted at the Knowledge and Smart Technology (KST) 2022 International Conference, hosted by IEEE.
 - Given the black-box of deep neural network (DNN), the study aims to expose and enhance the explainability of a DNN-based classic trading strategy, candlestick pattern recognition, and makes an acceptable justification for traders in the cryptocurrency market. For more details, please refer to the GitHub, conference video and full paper.
-- Skills: Explainable Artificial Intelligence, Data Augmentation, Adversarial Attacks, Convolutional Neural Network, Candlestick Patterns, Time-Series Encoding, Financial Vision
+  
+Skills: Explainable Artificial Intelligence, Data Augmentation, Adversarial Attacks, Convolutional Neural Network, Candlestick Patterns, Time-Series Encoding, Financial Vision
 #
-### 2. [Machine Learning Handout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
-該課堂筆記包含東吳大學巨量資料管理學院碩士班機器學習與資料探勘兩門課以及東吳大學財務工程與精算數學系碩士班計量財務的課程、作業與學期報告內容。裡頭詳細記錄多種機器學習理論與實務內容，並包含參與kaggle比賽時如何將所學的機器學習技術運用於實際問題的紀錄報告。
+### 2. [Machine Learning Notes](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
+- It is a lecture note made for the machine-related courses offered in the graduate schools of Soochow University. It covers multiple machine learning methods, including EDA, Bayesian, Clustering, Decision Tree, Dimension Reduction, Ensemble, KNN, Logistic Regression, Neural Network, Regression, SVM, Validation. Each method has note of concept and demo of source code.
+- The Final project aims to predict S&P 500 index’s Close price ten days ahead, using daily features (Open, High, Low, Close, Volume) of each day, including the current day and the past 30 days. Noticeably, it applies cross-validation to tune hyperparameters. To avoid overfitting and maintain the model’s robustness, it chooses hyperparameters which has max value of mean test score + 1.96 * std test score in cross-validation.
 #  
-### 3. [Deep Learning-Based Candlestick Pattern Recognition](https://github.com/albert0796/MachineLearning/tree/master/Project_PatternHunter)
-交易訊號偵測與推薦系統。該系統串流了某個時間尺度的標的資產，並使用深度學習影像辨識的方式，按該時間尺度的頻率偵測標的資產在形態學上交易訊號，如在某區段偵測出符合形態學上交易訊號，系統則會將該訊號提供給投資人作為買賣判斷的依據。
+### 3. [Deep Learning-Based Candlestick Pattern Recognition System](https://github.com/albert0796/MachineLearning/tree/master/Pattern%20Hunter)
+To take advantage of the candlestick pattern recognition to a great extent and support the trader, we build an AI-based system that can absorb professional traders' domain knowledge and excel in visual recognition. Moreover, the system can automatically execute the procedure and have the customized user interface. And the user of traders can avoid the human error and make investment more efficiently.  
+  
+Skills: Deep Learning, Computer Vision, Python, Django, Javascript, Bootstrap, Financial Domain
 #  
 ### 4. [TaiwanDeepTravel](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel)
 台灣旅遊景點推薦App系統。當使用者輸入感興趣的旅遊景點影像至App中，系統將即時透過深度學習影像辨識技術辨識出影像中多個場景，依該場景推薦出與其相似的台灣旅遊景點影像，並附加該景點的詳細資訊。  
