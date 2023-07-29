@@ -22,7 +22,7 @@ Skills: Deep Learning, Computer Vision, Python, Django, Javascript, Bootstrap, F
 
 Skills: Deep learning, Transfer learning, iOS Core ML 2.0, Image data annotation, Google Cloud computing, Data augmentation
 #  
-### 5. [Competition_Cathlife](https://github.com/albert0796/MachineLearning/tree/master/Competition_Cathlife)
+### 5. [Cathlife Critical Illness Insurance Purchasing Data Analysis](https://github.com/albert0796/MachineLearning/tree/master/Competition_Cathlife)
 [Analysis Document](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/report/Cathlife%20Critical%20Illness%20Insurance%20Purchasing%20Data%20Analysis.pdf)
 1. The project won the 34th place out of 300 nationwide in the Cathay Life Big Data Competition when I represented the lab to participate during internship at IF.Lab.
 2. The project aims to utilize customers' historical data to predict whether existing customers will purchase critical illness insurance policies within a specific timeframe. The model will help identify customers with higher insurance needs and provide sales professionals with a method to target potential customers.
@@ -36,5 +36,14 @@ Skills: Machine Learning, Python, Exploratory Data Analysis (EDA), Data Cleaning
 
 Skills: Machine Learning, Python, Exploratory Data Analysis (EDA)
 #  
-
-
+### 7. [Kaggle's House Prices Prediction](https://github.com/albert0796/MachineLearning/tree/master/Kaggle's%20House%20Price%20Prediction)
+The goal of the project is to predict the final sale prices of houses. The dataset contains various features of residential home, such as the number of bedrooms, the size of the lot, the neighborhood, and many others. The project covers much feature engineering, involving handling missing values, transforming variables, creating interaction terms. Additionally, it applies Stacking, ensemble learning, and hype-tunes multiple machine learning model to predict and make comparison.  
+  
+Skills: Machine Learning, Python, Feature Engineering, Data Cleaning, Domain-based Data Analysis
+#  
+### 7. [Teaching Notes for Financial Innovation Course at National Taiwan University](https://github.com/albert0796/MachineLearning/tree/master/Financial%20Innovation%20Teaching%20Notes)
+[Teaching Note](https://github.com/albert0796/MachineLearning/blob/master/Financial%20Innovation%20Teaching%20Notes/TeachingNote.md)
+1. It is a teaching note I made for a deep-learning-related class I taught in the financial innovation course, offered by Prof. Yun-Cheng Tsai in National Taiwan University, when I was a lecturer. The class is about applying deep-learning-based visual recognition to financial trading strategy, like candlestick pattern recognition.
+2. The class covers the concept of trading strategy and the deep learning model and how to put the idea into practice. The practice includes data processing, time series data encoding and Convolution Neural Network modeling and predicting. For more details, please refer to the teaching note and source code.
+  
+Skills: Deep Learning, Data Processing, Python, Financial Investment
