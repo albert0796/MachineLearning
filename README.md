@@ -15,9 +15,11 @@ To take advantage of the candlestick pattern recognition to a great extent and s
   
 Skills: Deep Learning, Computer Vision, Python, Django, Javascript, Bootstrap, Financial Domain
 #  
-### 4. [TaiwanDeepTravel](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel)
-台灣旅遊景點推薦App系統。當使用者輸入感興趣的旅遊景點影像至App中，系統將即時透過深度學習影像辨識技術辨識出影像中多個場景，依該場景推薦出與其相似的台灣旅遊景點影像，並附加該景點的詳細資訊。  
-該作品也於2018年時參與了東吳大學所舉辦的大專院校Open Data分析競賽，並取得第一名的佳績。
+### 4. [Deep Learning-Based Recommendation APP for Taiwan Tourist Attractions](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel)
+- This project won the championship in the National College Open Data Artificial Intelligence Competition.
+- The project aims to build an iOS app that provides recommendations for tourist attractions in Taiwan to fulfill users' travel needs while visiting Taiwan. When users capture any interesting scenes around the world, and input them into the app, the system will utilize a deep learning model to recognize and recommend Taiwan tourist spots that are most like the captured scene.
+
+Skills: Deep learning, Transfer learning, iOS Core ML 2.0, Image data annotation, Google Cloud computing, Data augmentation
 #  
 ### 5. [Competition_Cathlife](https://github.com/albert0796/MachineLearning/tree/master/Competition_Cathlife)
 此競賽為國泰產險於2019年所舉辦的大數據競賽，比賽的宗旨為以機器學習的技術，挖掘出保險需求可能較高的客戶，並提供精準的銷售名單給業務員。  
