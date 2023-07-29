@@ -31,7 +31,10 @@ Skills: Deep learning, Transfer learning, iOS Core ML 2.0, Image data annotation
 Skills: Machine Learning, Python, Exploratory Data Analysis (EDA), Data Cleaning, Domain-based Data Analysis
 #  
 ### 6. [Ensemble Machine Learning on Crowdfunding Data for Project Status and Amount Pledged Prediction](https://github.com/albert0796/MachineLearning/tree/master/Paper_CrowdFunding)
-該論文旨在研究如何運用機器學習中集成方法(Ensemble Learning)來預測Kickstart與Indeigogo兩大國際群眾募資平台上專案成敗與價值預測。該論文還尚未完成，但論文已有一定篇幅，資料與程式碼運行也已完成。
+1. The project aims to evaluate the success status and the final pledge amount of a launched project at the early stage in Kickstarter and Indiegogo, which are two world-famous crowdfunding platforms.
+2. To predict the success status and the final pledge amount of a launched project, I apply the Stacking, an ensemble machine learning method, to make prediction. Furthermore, I also train multiple machine learning models with hyperparameter tuning and compare the performance of the Stacking model with those models. For more details of the project, please refer to the GitHub.
+
+Skills: Machine Learning, Python, Exploratory Data Analysis (EDA)
 #  
 
 
