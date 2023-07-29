@@ -16,14 +16,19 @@ To take advantage of the candlestick pattern recognition to a great extent and s
 Skills: Deep Learning, Computer Vision, Python, Django, Javascript, Bootstrap, Financial Domain
 #  
 ### 4. [Deep Learning-Based Recommendation APP for Taiwan Tourist Attractions](https://github.com/albert0796/MachineLearning/tree/master/Project_TaiwanDeepTravel)
+[Project Report](https://github.com/albert0796/MachineLearning/blob/master/Project_TaiwanDeepTravel/README.md)
 - This project won the championship in the National College Open Data Artificial Intelligence Competition.
 - The project aims to build an iOS app that provides recommendations for tourist attractions in Taiwan to fulfill users' travel needs while visiting Taiwan. When users capture any interesting scenes around the world, and input them into the app, the system will utilize a deep learning model to recognize and recommend Taiwan tourist spots that are most like the captured scene.
 
 Skills: Deep learning, Transfer learning, iOS Core ML 2.0, Image data annotation, Google Cloud computing, Data augmentation
 #  
 ### 5. [Competition_Cathlife](https://github.com/albert0796/MachineLearning/tree/master/Competition_Cathlife)
-此競賽為國泰產險於2019年所舉辦的大數據競賽，比賽的宗旨為以機器學習的技術，挖掘出保險需求可能較高的客戶，並提供精準的銷售名單給業務員。  
-該作品最終於private leadernoard上244支隊伍中取得34名的成績。
+[Analysis Document](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/report/Cathlife%20Critical%20Illness%20Insurance%20Purchasing%20Data%20Analysis.pdf)
+1. The project won the 34th place out of 300 nationwide in the Cathay Life Big Data Competition when I represented the lab to participate during internship at IF.Lab.
+2. The project aims to utilize customers' historical data to predict whether existing customers will purchase critical illness insurance policies within a specific timeframe. The model will help identify customers with higher insurance needs and provide sales professionals with a method to target potential customers.
+3. The analysis focuses on the domain-based data analysis, and also places lots of effort on the Exploratory Data Analysis (EDA) and data cleaning. And, those pre-processing methods and model construction also covers multiple machine learning methods.
+
+Skills: Machine Learning, Python, Exploratory Data Analysis (EDA), Data Cleaning, Domain-based Data Analysis
 #  
 ### 6. [Ensemble Machine Learning on Crowdfunding Data for Project Status and Amount Pledged Prediction](https://github.com/albert0796/MachineLearning/tree/master/Paper_CrowdFunding)
 該論文旨在研究如何運用機器學習中集成方法(Ensemble Learning)來預測Kickstart與Indeigogo兩大國際群眾募資平台上專案成敗與價值預測。該論文還尚未完成，但論文已有一定篇幅，資料與程式碼運行也已完成。
