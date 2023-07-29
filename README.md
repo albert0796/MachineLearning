@@ -1,10 +1,11 @@
 # Table of Contents
 ### 詳細內容將於每個檔案夾中進行說明。 
 #  
-### 1. [Explainable Digital Currency Candlestick Pattern AI Learner](https://ieeexplore.ieee.org/document/9727231?fbclid=IwAR3doeRuCKiY19_yQbSFqeiKBnurg4n1eK9tPEETEpiCXp2kolE1hYB-I7M)
-[github](https://github.com/pecu/FinancialVision/tree/master/Explainable%20Digital%20Currency%20Candlestick%20Pattern%20AI%20Learner)   
-   
-A study in the field of explainable artificial intelligence (XAI). This study aims to examine the black box of deep learning models, improve their explainability and make the model learn human domain knowledge. The technique involves the design of algorithm, adversarial attack, deep learning modeling, time series encoding, etc.  The paper has been published in the 2022 14th International Conference on Knowledge and Smart Technology (KST).
+### 1. [Explainable Digital Currency Candlestick Pattern AI Learner](https://github.com/pecu/FinancialVision/tree/master/Explainable%20Digital%20Currency%20Candlestick%20Pattern%20AI%20Learner)   
+[IEEE Xplore](https://ieeexplore.ieee.org/document/9727231?fbclid=IwAR3doeRuCKiY19_yQbSFqeiKBnurg4n1eK9tPEETEpiCXp2kolE1hYB-I7M) | [Conference Video](https://drive.google.com/file/d/1ii87CH1jMoPjkiLWGv_j_yqF9VJhzKVX/view)  
+- The paper gets accepted at the Knowledge and Smart Technology (KST) 2022 International Conference, hosted by IEEE.
+- Given the black-box of deep neural network (DNN), the study aims to expose and enhance the explainability of a DNN-based classic trading strategy, candlestick pattern recognition, and makes an acceptable justification for traders in the cryptocurrency market. For more details, please refer to the GitHub, conference video and full paper.
+- Skills: Explainable Artificial Intelligence, Data Augmentation, Adversarial Attacks, Convolutional Neural Network, Candlestick Patterns, Time-Series Encoding, Financial Vision
 #
 ### 2. [Machine Learning Handout](https://github.com/albert0796/MachineLearning/tree/master/ClassHangout)
 該課堂筆記包含東吳大學巨量資料管理學院碩士班機器學習與資料探勘兩門課以及東吳大學財務工程與精算數學系碩士班計量財務的課程、作業與學期報告內容。裡頭詳細記錄多種機器學習理論與實務內容，並包含參與kaggle比賽時如何將所學的機器學習技術運用於實際問題的紀錄報告。
