@@ -1,4 +1,4 @@
-# PatternHunter – A Deep Learning-Based Candlestick Pattern Recognition System
+# A Deep Learning-Based Candlestick Pattern Recognition System
 
 ## Developer: Jun-Hao Chen, Cheng-Hen Wu
 
