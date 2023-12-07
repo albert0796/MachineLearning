@@ -11,14 +11,14 @@ Taiwan's captivating landscapes inspire a user-friendly travel recommendation sy
 
 Contrasting with existing travel apps, the image-based system has key advantages:
 
-*Overcoming Shortcomings:  
-Existing systems rely on text-based searches, often resulting in imprecise recommendations. Our approach enables users to precisely meet their needs through image-based searches.
-*Precise User Fulfillment:  
-The "search by image" approach ensures accurate user fulfillment, resonating better with users who struggle to express their ideal scenes in words.
-*Focused on Visual Experiences:  
-Our system emphasizes visual travel destination recommendations, adding value by focusing on the appeal of Taiwan's scenic attractions.
-*Convenient Mobile Experience:  
-With the prevalence of mobile devices, our app offers a streamlined user experience. Users can effortlessly capture images using the camera function, allowing the system to recommend Taiwan travel destinations based on scenes captured in the photos.
+* Overcoming Shortcomings:  
+Existing systems rely on text-based searches, often resulting in imprecise recommendations. Our approach enables users to precisely meet their needs through image-based searches.  
+* Precise User Fulfillment:  
+The "search by image" approach ensures accurate user fulfillment, resonating better with users who struggle to express their ideal scenes in words.  
+* Focused on Visual Experiences:  
+Our system emphasizes visual travel destination recommendations, adding value by focusing on the appeal of Taiwan's scenic attractions.  
+* Convenient Mobile Experience:  
+With the prevalence of mobile devices, our app offers a streamlined user experience. Users can effortlessly capture images using the camera function, allowing the system to recommend Taiwan travel destinations based on scenes captured in the photos.  
 #  
 ### Demo  
 * [Load an image from the phone's gallery.mp4](https://drive.google.com/file/d/16DuFaOIqSuNrurp-YuRIeEox0RovTAsu/view?usp=drive_link)
