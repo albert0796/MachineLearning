@@ -9,8 +9,10 @@
 ### Problem Definition
 Taiwan's captivating landscapes inspire a user-friendly travel recommendation system. Recognizing the time constraints in modern life, the system simplifies the process by allowing users to input images of desired destinations into a mobile app for tailored suggestions. The app offers two convenient ways to load images: A. Uploading from the device's photo library. B. Instantly capturing images through the app's camera function. Using deep learning image recognition, the system identifies real-time scenes, recommending similar Taiwan travel destinations with detailed information.
 
-Contrasting with existing travel apps, the image-based system has key advantages:
 
+% Contrasting with existing travel apps, the image-based system has key advantages:
+
+%
 * Overcoming Shortcomings:  
 Existing systems rely on text-based searches, often resulting in imprecise recommendations. Our approach enables users to precisely meet their needs through image-based searches.  
 * Precise User Fulfillment:  
@@ -18,7 +20,9 @@ The "search by image" approach ensures accurate user fulfillment, resonating bet
 * Focused on Visual Experiences:  
 Our system emphasizes visual travel destination recommendations, adding value by focusing on the appeal of Taiwan's scenic attractions.  
 * Convenient Mobile Experience:  
-With the prevalence of mobile devices, our app offers a streamlined user experience. Users can effortlessly capture images using the camera function, allowing the system to recommend Taiwan travel destinations based on scenes captured in the photos.  
+With the prevalence of mobile devices, our app offers a streamlined user experience. Users can effortlessly capture images using the camera function, allowing the system to recommend Taiwan travel destinations based on scenes captured in the photos.
+%
+
 #  
 ### Demo  
 * [Load an image from the phone's gallery.mp4](https://drive.google.com/file/d/16DuFaOIqSuNrurp-YuRIeEox0RovTAsu/view?usp=drive_link)
