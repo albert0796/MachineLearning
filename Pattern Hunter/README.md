@@ -12,7 +12,7 @@ The candlestick pattern recognition is one of the post popular investment techni
 <p>
   
 The system covers front-end stage and back-end stage:</br>
-- Back-end stage
+- Back-end stack
 1. Integrate APIs provided by the security firms or some specific sources to collect financial targets’ historical data.
 2. Encode each one-dimensional time-series data with open, high, low, and close (OHLC) prices into a two-dimensional GAF matrix.
 3. Train the Convolutional Neural Network (CNN) model with the historical data and make it able to recognize the candlestick pattern.
@@ -20,7 +20,7 @@ The system covers front-end stage and back-end stage:</br>
 5. The predicting result of historical data and real-time data will be wrapped in the API for the front-end stage.
 6. The system will periodically and automatically update the training dataset with the cumulative real-time data for the model and re-train it to improve its performance.
 
-- Front-end stage
+- Front-end stack
 1.	Build a website, named “PatternHunter”, with the customized user interface.
 2.	The interface demonstrates the historical and the real-time candlestick movement with the different time scale.
 3.	When the user selects one part of the candlestick movement with different window sizes, the system will show the position of profitable candlestick patterns recognized by the AI model among that region. 
