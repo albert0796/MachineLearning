@@ -2,7 +2,7 @@
 ### Author: Wu Cheng-Han, Chou Po-Chia, Lin Jin-Tong
 ### Advisor: Dr. Huang Fu-Ming
 ### Orgnizer: [Cathay Insurance](https://tbrain.trendmicro.com.tw/Competitions/Details/7)
-### Honor: [Ranked 12th among 244 teams on the private leaderboard](https://tbrain.trendmicro.com.tw/Competitions/Details/7)
+### Honor: [Ranked top 3% out of 300 nationwide](https://tbrain.trendmicro.com.tw/Competitions/Details/7)
 #
 ### [Full Analysis Document](https://github.com/albert0796/MachineLearning/blob/master/Competition_Cathlife/report/Cathlife%20Critical%20Illness%20Insurance%20Purchasing%20Data%20Analysis.pdf)
 For far more details, especially the parts of Exploratory Data Analysis, Data Cleaning and Modeling, please refer to the full analysis document.
